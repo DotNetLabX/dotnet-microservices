@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>7a50eca0-fc17-4bb6-b217-eab2ec51e0e2</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+		<DockerComposeProjectPath>..\..\..\docker-compose.dcproj</DockerComposeProjectPath>
+	</PropertyGroup>
+
+  <ItemGroup>
+		<PackageReference Include="Carter" />
+		<PackageReference Include="Microsoft.AspNetCore.OpenApi" />
+		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" />
+		<PackageReference Include="Microsoft.CodeAnalysis.Common" />
+		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" />
+		<PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design">
+				<PrivateAssets>all</PrivateAssets>
+				<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+
+		<ItemGroup>
+				<ProjectReference Include="..\..\..\BuildingBlocks\Blocks.AspNetCore\Blocks.AspNetCore.csproj" />
+				<ProjectReference Include="..\..\..\BuildingBlocks\Articles.Security\Articles.Security.csproj" />
+				<ProjectReference Include="..\..\..\BuildingBlocks\Blocks.Messaging\Blocks.Messaging.csproj" />
+				<ProjectReference Include="..\..\..\Modules\EmailService\EmailService.Empty\EmailService.Empty.csproj" />
+				<ProjectReference Include="..\..\..\Modules\FileService\FileService.MongoGridFS\FileStorage.MongoGridFS.csproj" />
+				<ProjectReference Include="..\Review.Application\Review.Application.csproj" />
+		</ItemGroup>
+
+</Project>

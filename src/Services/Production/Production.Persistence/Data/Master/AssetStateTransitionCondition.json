@@ -1,0 +1,7 @@
+[
+  {"Id": 1, "ArticleStage": "InProduction", "AssetTypes": ["Manuscript","Figure","DataSheet","SupplementaryFile"], "ActionTypes": ["Upload","Request","CancelRequest"]},
+  {"Id": 2, "ArticleStage": "DraftProduction", "AssetTypes": ["Manuscript","Figure","DataSheet","SupplementaryFile"], "ActionTypes": ["Upload","Request","CancelRequest"]},
+  {"Id": 3, "ArticleStage": "InProduction", "AssetTypes": ["TypesetDraft"], "ActionTypes": ["Upload"]},
+  {"Id": 4, "ArticleStage": "DraftProduction", "AssetTypes": ["TypesetDraft"], "ActionTypes": ["Upload","Request","CancelRequest","Approve"]},
+  {"Id": 5, "ArticleStage": "FinalProduction", "AssetTypes": ["FinalPdf","FinalHtml","FinalEpub"], "ActionTypes": ["Upload","Request","CancelRequest"]}
+]

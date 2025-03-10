@@ -1,0 +1,126 @@
+
+services:
+  auth-api:
+    image: ${DOCKER_REGISTRY-}auth-api
+    depends_on:
+      - sqlserver
+    build:
+      context: .
+      dockerfile: Services/Auth/Auth.API/Dockerfile
+  
+  journals-api:
+    image: ${DOCKER_REGISTRY-}journals-api
+    depends_on:
+      - journals-redisdb
+    build:
+      context: .
+      dockerfile: Services/Journals/Journals.API/Dockerfile
+
+  articleHub-api:
+    image: ${DOCKER_REGISTRY-}articlehub-api
+    depends_on:
+        postgres:
+            condition: service_healthy
+        articlehub-hasura:
+            condition: service_started
+        rabbitmq:
+            condition: service_started
+    build:
+      context: .
+      dockerfile: Services/ArticleHub/ArticleHub.API/Dockerfile
+
+  submission-api:
+    image: ${DOCKER_REGISTRY-}submission-api
+    depends_on:
+      - sqlserver
+      - rabbitmq
+      - mongo-gridfs
+    build:
+      context: .
+      dockerfile: Services/Submission/Submission.API/Dockerfile
+
+  review-api:
+    image: ${DOCKER_REGISTRY-}review-api
+    depends_on:
+      - sqlserver
+      - rabbitmq
+    build:
+      context: .
+      dockerfile: Services/Review/Review.API/Dockerfile
+
+  # production-api:
+  #   image: ${DOCKER_REGISTRY-}production-api
+  #   depends_on:
+  #     - sqlserver
+  #   build:
+  #     context: .
+  #     dockerfile: Services/Production/Production.API/Dockerfile
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server
+    # volumes:
+    #   - sqlserver_data:/var/opt/mssql
+
+  journals-redisdb:
+    image: redis/redis-stack
+    # volumes:
+    #   - journals_redisdb_data:/data
+
+  articlehub-hasura:
+    image: hasura/graphql-engine
+    depends_on:
+      - postgres
+
+  # hasura-init:
+  #   image: curlimages/curl:8.10.1
+  #   depends_on:
+  #     - articlehub-hasura
+  #   entrypoint: /bin/sh
+  #   command:
+  #     - -c
+  #     - |
+  #       until curl -sf http://articlehub-hasura:8080/healthz; do sleep 1; done
+  #       curl -s -H "x-hasura-admin-secret: secret" -H "content-type: application/json" \
+  #         -d '{"type":"pg_track_all_tables","args":{"source":"default"}}' \
+  #         http://articlehub-hasura:8080/v1/metadata
+  #       curl -s -H "x-hasura-admin-secret: secret" -H "content-type: application/json" \
+  #         -d '{"type":"pg_create_all_object_relationships","args":{"source":"default"}}' \
+  #         http://articlehub-hasura:8080/v1/metadata
+  #       curl -s -H "x-hasura-admin-secret: secret" -H "content-type: application/json" \
+  #         -d '{"type":"pg_create_all_array_relationships","args":{"source":"default"}}' \
+  #         http://articlehub-hasura:8080/v1/metadata
+  #       curl -s -H "x-hasura-admin-secret: secret" -H "content-type: application/json" \
+  #         -d '{"type":"reload_metadata","args":{}}' \
+  #         http://articlehub-hasura:8080/v1/metadata
+  #       echo "Hasura metadata auto-tracked."
+
+
+
+#talk: separation beetwen main and override files
+  postgres:
+    image: postgres
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U app -d articles"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+    # volumes:
+    #   - postgres_data:/var/lib/postgresql/data
+  
+  mongo-gridfs:
+    image: mongo:6.0
+    container_name: mongo-gridfs
+    # volumes:
+    #   - mongo_gridfs_data:/data/db
+
+  rabbitmq:
+    image: "rabbitmq:management"
+    # volumes:
+    #   - rabbitmq_data:/var/lib/rabbitmq
+
+volumes:
+  postgres_data:
+  sqlserver_data:
+  mongo_gridfs_data:
+  rabbitmq_data:
+  journals_redisdb_data:

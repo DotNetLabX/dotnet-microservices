@@ -1,0 +1,69 @@
+@startuml
+skinparam DefaultFontSize 14
+
+skinparam participant {
+  FontSize 13
+  BackgroundColor White
+  BorderColor Black
+}
+skinparam ParticipantPadding 5
+skinparam boxPadding 5
+skinparam boxBorderThickness 1
+
+actor Client as "Editorial Admin"
+
+box " API / Application Layer " #E6F0FF
+  participant Endpoint as "CreateJournalEndpoint/Handler\n(FastEndpoints)"
+  participant Validator as "CreateJournalValidator\n(FluentValidation)"
+end box
+
+box " Persistence Layer " #FFE0E0
+  participant JournalRepository as "Repository<Journal>\n(Redis OM)"
+  participant EditorRepository as "Repository<Editor>\n(Redis OM)"
+end box
+
+box " Domain Layer " #FFF0E0
+  participant Journal as "Journal\n(Aggregate)"
+  participant Editor as "Editor\n(Entity)"
+end box
+
+box " External & Infra " #E0FFE0
+  participant PersonService as "IPersonService\n(Auth gRPC)"
+  participant EmailService as "EmailService\n(Module)"
+  participant DomainEventDispatcher as "DomainEventDispatcher\n(FastEndpoints)"
+end box
+
+Client -> Endpoint : POST /journals - CreateJournalCommand\n(Abbreviation, Name, ISSN, ChiefEditorId)
+activate Endpoint
+
+== Validation ==
+Endpoint -> Validator : ValidateOrThrow(command)
+
+Endpoint -> JournalRepository : Any(abbreviation or name)
+alt Guard fails: Journal with the same Abbreviation or Name already exists
+  Endpoint --> Client : Error: Journal already exists
+end
+
+== Resolve Chief Editor ==
+Endpoint -> EditorRepository : AnyAsync(ChiefEditorId)
+
+alt ChiefEditor Not Found
+  Endpoint -> PersonService : GetPersonByUserIdAsync(chiefEditorId)  → personInfo
+  Endpoint -> Editor : Create(personInfo)  → editor
+  Endpoint -> EditorRepository : AddAsync(editor)
+end
+
+== Crreate Journal ==
+Endpoint -> Journal : Map(CreateJournalCommand)  → journal
+
+Endpoint -> JournalRepository : AddAsync(journal)
+
+Endpoint -> JournalRepository : SaveAllAsync()
+
+== Notify Chief Editor ==
+Endpoint --> DomainEventDispatcher : Publish(new JournalCreated(journal))
+Endpoint -> EmailService : SendEmailAsync(editorEmail, emailBody)
+
+Endpoint --> Client : 200 OK  - IdResponse(JournalId)
+deactivate Endpoint
+@enduml

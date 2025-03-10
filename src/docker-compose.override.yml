@@ -1,0 +1,134 @@
+
+services:
+  auth-api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTPS_PORTS=8081
+      - ConnectionStrings__Database=Server=sqlserver;Database=AuthDb;User Id=sa;Password=Password123!;Encrypt=False;TrustServerCertificate=True
+    ports:
+      - "4401:8080"
+      - "4441:8081"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+
+  journals-api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTPS_PORTS=8081
+      - ConnectionStrings__Database=redis://journals-redisdb
+    ports:
+      - "4402:8080"
+      - "4442:8081"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+
+  articleHub-api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTPS_PORTS=8081
+      - ConnectionStrings__Database=Server=postgres;Port=5432;Database=ArticleHubDb;User Id=postgres;Password=Password123!;Include Error Detail=true
+    ports:
+      - "4403:8080"
+      - "4443:8081"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+
+  submission-api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTPS_PORTS=8081
+      - ConnectionStrings__Database=Server=sqlserver;Database=SubmissionDb;User Id=sa;Password=Password123!;Encrypt=False;TrustServerCertificate=True
+
+    ports:
+      - "4404:8080"
+      - "4444:8081"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro  
+
+  review-api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTPS_PORTS=8081
+      - ConnectionStrings__Database=Server=sqlserver;Database=ReviewDb;User Id=sa;Password=Password123!;Encrypt=False;TrustServerCertificate=True
+
+    ports:
+      - "4405:8080"
+      - "4445:8081"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro  
+
+  # production-api:
+  #   environment:
+  #     - ASPNETCORE_ENVIRONMENT=Development
+  #     - ASPNETCORE_HTTP_PORTS=8080
+  #     - ASPNETCORE_HTTPS_PORTS=8081
+  #     - ConnectionStrings__Database=Server=sqlserver;Database=ProductionDb;User Id=sa;Password=Password123!;Encrypt=False;TrustServerCertificate=True
+  #   ports:
+  #     - "4406:8080"
+  #     - "4446:8081"
+  #   volumes:
+  #     - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+  #     - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+
+  sqlserver:
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Password123!
+    restart: always
+    ports:
+      - "1433:1433" 
+
+  journals-redisdb:
+    restart: always
+    ports:
+      - "6379:6379"
+      - "8801:8801"
+
+  articlehub-hasura:
+    restart: always
+    environment:
+      - HASURA_GRAPHQL_DATABASE_URL=postgres://postgres:Password123!@postgres:5432/ArticleHubDb
+      - HASURA_GRAPHQL_ADMIN_SECRET=secret
+      - HASURA_GRAPHQL_ENABLE_CONSOLE=true
+      - HASURA_GRAPHQL_EXPERIMENTAL_FEATURES=naming_convention
+      - HASURA_GRAPHQL_DEFAULT_NAMING_CONVENTION=graphql-default
+    ports:
+      - "4493:8080"
+
+  postgres:
+    # talk: use container_name attribute if you want to give a custom name to the container
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=Password123!
+      - POSTGRES_DB=ArticleHubDb
+    restart: always
+    ports:
+        - "5432:5432"
+  
+  mongo-gridfs:
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: Password123!
+    ports:
+      - 27018:27017  # expose different host port
+
+  rabbitmq:
+    container_name: "rabbitmq"
+    hostname: articles-mq
+    restart: always
+    ports:
+      - "5672:5672"    # RabbitMQ default port
+      - "15672:15672"  # RabbitMQ management UI (accessible at http://localhost:15672)
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest

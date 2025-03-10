@@ -1,0 +1,69 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+		<PropertyGroup>
+				<TargetFramework>net9.0</TargetFramework>
+				<ImplicitUsings>enable</ImplicitUsings>
+				<Nullable>enable</Nullable>
+		</PropertyGroup>
+
+		<ItemGroup>
+				<Content Include="..\..\..\SharedData\Master\Stage.json" Link="Data\Master\Stage.json">
+						<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+				</Content>
+		</ItemGroup>
+
+		<ItemGroup>
+				<PackageReference Include="MediatR.Contracts"/>
+				<PackageReference Include="Microsoft.EntityFrameworkCore.Design">
+						<PrivateAssets>all</PrivateAssets>
+						<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+				</PackageReference>
+				<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer"/>
+				<PackageReference Include="Microsoft.EntityFrameworkCore.Tools">
+						<PrivateAssets>all</PrivateAssets>
+						<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+				</PackageReference>
+		</ItemGroup>
+
+		<ItemGroup>
+				<ProjectReference Include="..\..\..\BuildingBlocks\Blocks.EntityFrameworkCore\Blocks.EntityFrameworkCore.csproj" />
+				<ProjectReference Include="..\Production.Domain\Production.Domain.csproj" />
+		</ItemGroup>
+
+		<ItemGroup>
+				<None Update="Data\Master\ArticleStageTransition.json">
+						<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+				</None>
+				<None Update="Data\Master\AssetStateTransition.json">
+						<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+				</None>
+				<None Update="Data\Master\AssetStateTransitionCondition.json">
+						<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+				</None>
+				<None Update="Data\Master\AssetType2.json">
+						<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+				</None>
+				<None Update="Data\Master\AssetType1.json">
+						<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+				</None>
+				<None Update="Data\Test\Article.json">
+						<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+				</None>
+				<None Update="Data\Test\AssetCurrentFileLink.json">
+						<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+				</None>
+				<None Update="Data\Test\Journal.json">
+						<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+				</None>
+				<None Update="Data\Test\Typesetter.json">
+						<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+				</None>
+				<None Update="Data\Test\Person.json">
+						<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+				</None>
+				<None Update="Data\Test\User.json">
+						<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+				</None>
+		</ItemGroup>
+
+</Project>

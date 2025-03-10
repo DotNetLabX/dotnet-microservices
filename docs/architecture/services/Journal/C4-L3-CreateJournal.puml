@@ -1,0 +1,45 @@
+@startuml CreateJournalComponentDiagram_C4
+
+skinparam componentStyle rectangle
+skinparam defaultTextAlignment center
+skinparam shadowing false
+skinparam padding 8
+
+title C4 Level 3 – CreateJournal Feature in Journal Microservice
+caption Shows internal components and interactions of CreateJournal within the Journal service.
+
+
+' API + Application Layer
+package "API + Application Layer" #F0F8FF {
+  [CreateJournalEndpoint\n(FastEndpoints)] as Endpoint
+  [CreateJournalCommand\n(Command DTO)] as Command
+  [CreateJournalValidator\n(FluentValidation)] as Validator
+  [IdResponse\n(Response DTO)] as Response
+}
+
+' Domain Layer
+package "Domain Layer" #F9F0FF {
+  [Journal\n(Aggregate Root)] as Journal
+  [Section,\nSectionEditor\n(Entities/VOs)] as Children
+}
+
+' Infrastructure Layer
+package "Persistence Layer" #E8FFF8 {
+  [Repository<Journal>\n(Redis OM)] as Repository
+  [JournalDbContext\n(Redis OM)] as DbContext
+  [Editor\n(Entity)] as Editor
+}
+
+' Relationships
+Endpoint --> Command : receives
+Endpoint --> Validator : validates
+Validator --> Command : checks props
+Endpoint --> Repository : stores aggregate
+Endpoint --> DbContext : queries Editors
+Endpoint --> Journal : create
+Journal --> Children : owns/contains
+Repository --> Journal : persists
+DbContext --> Editor : queries
+Endpoint --> Response : returns DTO
+
+@enduml

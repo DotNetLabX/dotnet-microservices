@@ -1,0 +1,64 @@
+@startuml
+skinparam participant {
+  FontSize 12
+  BackgroundColor White
+  BorderColor Black
+}
+skinparam boxPadding 5
+skinparam boxBorderThickness 1
+
+actor Client
+
+box " API / Application Layer " #E6F0FF
+  participant Endpoint as "CreateUserEndpoint\n(FastEndpoints)"
+  participant Validator as "CreateUserValidator\n(FluentValidation)"
+  participant Dispatcher as "IDomainEventDispatcher\n(FastEndpoints)"
+  participant EmailHandler as "SendConfirmationEmailHandler\n(Domain Event Handler)"
+end box
+
+box " Infrastructure Modules Layer " #FFE0E0
+  participant UserManager as "UserManager\n(Identity Module)"
+  participant DbContext as "EF Core DbContext\n(EF Core)"
+  participant EmailService as "IEmailService\n(Email Module)"
+end box
+
+box " Domain Layer " #FFF0E0
+  participant User as "User Domain Entity\n(Aggregate)"
+end box
+
+Client -> Endpoint : HTTP POST /users (CreateUserCommand)
+activate Endpoint
+
+Endpoint -> Validator : Validate command
+Validator --> Endpoint : OK
+
+Endpoint -> UserManager : FindByNameAsync(email)
+UserManager --> Endpoint : null (user not found)
+
+Endpoint -> User : User.Create(command)
+
+Endpoint -> UserManager : CreateAsync(user)
+UserManager -> DbContext : Save user to DB
+DbContext --> UserManager
+UserManager --> Endpoint : IdentityResult.Success
+
+Endpoint -> UserManager : GeneratePasswordResetTokenAsync(user)
+UserManager --> Endpoint : token
+
+Endpoint -> User : AddDomainEvent(UserCreated(user, token))
+
+Endpoint ->> Dispatcher : DispatchEventsAsync(user)
+note right: Fire-and-forget async call
+
+Endpoint --> Client : 200 OK (User created + token)
+deactivate Endpoint
+
+par Async Domain Event Handling
+  Dispatcher -[#blue,dashed]-> EmailHandler : HandleAsync(UserCreated)
+  activate EmailHandler
+  EmailHandler -> EmailHandler : BuildEmail(...)
+  EmailHandler ->> EmailService : SendEmailAsync(...)
+  EmailService --> EmailHandler : OK
+  deactivate EmailHandler
+end par
+@enduml

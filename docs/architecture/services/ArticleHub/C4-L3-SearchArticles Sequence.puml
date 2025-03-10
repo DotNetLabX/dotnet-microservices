@@ -1,0 +1,50 @@
+@startuml
+
+!define MUTED(x) <color:#888888>x</color>
+!define GRAY(x) <color:#38363b>x</color>
+
+skinparam DefaultFontSize 20
+skinparam participant {
+  FontSize 20
+  BackgroundColor White
+  BorderColor Black
+}
+
+skinparam ParticipantPadding 9
+skinparam BoxPadding 2
+skinparam BboxBorderThickness 1
+
+participant Client as "Client/UI"
+
+box "API + Application Layer" #E6F0FF
+  participant Endpoint as "SearchArticlesEndpoint\nGRAY((Carter Minimal API))"
+end box
+
+box "Persistence Layer" #FFE0E0
+  participant Query as "ArticleGraphQLQuery\nGRAY((GraphQLHttpClient))"
+end box
+
+box "External Systems" #E0FFE0
+  participant Hasura as "Hasura GraphQL\nGRAY((PostgreSQL Database))"
+end box
+
+Client -> Endpoint : POST /articles/graphql\nSearchArticlesQuery { Filter }
+activate Endpoint
+
+Endpoint -> Query : GetArticlesAsync(Filter)
+activate Query
+
+Query -> Query : BuildGraphQLRequest(Filter)\nMUTED(→ GetArticlesRequest)
+
+Query -> Hasura : SendQueryAsync\n(GetArticlesRequest)
+activate Hasura
+Hasura --> Query : return List<ArticleDto>
+deactivate Hasura
+
+Query --> Endpoint : return new QueryResult\n{ List<ArticleDto> }
+Endpoint --> Client : 200 OK\nList<ArticleDto>
+
+deactivate Query
+deactivate Endpoint
+
+@enduml

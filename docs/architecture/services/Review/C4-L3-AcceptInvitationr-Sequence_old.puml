@@ -1,0 +1,81 @@
+@startuml
+skinparam DefaultFontSize 24
+skinparam participant {
+  FontSize 26
+  BackgroundColor White
+  BorderColor Black
+}
+skinparam ParticipantPadding 31
+skinparam BoxPadding 11
+skinparam BboxBorderThickness 1
+skinparam ParticipantBackgroundColor<<Service>> #F2F2F2
+
+title Accept Invitation – Sequence Diagram (C4-L3)
+caption Handles an "Accept Invitation" request, validate command, load article & invitation by token, resolve/create reviewer via Auth gRPC if needed, accept invitation, assign reviewer, and persist.
+
+actor Client
+
+box " Application Layer " #E6F0FF
+  participant Handler as "AcceptInvitationHandler\n(MediatR)"
+  participant Validator as "AcceptInvitationValidator\n(FluentValidation)"
+end box
+
+box " Domain Layer " #FFF0E0
+  participant Article as "Article\n(Aggregate)"
+  participant Invitation as "ReviewInvitation\n(Aggregate)"
+  participant Reviewer as "Reviewer\n(Aggregate)"
+end box
+
+box " Persistence Layer " #FFE0E0
+  participant Repository as "Repository\n(EF Core)"
+  participant DbContext as "ReviewDbContext\n(EF Core)"
+end box
+
+box " External & Infra " #E0F7FF
+  participant PersonSvc as "Auth.PersonService\n(gRPC)"
+  participant EmailSvc as "EmailService\n(Module)"
+end box
+
+Client -> Handler : AcceptInvitationCommand\n(ArticleId, Token)
+activate Handler
+
+== Validate Command ==
+Handler -> Validator : ValidateOrThrow(command)
+
+== Load Article & Invitation ==
+Handler -> Repository : GetArticleByIdOrThrow(articleId)
+Handler -> Repository : GetInvitationByTokenOrThrow(token)
+
+== Resolve / Ensure Reviewer ==
+opt Invitation has UserId
+  Handler -> Repository : GetReviewerByUserIdAsync(Invitation.UserId)
+  opt Reviewer not found
+    Handler -> PersonSvc : GetPersonByUserIdAsync(Invitation.UserId) → personInfo
+    Handler -> Reviewer : Create(personInfo) → reviewer
+    Handler -> Repository : AddReviewerAsync(reviewer)
+  end
+else Invitation has Email only
+  Handler -> Repository : GetReviewerByEmailAsync(Invitation.Email)
+  opt Reviewer not found
+    Handler -> Invitation : Adapt<CreatePersonRequest>()
+    Handler -> PersonSvc : CreatePersonAsync(createPersonRequest) → personInfo
+    Handler -> Reviewer : Create(personInfo) → reviewer
+    Handler -> Repository : AddReviewerAsync(reviewer)
+  end
+end
+
+== Accept & Assign ==
+Handler -> Invitation : Accept()
+Handler -> Article : AssignReviewer(reviewer)
+Handler -> EmailSvc : SendEmailAsync(editor)
+note right of Handler
+  Notify editor that reviewer accepted invitation
+end note
+
+== Persist ==
+Handler -> DbContext : SaveChangesAsync()
+
+== Response ==
+Handler --> Client : AcceptInvitationResponse\n(ArticleId, InvitationId, ReviewerId)
+deactivate Handler
+@enduml

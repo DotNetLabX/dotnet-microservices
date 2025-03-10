@@ -1,0 +1,81 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "Auth.Grpc";
+
+package auth;
+
+// Service definition
+service PersonService {
+    rpc GetPersonById(GetPersonRequest) returns (GetPersonResponse);
+    rpc GetPersonByUserId(GetPersonByUserIdRequest) returns (GetPersonResponse);
+    rpc GetPersonByEmail(GetPersonByEmailRequest) returns (GetPersonResponse);
+    rpc GetOrCreatePersonAsync(CreatePersonRequest) returns (CreatePersonResponse);
+}
+
+enum Honorific
+{
+		Mr = 0;
+		Mrs = 1;
+		Dr = 2;
+		Prof = 3;
+}
+
+enum Gender
+{
+    NotDeclared = 0;
+    Male = 1;
+    Female = 2;
+    Neutral = 3;
+}
+
+// Person professional profile
+message ProfessionalProfile {
+    string position = 1;
+    string company_name = 2;
+    string affiliation = 3;
+}
+
+// Person information
+message PersonInfo {
+    int32 id = 1;
+    string first_name = 2;
+    string last_name = 3;
+    string email = 4;
+    Gender gender = 5;
+    optional Honorific honorific = 6;
+    optional string picture_url = 7;
+    optional ProfessionalProfile professional_profile = 8;
+    optional int32 user_id = 9;
+}
+
+// Requests & responses
+
+message GetPersonRequest {
+    int32 person_id = 1;
+}
+message GetPersonByUserIdRequest {
+    int32 user_id = 1;
+}
+message GetPersonByEmailRequest {
+    string email = 1;
+}
+
+message GetPersonResponse {
+    PersonInfo person_info = 1;
+}
+
+message CreatePersonRequest {
+    string email = 1;
+    string first_name = 2;
+    string last_name = 3;
+    Gender gender = 4;
+    optional Honorific Honorific = 5;
+    optional string picture_url = 6;
+		optional string CompanyName = 7;
+		optional string Position = 8;
+		optional string Affiliation = 9;
+}
+
+message CreatePersonResponse {
+    PersonInfo person_info = 1;
+}

@@ -1,0 +1,191 @@
+[
+  {//1
+    "Abbreviation": "aisys",
+    "Name": "Artificial Intelligence Systems",
+    "Description": "Focuses on applied AI solutions, intelligent agents, and machine learning models used in real-world systems.",
+    "ISSN": "9000-0001",
+    "ChiefEditorId": 7,
+    "Sections": [
+      {
+        "Id": 1,
+        "Name": "Machine Learning Applications",
+        "Description": "Explores Machine Learning Applications for ai system",
+        "EditorRoles": [
+          { "EditorId": 9, "EditorRole": "ChiefEditor" },
+          { "EditorId": 7, "EditorRole": "ReviewEditor" }
+        ]
+      },
+      {
+        "Id": 2,
+        "Name": "Autonomous Systems",
+        "Description": "Explores Autonomous Systems for ai system",
+        "EditorRoles": [
+          { "EditorId": 7, "EditorRole": "ChiefEditor" },
+          { "EditorId": 9, "EditorRole": "ReviewEditor" }
+        ]
+      }
+    ]
+  },
+  {//2
+    "Abbreviation": "behpsych",
+    "Name": "Behavioral Psychology",
+    "Description": "Examines human behavior, cognition, emotion, and interaction, with a focus on experimental and applied studies.",
+    "ISSN": "9000-0002",
+    "ChiefEditorId": 8,
+    "Sections": [
+      {
+        "Id": 3,
+        "Name": "Cognitive Behavior",
+        "Description": "Explores Cognitive Behavior for behavioral psychology",
+        "EditorRoles": [
+          { "EditorId": 8, "EditorRole": "ChiefEditor" },
+          { "EditorId": 9, "EditorRole": "ReviewEditor" }
+        ]
+      },
+      {
+        "Id": 4,
+        "Name": "Social Psychology",
+        "Description": "Explores Social Psychology for behavioral psychology",
+        "EditorRoles": [
+          { "EditorId": 9, "EditorRole": "ChiefEditor" },
+          { "EditorId": 8, "EditorRole": "ReviewEditor" }
+        ]
+      }
+    ]
+  },
+  {//3
+    "Abbreviation": "aeroeng",
+    "Name": "Aerospace Engineering",
+    "Description": "Explores the design, development, and analysis of aircraft, spacecraft, and related systems. Topics include propulsion, aerodynamics, materials, control systems, and emerging technologies in aviation and space exploration",
+    "ISSN": "9000-0005",
+    "ChiefEditorId": 7,
+    "Sections": [
+      {
+        "Id": 5,
+        "Name": "Energetics and Propulsion",
+        "Description": "Explores Energetics and Propulsion for aerospace engineering",
+        "EditorRoles": [
+          { "EditorId": 7, "EditorRole": "ChiefEditor" },
+          { "EditorId": 9, "EditorRole": "ReviewEditor" }
+        ]
+      },
+      {
+        "Id": 6,
+        "Name": "Intelligent Aerospace Systems",
+        "Description": "Explores Intelligent Aerospace Systems for aerospace engineering",
+        "EditorRoles": [
+          { "EditorId": 9, "EditorRole": "ChiefEditor" },
+          { "EditorId": 7, "EditorRole": "ReviewEditor" }
+        ]
+      }
+    ]
+  },
+  {//4
+    "Abbreviation": "ythinker",
+    "Name": "Young Thinkers",
+    "Description": "A platform for under-18 contributors to share insights, research, and creative ideas across disciplines.",
+    "ISSN": "9000-0007",
+    "ChiefEditorId": 8,
+    "Sections": [
+      {
+        "Id": 7,
+        "Name": "Creative Science",
+        "Description": "Explores Creative Science for young thinkers",
+        "EditorRoles": [
+          { "EditorId": 8, "EditorRole": "ChiefEditor" },
+          { "EditorId": 9, "EditorRole": "ReviewEditor" }
+        ]
+      },
+      {
+        "Id": 8,
+        "Name": "Youth Perspectives",
+        "Description": "Explores Youth Perspectives for young thinkers",
+        "EditorRoles": [
+          { "EditorId": 8, "EditorRole": "ChiefEditor" },
+          { "EditorId": 9, "EditorRole": "ReviewEditor" }
+        ]
+      }
+    ]
+  },
+  {//5
+    "Abbreviation": "digsocplat",
+    "Name": "Digital Social Platforms",
+    "Description": "Explores the design, behavior, and impact of social platforms in digital communication and online communities.",
+    "ISSN": "9000-0003",
+    "ChiefEditorId": 8,
+    "Sections": [
+      {
+        "Id": 9,
+        "Name": "Platform Design",
+        "Description": "Explores Platform Design for digital social platforms",
+        "EditorRoles": [
+          { "EditorId": 8, "EditorRole": "ChiefEditor" },
+          { "EditorId": 9, "EditorRole": "ReviewEditor" }
+        ]
+      },
+      {
+        "Id": 10,
+        "Name": "Digital Culture",
+        "Description": "Explores Digital Culture for digital social platforms",
+        "EditorRoles": [
+          { "EditorId": 8, "EditorRole": "ChiefEditor" },
+          { "EditorId": 9, "EditorRole": "ReviewEditor" }
+        ]
+      }
+    ]
+  },
+  {//6
+    "Abbreviation": "gameeng",
+    "Name": "Game Engineering",
+    "Description": "Covers the technical aspects of game development, including engines, rendering pipelines, and performance optimization.",
+    "ISSN": "9000-0004",
+    "ChiefEditorId": 9,
+    "Sections": [
+      {
+        "Id": 11,
+        "Name": "Game Physics",
+        "Description": "Explores Game Physics for game engineering",
+        "EditorRoles": [
+          { "EditorId": 9, "EditorRole": "ChiefEditor" },
+          { "EditorId": 7, "EditorRole": "ReviewEditor" }
+        ]
+      },
+      {
+        "Id": 12,
+        "Name": "Rendering Systems",
+        "Description": "Explores Rendering Systems for game engineering",
+        "EditorRoles": [
+          { "EditorId": 9, "EditorRole": "ChiefEditor" },
+          { "EditorId": 7, "EditorRole": "ReviewEditor" }
+        ]
+      }
+    ]
+  },
+  {//7
+    "Abbreviation": "smarturb",
+    "Name": "Smart Urban Systems",
+    "Description": "Focused on technologies for smart cities, including IoT, transportation, energy, and urban planning.",
+    "ISSN": "9000-0006",
+    "ChiefEditorId": 7,
+    "Sections": [
+      {
+        "Id": 13,
+        "Name": "Smart Mobility",
+        "Description": "Explores Smart Mobility for smart urban systems",
+        "EditorRoles": [
+          { "EditorId": 7, "EditorRole": "ChiefEditor" },
+          { "EditorId": 9, "EditorRole": "ReviewEditor" }
+        ]
+      },
+      {
+        "Id": 14,
+        "Name": "Urban IoT Infrastructure",
+        "Description": "Explores Urban IoT Infrastructure for smart urban systems",
+        "EditorRoles": [
+          { "EditorId": 9, "EditorRole": "ChiefEditor" },
+          { "EditorId": 7, "EditorRole": "ReviewEditor" }
+        ]
+      }
+    ]
+  }
+]

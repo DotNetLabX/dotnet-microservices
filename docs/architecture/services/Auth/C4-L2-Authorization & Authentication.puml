@@ -1,0 +1,31 @@
+@startuml AuthLoginFlow_C4_Level2
+
+skinparam componentStyle rectangle
+skinparam defaultTextAlignment center
+skinparam shadowing false
+skinparam padding 8
+'skinparam linetype ortho
+
+title C4 Level 2 – Authentication + Authorization Flow
+caption User logs in via AuthService and accesses protected endpoints using JWT + roles via .NET Identity
+
+actor "User" as Client
+
+package "Auth Service" #F0F8FF {
+  [Login Endpoint\n(Issues JWT with roles)] as Login
+}
+
+package "Submission Service" #F9F0FF {
+  [Submission Endpoint] as SubAPI
+  [Authorization Middleware\n(.NET Identity – Roles/Claims)] as AuthZ
+}
+
+' Login flow
+Client --> Login : POST /login\n→ Returns JWT + roles
+
+' Access flow
+Client --> SubAPI : Authenticated Request with JWT
+SubAPI --> AuthZ : Validate JWT + Role Claims
+AuthZ --> SubAPI : Access Granted
+
+@enduml

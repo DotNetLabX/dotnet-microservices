@@ -1,0 +1,40 @@
+@startuml ReviewIntegrationFlow_C4_Level2_Integration_AcceptInvitation
+
+'left to right direction
+
+skinparam componentStyle rectangle
+skinparam defaultTextAlignment center
+skinparam shadowing false
+skinparam padding 8
+
+title C4 Level 2 – Integration – Accept Invitation via gRPC
+caption Reviewer accepts invitation.\nReview Service uses Auth gRPC to get or create user, reusing CreateUser handler.
+
+actor "Reviewer" as ReviewerUser
+
+package "Review Service" #F0F8FF {
+  [Accept Invitation Endpoint] as ReviewAPI
+  [AcceptInvitationCommandHandler] as Handler
+}
+
+package "Auth + User Service" #F9F0FF {
+  [Auth gRPC Service\n(GetPersonByUserId, CreateUser)] as AuthGrpcService
+  [CreateUser Command Handler] as CreateUserHandler
+  [Set Password Command Handler] as SetPasswordHandler
+  [User & Person Repository\n(SQL Server)] as AuthDb
+}
+
+ReviewerUser --> ReviewAPI : Accept Invitation (Token)
+ReviewAPI --> Handler : Handle Command
+
+Handler --> AuthGrpcService : gRPC: GetPersonByUserId (if UserId exists)
+Handler --> AuthGrpcService : gRPC: CreateUser (if no UserId)
+
+AuthGrpcService --> CreateUserHandler : CreateUser command
+CreateUserHandler --> AuthDb : Persist User + Person
+
+Handler --> Handler : Create Reviewer + Assign to Article
+ReviewerUser -> SetPasswordHandler : Confirm account(Set Password)
+SetPasswordHandler --> AuthDb : Persist Password
+
+@enduml

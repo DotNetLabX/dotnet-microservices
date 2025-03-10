@@ -1,0 +1,76 @@
+[
+  {
+    "title": "Covid Research",
+    "Doi": "med.2024.2451234",
+    "SubmitedOn": "2024-04-23T18:00",
+    "SubmitedById": 5,
+    "JournalId": 1,
+    "VolumeId": 1,
+    "AcceptedOn": "2024-06-23T18:00",
+    //"TypesetterId": 1,
+    "CreatedById": 5,
+    "LastModifiedById": 9,
+    "Stage": "Accepted",
+    "CurrentStage": {
+      "Stage": "Accepted"
+    },
+    "Actors": [
+      {
+        "PersonId": 5,
+        "Role": "CORAUT"
+      },
+      {
+        "PersonId": 3,
+        "Role": "AUT"
+      }
+    ],
+    "_assets": [
+      {
+        "Name": {"Value":"Manuscript"},
+        "Number": {"Value":0},
+        "State": "Uploaded",
+        "Type": "Manuscript",
+        "CreatedById": 5,
+        "_files": [
+          {
+            "Name": {"Value":"Manuscript.pdf"},
+            "OriginalName": "Manuscript.pdf",
+            "FileServerId": "articles/1/Manuscript.pdf",
+            "Size": 500,
+            "Version": {"Value":1},
+            "StatusId": "Uploaded",
+            "Extension": {"Value":"pdf"},
+            "CreatedById": 5,
+            //"LastModifiedById": 5
+          }
+        ]
+        //"LatestFileRef": {
+        //  "FileId": 1
+        //}
+      },
+      {
+        "Name": {"Value":"ReviewReport"},
+        "Number": {"Value":0},
+        "State": "Uploaded",
+        "Type": "ReviewReport",
+        "CreatedById": 9,
+        "_files": [
+          {
+            "Name": {"Value":"ReviewReport.pdf"},
+            "OriginalName": "ReviewReport.pdf",
+            "FileServerId": "articles/1/ReviewReport.pdf",
+            "Size": 100,
+            "Version": {"Value":1},
+            "StatusId": "Uploaded",
+            "Extension": {"Value":"pdf"},
+            "CreatedById": 9
+            //"LastModifiedById": 9
+          }
+        ]
+        //"LatestFileRef": {
+        //  "FileId": 2
+        //}
+      }
+    ]
+  }
+]

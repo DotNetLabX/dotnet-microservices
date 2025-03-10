@@ -1,0 +1,29 @@
+@startuml JournalIntegrationFlow_C4_Level2_Integration_UpdateJournal
+
+skinparam componentStyle rectangle
+skinparam defaultTextAlignment center
+skinparam shadowing false
+skinparam padding 8
+
+title C4 Level 2 – Integration - Update Journal
+caption Editorial Admin updates Journals/Sections.\nJournalUpdated event keeps Submission Service data in sync.
+
+actor "Editorial Admin" as Admin
+
+package "Journal Service" #F0F8FF {
+  [Update Journal Endpoint\n(REST API)] as JournalAPI
+  [JournalUpdated Event\n(RabbitMQ)] as JournalEvent
+}
+
+package "Submission Service" #F9F0FF {
+  [Event Consumer\nUpdates Local Journal Data] as SubEventConsumer
+}
+
+' Admin updates Journal
+Admin --> JournalAPI : Manage Journals & Sections
+
+' Event flow
+JournalAPI --> JournalEvent : Publish JournalUpdated
+JournalEvent --> SubEventConsumer : JournalUpdated Event
+
+@enduml

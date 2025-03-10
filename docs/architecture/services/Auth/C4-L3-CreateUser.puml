@@ -1,0 +1,51 @@
+@startuml CreateUserComponentDiagram_C4
+
+skinparam componentStyle rectangle
+skinparam defaultTextAlignment center
+'skinparam linetype ortho
+skinparam shadowing false
+skinparam padding 8
+
+title C4 Level 3 – CreateUser Feature in Auth Microservice
+caption Shows internal components and interactions of CreateUser within the Auth service.
+
+
+' API + Application Layer
+package "API + Application Layer" #F0F8FF {
+  [CreateUserEndpoint\n(FastEndpoints)] as Endpoint
+  [CreateUserCommand\n(Command DTO)] as Command
+  [CreateUserValidator\n(FluentValidation)] as Validator
+  [CreateUserResponse\n(Response DTO)] as Response
+  [UserManager<User>\n(ASP.NET Identity)] as UserManager
+}
+
+' Domain Layer
+package "Domain Layer" #F9F0FF {
+  [User\n(Aggregate Root)] as User
+  [UserCreated\n(Domain Event)] as Event
+  [HonorificTitle,\nProfessionalProfile\n(VOs)] as VOs
+}
+
+' Persistence Layer
+package "Persistence Layer" #E8FFF8 {
+  [UserConfiguration\n(EF Core Mapping)] as ORM
+}
+
+' EmailService Module
+package "EmailService Module" #FFF5F0 {
+  [IEmailService\n(Monolith Module)] as EmailService
+}
+
+' Relationships
+Endpoint --> Command : receives
+Endpoint --> Validator : validates
+Validator --> Command : checks props
+Endpoint --> UserManager : persists user
+Endpoint --> User : invokes factory
+User --> VOs : uses
+User --> Event : raises
+User --> ORM : mapped with EF
+Endpoint --> EmailService : sends email
+Endpoint --> Response : returns DTO
+
+@enduml

@@ -1,0 +1,41 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>9506cfc2-05ac-4188-a7a8-def76afb1080</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>..\..\..</DockerfileContext>
+	  <DockerComposeProjectPath>..\..\..\docker-compose.dcproj</DockerComposeProjectPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" />
+    <PackageReference Include="Flurl.Http" />
+		<PackageReference Include="Grpc.AspNetCore" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" />
+    <PackageReference Include="protobuf-net.Grpc.AspNetCore" />
+  </ItemGroup>
+
+  <ItemGroup>
+		<ProjectReference Include="..\..\..\BuildingBlocks\Articles.Security\Articles.Security.csproj" />
+		<ProjectReference Include="..\..\..\BuildingBlocks\Blocks.AspNetCore\Blocks.AspNetCore.csproj" />
+    <ProjectReference Include="..\..\..\BuildingBlocks\Blocks.FastEndpoints\Blocks.FastEndpoints.csproj" />
+		<ProjectReference Include="..\..\..\BuildingBlocks\Articles.Grpc.Contracts\Articles.Grpc.Contracts.csproj" />
+		<ProjectReference Include="..\..\..\Modules\EmailService\EmailService.Empty\EmailService.Empty.csproj" />
+		<ProjectReference Include="..\..\..\Modules\EmailService\EmailService.Smtp\EmailService.Smtp.csproj" />			
+    <ProjectReference Include="..\Auth.Application\Auth.Application.csproj" />
+    <ProjectReference Include="..\Auth.Persistence\Auth.Persistence.csproj" />
+    <ProjectReference Include="..\Auth.Domain\Auth.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Features\Users\GetUser\" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,83 @@
+[
+  {
+    "id": 1,
+    "code": "Manuscript",
+    "name": "Manuscript",
+    "defaultCategoryId": 1,
+    "maxNumber": 0,
+    "allowedFileExtensions": ["pdf"],
+    "defaultFileExtension": "pdf"
+  },
+  {
+    "id": 2,
+    "code": "ReviewReport",
+    "name": "Reviewer Report",
+    "defaultCategoryId": 3,
+    "maxNumber": 0,
+    "allowedFileExtensions": [ "pdf" ],
+    "defaultFileExtension": "pdf"
+  },
+  {
+    "id": 3,
+    "code": "DraftPdf",
+    "name": "Draft PDF",
+    "defaultCategoryId": 3,
+    "maxNumber": 0,
+    "allowedFileExtensions": [ "pdf" ],
+    "defaultFileExtension": "pdf"
+  },
+  {
+    "id": 4,
+    "code": "FinalPdf",
+    "name": "Final PDF",
+    "defaultCategoryId": 3,
+    "maxNumber": 0,
+    "allowedFileExtensions": [ "pdf" ],
+    "defaultFileExtension": "pdf"
+  },
+  {
+    "id": 5,
+    "code": "FinalHtml",
+    "name": "Final HTML Zip",
+    "defaultCategoryId": 3,
+    "maxNumber": 0,
+    "allowedFileExtensions": [ "zip" ],
+    "defaultFileExtension": "zip"
+  },
+  {
+    "id": 6,
+    "code": "FinalEpub",
+    "name": "Final Epub",
+    "defaultCategoryId": 3,
+    "maxNumber": 0,
+    "allowedFileExtensions": [ "epub" ],
+    "defaultFileExtension": "epub"
+  },
+  {
+    "id": 7,
+    "code": "Figure",
+    "name": "HTML Figure",
+    "defaultCategoryId": 2,
+    "maxNumber": 12,
+    "allowedFileExtensions": [ "jpg", "png", "tif", "tiff", "eps" ],
+    "defaultFileExtension": "tif"
+  },
+  {
+    "id": 8,
+    "code": "DataSheet",
+    "name": "Data Sheet",
+    "defaultCategoryId": 2,
+    "maxNumber": 12,
+    "allowedFileExtensions": [ "csv", "xls" ],
+    "defaultFileExtension": "csv"
+  },
+  {
+    "id": 9,
+    "code": "SupplementaryFile",
+    "name": "Supplementary File",
+    "defaultCategoryId": 2,
+    "maxNumber": 12,
+    "allowedFileExtensions": [],
+    "defaultFileExtension": "pdf"
+  }
+]

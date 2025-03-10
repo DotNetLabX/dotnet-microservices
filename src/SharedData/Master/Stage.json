@@ -1,0 +1,92 @@
+[
+  {
+    "name": "Created",
+    "id": 101,
+    "description": "The Author created the Article",
+    "info": "The article has been created. Please upload the Manuscript and any Supplementary materials. Associate the authors with the article."
+  },
+  {
+    "name": "ManuscriptUploaded",
+    "id": 102,
+    "description": "Author uploaded the Manuscript file",
+    "info": "The manuscript has been uploaded. You can now submit the article for editorial checks."
+  },
+  {
+    "name": "Submitted",
+    "id": 103,
+    "description": "The Manuscript was submitted by the author for editorial checks",
+    "info": "Our editorial specialists are checking your article. We will contact you if we need additional files or information."
+  },
+  {
+    "name": "InitialRejected",
+    "id": 104,
+    "description": "Manuscript failed the initial editorial checks",
+    "info": "The manuscript does not meet the required quality standards of this journal."
+  },
+  {
+    "name": "InitialApproved",
+    "id": 105,
+    "description": "Manuscript passed the initial editorial checks",
+    "info": "Your manuscript has passed the initial checks. It will now move forward for review."
+  },
+  {
+    "name": "UnderReview",
+    "id": 201,
+    "description": "Article is under peer review",
+    "info": "Your article is currently being reviewed by experts in the field."
+  },
+  {
+    "name": "ReadyForDecision",
+    "id": 202,
+    "description": "All reviewer feedback received, pending editor's decision",
+    "info": "Reviewer feedback has been received. The editor will now make a decision on your article."
+  },
+  {
+    "name": "AwaitingRevision",
+    "id": 203,
+    "description": "Editor requested a revised manuscript from the author",
+    "info": "The editor has requested revisions. Please upload your revised manuscript to continue the review process."
+  },
+  {
+    "name": "Rejected",
+    "id": 204,
+    "description": "Article rejected after review",
+    "info": "Your article was rejected following review. Please read the feedback carefully if you plan to resubmit."
+  },
+  {
+    "name": "Accepted",
+    "id": 205,
+    "description": "Article accepted after review",
+    "info": "Your article has been accepted for publication. The production process will now begin."
+  },
+  {
+    "name": "InProduction",
+    "id": 300,
+    "description": "Typesetter assigned to the article",
+    "info": "A typesetter has been assigned and is preparing your Author’s Proof."
+  },
+  {
+    "name": "DraftProduction",
+    "id": 301,
+    "description": "Typesetter uploaded the draft PDF for author approval",
+    "info": "The Author’s Proof (draft PDF) is available for you to check and provide corrections."
+  },
+  {
+    "name": "FinalProduction",
+    "id": 302,
+    "description": "Author approved the draft PDF, finalization in progress",
+    "info": "The typesetter is preparing the final version of your article for publication."
+  },
+  {
+    "name": "PublicationScheduled",
+    "id": 304,
+    "description": "Article scheduled for online publication",
+    "info": "Quality checks are complete. Your article is scheduled for publication and will appear online within the next few working days."
+  },
+  {
+    "name": "Published",
+    "id": 305,
+    "description": "Article published",
+    "info": "Your article has been published and sent to repositories. Availability in repositories may vary depending on their processing times."
+  }
+]

@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" />
+    <PackageReference Include="protobuf-net"/>
+    <PackageReference Include="protobuf-net.Grpc"/>
+    <PackageReference Include="System.ServiceModel.Primitives"/>
+  </ItemGroup>
+		
+<ItemGroup>
+  <Protobuf Include="Auth\PersonContracts.proto" GrpcServices="None" />
+</ItemGroup>
+		
+<ItemGroup>
+  <ProjectReference Include="..\Articles.Abstractions\Articles.Abstractions.csproj" />
+</ItemGroup>
+
+</Project>

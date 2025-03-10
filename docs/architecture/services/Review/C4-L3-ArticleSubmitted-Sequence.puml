@@ -1,0 +1,87 @@
+@startuml
+
+!define MUTED(x) <color:#888888>x</color>
+!define GRAY(x) <color:#38363b>x</color>
+
+skinparam DefaultFontSize 20
+skinparam participant {
+  FontSize 20
+  BackgroundColor White
+  BorderColor Black
+}
+
+
+'skinparam padding 0
+skinparam ParticipantPadding 9
+skinparam BoxPadding 2
+skinparam BboxBorderThickness 1
+'skinparam BoxMargin 30
+
+skinparam ParticipantBackgroundColor<<Service>> #F2F2F2
+participant SubmissionService as "SubmissionService" <<Service>>
+
+box " Application Layer " #E6F0FF
+  participant Handler as "ArticleSubmittedEventHandler\nGRAY((MassTransit Consumer))"
+end box
+
+box " Domain Layer " #FFF0E0
+  participant Journal as "Journal\nGRAY((Entity))"
+  participant Article as "Article\nGRAY((Aggreagate))"
+  participant Asset as "Asset\nGRAY((Aggregate))"
+  participant Person as "Person\nGRAY((Entity))"
+  participant Actor as "Actor\nGRAY((Entity))"
+end box
+
+box " Persistence Layer " #FFE0E0
+  participant Repositories as "Repositories\nGRAY((EF Core + Cached))"
+  participant DbContext as "ReviewDbContext\nGRAY((EF Core))"
+end box
+
+box " File Storage Modules " #E0FFE0
+  participant SubmissionFS as "IFileService\nGRAY((Submission))"
+  participant ReviewFS as "IFileService\nGRAY((Review))"
+end box
+
+SubmissionService -> Handler : ArticleSubmittedAndApprovedEvent\n               (ArticleDto)
+activate Handler
+
+== Create Journal ==
+Handler -> Repositories : GetJournal(journalId) MUTED(→ journal)
+
+group if new [Journal]
+  Handler -> Journal : Create(journalDto)
+  Handler -> Repositories : AddJournal(journal)
+end
+
+
+== Create Actors ==
+group for each [Actor]
+  Handler -> Repositories : GetPerson(personId) MUTED(→ person)
+  group if new [Person]
+    Handler -> Person : Create(personDto)
+  end
+  
+  
+  Handler -> Actor : Create(actorDto)  
+end
+
+== Create Assets ==
+group for each [Asset]
+  Handler -> SubmissionFS : DownloadFile(fileId) <color:#888>→ (fileStream, metadata)</color>
+  Handler -> ReviewFS : UploadFile(metadata, stream) <color:#888>→ newFileMetadata</color>
+  Handler -> Repositories : GetAssetType(type) <color:#888>→ assetType</color>
+  Handler -> Asset : Create(assetType, newFileMetadata)
+end
+
+== Create Article ==
+Handler -> Article : CreateFromSubmission(journal, actors, assets)
+activate Article
+Article -> Journal : AddArticle(article)
+deactivate Article
+
+Handler -> DbContext : SaveChanges()
+activate DbContext
+DbContext --> Handler : OK
+deactivate DbContext
+deactivate Handler
+@enduml

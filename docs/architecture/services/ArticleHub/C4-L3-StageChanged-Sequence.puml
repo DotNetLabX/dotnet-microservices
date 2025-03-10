@@ -1,0 +1,70 @@
+@startuml
+
+!define MUTED(x) <color:#888888>x</color>
+!define GRAY(x) <color:#38363b>x</color>
+
+skinparam DefaultFontSize 20
+skinparam participant {
+  FontSize 20
+  BackgroundColor White
+  BorderColor Black
+}
+
+
+'skinparam padding 0
+skinparam ParticipantPadding 25
+skinparam BoxPadding 5
+skinparam BboxBorderThickness 1
+'skinparam BoxMargin 30
+
+skinparam ParticipantBackgroundColor<<Service>> #F2F2F2
+participant DomainService as "DomainService" <<Service>>
+
+box " API/Application Layer " #E6F0FF
+  participant Handler as "ArticleApprovedForReviewConsumer\nGRAY((MassTransit))"
+end box
+
+box " Domain Layer " #FFF0E0
+  participant Journal as "Journal\nGRAY((Entity))"
+  participant Article as "Article\nGRAY((Aggregate))"
+  participant Person as "Person\nGRAY((Entity))"
+  participant Actor as "Actor\nGRAY((Entity))"
+end box
+
+box " Persistence Layer " #FFE0E0
+  participant DbContext as "ArticleHubDbContext\nGRAY((EF Core))"
+end box
+
+DomainService -> Handler : ArticleApprovedForReviewEvent\n               (ArticleDto)
+activate Handler
+
+== Create Journal ==
+Handler -> DbContext : GetJournal(journalId) MUTED(→ journal)
+
+group if new [Journal]
+  Handler -> Journal : Create(journalDto)
+  Handler -> DbContext : AddJournal(journal)
+end
+
+
+== Create Actors ==
+group for each [Actor]
+  Handler -> DbContext : GetPerson(personId) MUTED(→ person)
+  group if new [Person]
+    Handler -> Person : Create(personDto)
+  end
+  
+  
+  Handler -> Actor : Create(actorDto)  
+end
+
+
+== Create Article ==
+Handler -> Article : CreateOrUpdateFromEvent(journal, actors)
+
+Handler -> DbContext : SaveChanges()
+activate DbContext
+DbContext --> Handler : OK
+deactivate DbContext
+deactivate Handler
+@enduml

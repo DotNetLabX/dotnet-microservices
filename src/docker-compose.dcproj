@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" Sdk="Microsoft.Docker.Sdk">
+  <PropertyGroup Label="Globals">
+    <ProjectVersion>2.1</ProjectVersion>
+    <DockerTargetOS>Linux</DockerTargetOS>
+    <DockerPublishLocally>False</DockerPublishLocally>
+    <ProjectGuid>ced3b268-6093-4dce-8cf9-65409bcfc71c</ProjectGuid>
+    <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
+    <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/swagger</DockerServiceUrl>
+    <DockerServiceName>Articles</DockerServiceName>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="docker-compose.override.yml">
+      <DependentUpon>docker-compose.yml</DependentUpon>
+    </None>
+    <None Include="docker-compose.yml" />
+    <None Include=".dockerignore" />
+    <None Include="Dockerfile" />
+  </ItemGroup>
+  
+	<ItemGroup>
+		<ProjectReference Include="Services\Submission\Submission.API\Submission.API.csproj" />
+		<ProjectReference Include="Services\Review\Review.API\Review.API.csproj" />
+		<ProjectReference Include="Services\Production\Production.API\Production.API.csproj" />
+		<!-- Add more if needed -->
+	</ItemGroup>
+</Project>

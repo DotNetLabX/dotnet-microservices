@@ -1,0 +1,94 @@
+@startuml
+skinparam DefaultFontSize 14
+skinparam participant {
+  FontSize 15
+  BackgroundColor White
+  BorderColor Black
+}
+'skinparam boxPadding 5
+
+skinparam ParticipantPadding 20
+'skinparam ParticipantMargin 30
+skinparam BoxPadding 5
+skinparam BboxBorderThickness 1
+'skinparam BoxMargin 30
+
+'actor SubmissionService
+'participant SubmissionService as "SubmissionService\n(Microservice)"
+skinparam ParticipantBackgroundColor<<Service>> #F2F2F2
+participant SubmissionService as "SubmissionService" <<Service>>
+
+box " Application Layer " #E6F0FF
+  participant Handler as "ArticleSubmittedEventHandler\n(MassTransit Consumer)"
+end box
+
+box " Domain Layer " #FFF0E0
+  participant Journal as "Journal\n(Entity)"
+  participant Article as "Article\n(Aggreagate)"
+  participant Asset as "Asset\n(Aggregate)"
+  participant Person as "Person\n(Entity)"
+  participant Actor as "Actor\n(Entity)"
+end box
+
+box " Persistence Layer " #FFE0E0
+  participant Repositories as "Repositories\n(EF Core + Cached)"
+  participant DbContext as "ReviewDbContext\n(EF Core)"
+end box
+
+box " File Storage Modules " #E0FFE0
+  participant SubmissionFS as "IFileService\n(Submission)"
+  participant ReviewFS as "IFileService\n(Review)"
+end box
+
+SubmissionService -> Handler : ArticleSubmittedAndApprovedEvent
+activate Handler
+
+== Create Journal ==
+Handler -> Repositories : GetJournal(journalId)
+activate Repositories
+Repositories --> Handler : return Journal if Exists
+deactivate Repositories
+
+alt Not Exists
+  Handler -> Journal : Create(journalDto)
+  Handler -> Repositories : AddJournal(journal)
+end
+
+== Create Actors ==
+loop for each actor
+  Handler -> Repositories : GetPerson(personId)
+  activate Repositories
+  Repositories --> Handler : return Person if Exists
+  deactivate Repositories
+  alt Not Exists
+    Handler -> Person : Create(personDto)
+  end
+  Handler -> Actor : Create(actorDto)  
+end
+
+== Create Assets ==
+loop for each asset
+  Handler -> Repositories : GetAssetType(type)
+  Handler -> SubmissionFS : DownloadFile(fileId)
+  activate SubmissionFS
+  SubmissionFS --> Handler : fileStream, metadata
+  deactivate SubmissionFS
+  Handler -> ReviewFS : UploadFile(metadata, stream)
+  activate ReviewFS
+  ReviewFS --> Handler : newFileMetadata
+  deactivate ReviewFS
+  Handler -> Asset : Create(assetType, newFileMetadata)
+end
+
+== Create Article ==
+Handler -> Article : CreateFromSubmission(journal, actors, assets)
+activate Article
+Article -> Journal : AddArticle(article)
+deactivate Article
+
+Handler -> DbContext : SaveChanges()
+activate DbContext
+DbContext --> Handler : OK
+deactivate DbContext
+deactivate Handler
+@enduml

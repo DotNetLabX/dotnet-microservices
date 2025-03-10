@@ -1,0 +1,30 @@
+[
+	{
+		"Id": 16,
+		"PersonId": 16,
+		"FullName": "EOF 1",
+		"Email": "eof.1@articles.test",
+		"Affiliation": "DotNetLabX Code Lab"
+	},
+	{
+		"Id": 7,
+		"PersonId": 7,
+		"FullName": "Editor 1",
+		"Email": "editor.1@articles.test",
+		"Affiliation": "European Institute for Applied Artificial Intelligence, Zurich"
+	},
+	{
+		"Id": 8,
+		"PersonId": 8,
+		"FullName": "Editor 2",
+		"Email": "editor.2@articles.test",
+		"Affiliation": "Institute for Behavioral Neuroscience, Sidney"
+	},
+	{
+		"Id": 9,
+		"PersonId": 9,
+		"FullName": "Editor 3",
+		"Email": "editor.2@articles.test",
+		"Affiliation": "Academy for Creative Young Thinkers, New Delhi"
+	}
+]

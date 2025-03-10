@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Mapster" />
+    <PackageReference Include="Stateless" />
+  </ItemGroup>
+
+  <ItemGroup>
+		<ProjectReference Include="..\..\..\BuildingBlocks\Articles.Grpc.Contracts\Articles.Grpc.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\BuildingBlocks\Blocks.MediatR\Blocks.MediatR.csproj" />
+    <ProjectReference Include="..\..\..\BuildingBlocks\Blocks.Messaging\Blocks.Messaging.csproj" />
+		<ProjectReference Include="..\..\..\BuildingBlocks\Blocks.Http.Abstractions\Blocks.Http.Abstractions.csproj" />
+		<ProjectReference Include="..\..\..\Modules\FileService\FileService.Contracts\FileStorage.Contracts.csproj" />
+		<ProjectReference Include="..\..\..\BuildingBlocks\Articles.Integration.Contracts\Articles.IntegrationEvents.Contracts.csproj" />
+		<ProjectReference Include="..\Submission.Persistence\Submission.Persistence.csproj" />
+  </ItemGroup>
+
+</Project>

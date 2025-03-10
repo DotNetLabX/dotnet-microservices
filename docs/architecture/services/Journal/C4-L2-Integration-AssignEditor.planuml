@@ -1,0 +1,30 @@
+@startuml JournalIntegrationFlow_C4_Level2_Integration_AssignEditor
+
+skinparam componentStyle rectangle
+skinparam defaultTextAlignment center
+skinparam shadowing false
+skinparam padding 8
+
+title C4 Level 2 – Integration - Validate Editor assignment
+caption Editorial Admin assigns Chief Editor.\nEditor approval triggers gRPC validation of assignment in Journal Service.
+
+actor "Editorial Admin" as Admin
+actor "Editor" as EditorUser
+
+package "Journal Service" #F0F8FF {
+  [Update Journal Endpoint\n(Assign Editor)] as JournalAPI
+  [Journal gRPC\n(Check Editor Assignment to Journal)] as JournalGRPC
+}
+
+package "Submission Service" #F9F0FF {
+  [Approval Endpoint\nValidate Editor Assignment] as ApprovalCheck
+}
+
+' Admin flow
+Admin --> JournalAPI : Assign Chief Editor
+
+' Editor approval flow
+EditorUser --> ApprovalCheck : Approves Article
+ApprovalCheck --> JournalGRPC : gRPC Check\nIs Editor Assigned?
+
+@enduml

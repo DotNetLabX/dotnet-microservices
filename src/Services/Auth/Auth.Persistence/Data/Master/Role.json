@@ -1,0 +1,51 @@
+[
+  {
+    "type": "EOF",
+    "id": 1,
+    "name": "EOF",
+    "normalizedName": "EOF",
+    "description": "Editorial Office Admin"
+  },
+  {
+    "type": "AUT",
+    "id": 11,
+    "name": "AUT",
+    "normalizedName": "AUT",
+    "description": "Author (all types, corresponding, co-authors etc.)"
+  },
+  {
+    "type": "REVED",
+    "id": 21,
+    "name": "REVED",
+    "normalizedName": "REVED",
+    "description": "Review Editor"
+  },
+  {
+    "type": "REV",
+    "id": 22,
+    "name": "REV",
+    "normalizedName": "REV",
+    "description": "Reviewer"
+  },  
+  {
+    "type": "POF",
+    "id": 31,
+    "name": "POF",
+    "normalizedName": "POF",
+    "description": "Production Office Admin"
+  },
+  {
+    "type": "TSOF",
+    "id": 32,
+    "name": "TSOF",
+    "normalizedName": "TSOF",
+    "description": "Typesetter"
+  },
+  {
+    "type": "USERADMIN",
+    "id": 91,
+    "name": "USERADMIN",
+    "normalizedName": "USERADMIN",
+    "description": "User Admin"
+  }
+]

@@ -1,0 +1,11 @@
+[
+	{"SourceType": "StageTransition", "SourceId": "Accepted->InProduction", "TitleTemplate": "<<CurrentStage>> stage completed", "DescriptionTemplate": "<<RoleUser>> has started production."},
+	{"SourceType": "StageTransition", "SourceId": "InProduction->DraftProduction", "TitleTemplate": "<<CurrentStage>> stage completed", "DescriptionTemplate": "<<RoleUser>> has uploaded the Draft Pdf."},
+	{"SourceType": "StageTransition", "SourceId": "DraftProduction->FinalProduction", "TitleTemplate": "<<CurrentStage>> stage completed", "DescriptionTemplate": "<<RoleUser>> has aproved production."},
+	{"SourceType": "StageTransition", "SourceId": "FinalProduction->Published", "TitleTemplate": "<<CurrentStage>> stage completed", "DescriptionTemplate": "<<RoleUser>> has published the article."},
+
+	{"SourceType": "ActionExecuted", "SourceId": "Upload", "TitleTemplate": "<<UserName>> uploaded the <<UploadedFile>>", "DescriptionTemplate": "<<RoleUser>> has uploaded the <<UploadedFile>>"},
+	{"SourceType": "ActionExecuted", "SourceId": "Request", "TitleTemplate": "<<UserName>> requested a new <<UploadedFile>>", "DescriptionTemplate": "<<RoleUser>> has requested for <<UploadedFile>>."},
+	{"SourceType": "ActionExecuted", "SourceId": "CancelRequest", "TitleTemplate": "<<UserName>> unrequested the new <<UploadedFile>>", "DescriptionTemplate": "<<RoleUser>> has cancelled the request for a new version of the <<UploadedFile>>."},
+	{"SourceType": "ActionExecuted", "SourceId": "Approve", "TitleTemplate": "<<UserName>> approved <<UploadedFile>>", "DescriptionTemplate": "<<RoleUser>> has approved the <<UploadedFile>>."}
+]

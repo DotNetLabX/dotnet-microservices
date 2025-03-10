@@ -1,0 +1,2330 @@
+{
+	"info": {
+		"_postman_id": "7308e35f-a1a0-45ec-8ea1-93af1ce84f59",
+		"name": "ArticlesAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "48697124",
+		"_collection_link": "https://www.postman.com/dotnetlabx/workspace/articles-api/collection/48697124-7308e35f-a1a0-45ec-8ea1-93af1ce84f59?action=share&source=collection_link&creator=48697124"
+	},
+	"item": [
+		{
+			"name": "Auth & Users",
+			"item": [
+				{
+					"name": "Create User-Admin",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"admin@articles.test\",\r\n    \"firstName\": \"admin\",\r\n    \"lastName\": \"articles\",\r\n    \"honorific\": \"Mr\",\r\n    \"gender\": \"Male\",\r\n    \"nickname\": \"admin\",\r\n    \"companyName\": \"Articles.test\",\r\n    \"position\": \"Admin\",\r\n    \"affiliation\": \"\",\r\n    \"userRoles\": [\r\n        {\r\n            \"roleType\": \"USERADMIN\"\r\n            //\"startDate\": \"2025-10-01\",\r\n            //\"expiringDate\": \"2125-09-01\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{auth_baseUrl}}/users",
+							"host": [
+								"{{auth_baseUrl}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User-Auth",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"author.10@articles.test\",\r\n  \"firstName\": \"Author\",\r\n  \"lastName\": \"10\",\r\n  \"honorific\": \"Ms\",\r\n  \"gender\": \"Female\",\r\n  \"nickname\": \"Aut10\",\r\n  \"companyName\": \"Articles.test\",\r\n  \"position\": \"Author\",\r\n  \"userRoles\": [\r\n    {\r\n      \"roleType\": \"AUT\"\r\n      //\"startDate\": \"2025-10-01\",\r\n      //\"expiringDate\": \"2125-09-01\"    \r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{auth_baseUrl}}/users",
+							"host": [
+								"{{auth_baseUrl}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User-CorAuth",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"cor-author.10@articles.test\",\r\n  \"firstName\": \"CorAuthor\",\r\n  \"lastName\": \"10\",\r\n  \"honorific\": \"Ms\",\r\n  \"gender\": \"Female\",\r\n  \"nickname\": \"CorAut10\",\r\n  \"companyName\": \"Articles.test\",\r\n  \"position\": \"Author\",\r\n  \"userRoles\": [\r\n    {\r\n      \"roleType\": \"AUT\"\r\n      //\"startDate\": \"2025-10-01\"\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{auth_baseUrl}}/users",
+							"host": [
+								"{{auth_baseUrl}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User-Editor",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"editor.10@articles.test\",\r\n  \"firstName\": \"Editor\",\r\n  \"lastName\": \"10\",\r\n  \"honorific\": \"Ms\",\r\n  \"gender\": \"Female\",\r\n  \"nickname\": \"Editor10\",\r\n  \"companyName\": \"Articles.test\",\r\n  \"position\": \"Aerospace Editor\",\r\n  \"userRoles\": [\r\n    {\r\n      \"roleType\": \"REVED\"\r\n      //\"startDate\": \"2025-10-01\"\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{auth_baseUrl}}/users",
+							"host": [
+								"{{auth_baseUrl}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User-Reviewer",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"reviewer.10@articles.test\",\r\n  \"firstName\": \"Reviewer\",\r\n  \"lastName\": \"10\",\r\n  \"honorific\": \"Mr\",\r\n  \"gender\": \"Male\",\r\n  \"nickname\": \"Reviewwer10\",\r\n  \"companyName\": \"Articles.test\",\r\n  \"position\": \"AI Reviewer\",\r\n  \"userRoles\": [\r\n    {\r\n      \"roleType\": \"REV\"\r\n      //\"startDate\": \"2025-10-01\"\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{auth_baseUrl}}/users",
+							"host": [
+								"{{auth_baseUrl}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set First Password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"admin@articles.test\",\r\n  \"newPassword\": \"Pass.123!\",\r\n  \"confirmPassword\": \"Pass.123!\",\r\n  \"twoFactorToken\":\"CfDJ8HhREFwBkcFOmzcXZkNcdtzDQ+bpxcqHKcztWAvRMTOV0gz2qdWudxBEIuky0UbLM45j/0QvYZQZaNDdmZtu+NCYQbjA0/WmOLMlXgn81hm0S0hm098RUfMim726ly888dTIP745ZXu3AAdIeZk2ObojydcqfN1WH6WYNEKt15NXjcuPgkDQt7Hin0SbASu5mw==\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{auth_baseUrl}}/password/first-time",
+							"host": [
+								"{{auth_baseUrl}}"
+							],
+							"path": [
+								"password",
+								"first-time"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reset Password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"author.3@articles.test\",\r\n  \"newPassword\": \"Pass.321!\",\r\n  \"confirmPassword\": \"Pass.321!\",\r\n  \"twoFactorToken\":\"CfDJ8KFr6V9UdKpNjGLqP9Nr/mvGxcojQtLZb+31xqZUtREnrMH4ol3cF9ftsXhMTQPt/hlcOdzhd1ju/CxgVBb3tmU1FNq3+Xxu6gjG5p+2ZfaUhubU82qeNHEtzQXaN5IXy8GHAyu4NuO2s2y9FscR/9aSpuGcA36qvco7IIrNb7FmeFDCMFufj/MFPqd+M62VzA==\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{auth_baseUrl}}/password/reset",
+							"host": [
+								"{{auth_baseUrl}}"
+							],
+							"path": [
+								"password",
+								"reset"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Forgot Password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"author.3@articles.test\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{auth_baseUrl}}/password/forgot",
+							"host": [
+								"{{auth_baseUrl}}"
+							],
+							"path": [
+								"password",
+								"forgot"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh Token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"refreshToken\": \"P/DEpznGUJoVrmdMNUFy9zma0NSXQils5j6hHGIppGn7Q3UF76/s8GQSuLJuAoopJNGhCqHNytFPvR+DcPb4dw==\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{auth_baseUrl}}/tokens/refresh",
+							"host": [
+								"{{auth_baseUrl}}"
+							],
+							"path": [
+								"tokens",
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"DotNetLabX@articles.test\",\r\n  \"password\": \"Pass.123!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:4441/api/tokens",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "4441",
+							"path": [
+								"api",
+								"tokens"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Login - COR Author(CORAUT)",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"email\": \"corauthor.1@articles.test\",\r\n  \"password\": \"Pass.123!\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:4441/api/tokens",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "4441",
+									"path": [
+										"api",
+										"tokens"
+									]
+								}
+							},
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Login - Editor Admin (EOF)",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"email\": \"eof.1@articles.test\",\r\n  \"password\": \"Pass.123!\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:4441/api/tokens",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "4441",
+									"path": [
+										"api",
+										"tokens"
+									]
+								}
+							},
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Login - Editor (REVED)",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"email\": \"reved.2@articles.test\",\r\n  \"password\": \"Pass.123!\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:4441/api/tokens",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "4441",
+									"path": [
+										"api",
+										"tokens"
+									]
+								}
+							},
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Login - Reviewer (REV)",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"email\": \"reviewer.1@articles.test\",\r\n  \"password\": \"Pass.123!\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:4441/api/tokens",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "4441",
+									"path": [
+										"api",
+										"tokens"
+									]
+								}
+							},
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Login - Production Admin (POF)",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"email\": \"pof.1@articles.test\",\r\n  \"password\": \"Pass.123!\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:4441/api/tokens",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "4441",
+									"path": [
+										"api",
+										"tokens"
+									]
+								}
+							},
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Login - Typesetter(TSOF)",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"email\": \"typesetter.1@articles.test\",\r\n  \"password\": \"Pass.123!\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:4441/api/tokens",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "4441",
+									"path": [
+										"api",
+										"tokens"
+									]
+								}
+							},
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Me - GetCurrentUser",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{auth_baseUrl}}/users/me",
+							"host": [
+								"{{auth_baseUrl}}"
+							],
+							"path": [
+								"users",
+								"me"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Journals",
+			"item": [
+				{
+					"name": "Create Journal",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{editor-admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"abbreviation\": \"synbio\",\r\n  \"name\": \"Synthetic Biology Insights\",\r\n  \"description\": \"Covers bioengineering, genetic circuits, and modular biology, bridging computer science and life sciences\",\r\n  \"issn\": \"9000-0008\",\r\n  \"chiefEditorId\": 9\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{journals_baseUrl}}/journals",
+							"host": [
+								"{{journals_baseUrl}}"
+							],
+							"path": [
+								"journals"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create AI System",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"abbreviation\": \"aisys\",\r\n  \"name\": \"Artificial Intelligence Systems\",\r\n  \"description\": \"Focuses on applied AI solutions, intelligent agents, and machine learning models used in real-world systems\",\r\n  \"issn\": \"9000-0001\",\r\n  \"chiefEditorId\": 7\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:4442/journals",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "4442",
+									"path": [
+										"journals"
+									]
+								}
+							},
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Create Behavioral Psychology",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"abbreviation\": \"behpsych\",\r\n  \"name\": \"Behavioral Psychology\",\r\n  \"description\": \"Examines human behavior, cognition, emotion, and interaction, with a focus on experimental and applied studies.\",\r\n  \"issn\": \"9000-0002\",\r\n  \"chiefEditorId\": 8\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:4442/journals",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "4442",
+									"path": [
+										"journals"
+									]
+								}
+							},
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Create Aerospace Engineering",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"abbreviation\": \"aeroeng\",\r\n  \"name\": \"Aerospace Engineering\",\r\n  \"description\": \"Explores the design, development, and analysis of aircraft, spacecraft, and related systems. Topics include propulsion, aerodynamics, materials, control systems, and emerging technologies in aviation and space exploration\",\r\n  \"issn\": \"9000-0005\",\r\n  \"chiefEditorId\": 7\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:4442/journals",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "4442",
+									"path": [
+										"journals"
+									]
+								}
+							},
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Create Young Thinkers",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"abbreviation\": \"ythinker\",\r\n  \"name\": \"Young Thinkers\",\r\n  \"description\": \"Focused on technologies for smart cities, including IoT, transportation, energy, and urban planning.\",\r\n  \"issn\": \"9000-0007\",\r\n  \"chiefEditorId\": 8\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:4442/journals",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "4442",
+									"path": [
+										"journals"
+									]
+								}
+							},
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Create Digital Social Platforms",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"abbreviation\": \"digsocplat\",\r\n  \"name\": \"Digital Social Platforms\",\r\n  \"description\": \" Explores the design, behavior, and impact of social platforms in digital communication and online communities\",\r\n  \"issn\": \"9000-0003\",\r\n  \"chiefEditorId\": 8\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:4442/journals",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "4442",
+									"path": [
+										"journals"
+									]
+								}
+							},
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Create Game Engineering",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"abbreviation\": \"gameeng\",\r\n  \"name\": \"Game Engineering\",\r\n  \"description\": \"Covers the technical aspects of game development, including engines, rendering pipelines, and performance optimization\",\r\n  \"issn\": \"9000-0004\",\r\n  \"chiefEditorId\": 7\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:4442/journals",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "4442",
+									"path": [
+										"journals"
+									]
+								}
+							},
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Create Smart Urban Systems",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"abbreviation\": \"smarturb\",\r\n  \"name\": \"Smart Urban Systems\",\r\n  \"description\": \"Focused on technologies for smart cities, including IoT, transportation, energy, and urban planning.\",\r\n  \"issn\": \"9000-0006\",\r\n  \"chiefEditorId\": 7\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:4442/journals",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "4442",
+									"path": [
+										"journals"
+									]
+								}
+							},
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Update Journal",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{editor-admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"abbreviation\": \"aisys\",\r\n  \"name\": \"AI Systems\",\r\n  \"description\": \"Focuses on applied AI solutions, intelligent agents, and machine learning models used in real-world systems.\",\r\n  \"issn\": \"9000-0001\",\r\n  \"chiefEditorId\": 7\r\n}\r\n  ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{journals_baseUrl}}/journals/1",
+							"host": [
+								"{{journals_baseUrl}}"
+							],
+							"path": [
+								"journals",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Section - AI Coding Tools",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{editor-admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"AI Coding Tools\",\r\n    \"description\": \"Boost your productivity with smart assistants like GitHub Copilot, LM Studio, and Cursor — AI tools that help you write, refactor, and explore code faster.\",\r\n    \"editorRoles\": [\r\n        {\r\n            \"editorId\": 9,\r\n            \"editorRole\": \"ChiefEditor\"\r\n        },\r\n        {\r\n            \"editorId\": 7,\r\n            \"editorRole\": \"ReviewEditor\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{journals_baseUrl}}/journals/1/sections",
+							"host": [
+								"{{journals_baseUrl}}"
+							],
+							"path": [
+								"journals",
+								"1",
+								"sections"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Section - AI Coding Tools",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{editor-admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Intelligent Drone Systems\",\r\n    \"description\": \"Explores Intelligent Drone Systems for aerospace engineering\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{journals_baseUrl}}/journals/3/sections/6",
+							"host": [
+								"{{journals_baseUrl}}"
+							],
+							"path": [
+								"journals",
+								"3",
+								"sections",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Journal",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{editor1_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{journals_baseUrl}}/journals/1",
+							"host": [
+								"{{journals_baseUrl}}"
+							],
+							"path": [
+								"journals",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search Journal",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{author2_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{journals_baseUrl}}/journals?search=system&page=1&pageSize=5",
+							"host": [
+								"{{journals_baseUrl}}"
+							],
+							"path": [
+								"journals"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "system"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Section",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{editor2_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{journals_baseUrl}}/journals/1/sections/1",
+							"host": [
+								"{{journals_baseUrl}}"
+							],
+							"path": [
+								"journals",
+								"1",
+								"sections",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Section Editors",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{editor1_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{journals_baseUrl}}/journals/1/sections/1/editors",
+							"host": [
+								"{{journals_baseUrl}}"
+							],
+							"path": [
+								"journals",
+								"1",
+								"sections",
+								"1",
+								"editors"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Submission",
+			"item": [
+				{
+					"name": "Create Article - Coding with AI",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{author1_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"journalId\": 1, // AI System\r\n  \"title\": \"Coding with AI: From Hype to Hands-On\",\r\n  \"type\": \"OriginalResearch\",\r\n  \"scope\": \"• Cut through the buzzwords and focus on what matters in day-to-day coding.\\n• Explain the difference between AI concepts (ML, LLMs, neural nets) and how they fit into software projects.\\n• Show practical use cases where programmers can integrate AI into applications (text, code, images, decision-making).\\n• Introduce tools, frameworks, and APIs that developers can start using immediately.\\n• Highlight common pitfalls and misconceptions (e.g., 'AI will replace programmers' vs. 'AI as a coding assistant').\\n• Provide hands-on examples to demonstrate how to move from theory to implementation.\\n• Give working developers a clear path from curiosity → understanding → practical application.\",\r\n  \"comment\": \"AI article\"\r\n  // corauthor.1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:4444/api/articles",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "4444",
+							"path": [
+								"api",
+								"articles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Article - Balancing Drones",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{author1_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"journalId\": 3, //\"Aerospace Engineering\"\r\n  \"title\": \"Balancing predictability and flexibility\",\r\n  \"type\": \"OriginalResearch\",\r\n  \"scope\": \"The advancement in uncrewed aircraft systems such as small drones and advanced air mobility vehicles such as Electric Vertical Take Off and Landing aircraft (eVTOL) has called for airspace integration at low altitudes of both traditional aircraft, such as helicopters and new entrants, such as drones and eVTOL. Currently, the trajectories and necessary buffers around them of flights operating under visual flight rules are not possible to predict. This research proposes the use of flight mission characteristics to model the trajectory and evaluates temporal, lateral and vertical deviations to define the safety buffers which can be used to generate operation volumes, geo-fencing such low-altitude flights and separating them from other traffic in a safe and efficient manner. Real flight test data obtained for the purposes of this study and pilots’ interviews assure high fidelity and practicability of the proposal.\",\r\n  \"comment\": \"Balancing Airspace article\"\r\n  // corauthor.1 \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{submission_baseUrl}}/articles",
+							"host": [
+								"{{submission_baseUrl}}"
+							],
+							"path": [
+								"articles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Article - Tik-Tok Psychology",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{author2_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"journalId\": 5, //\"Digital Social Platforms\"\r\n  \"title\": \"How TikTok Shapes the Minds and Habits of Young Adults\",\r\n  \"type\": 1,\r\n  \"scope\": \"This article explores the psychological, behavioral, and cultural effects of TikTok on young adults (18–30). It examines how the platform influences attention spans, content consumption habits, self-expression, social validation, and emerging trends in digital identity. It also touches on the algorithm’s role in shaping opinions, tastes, and even career choices, without veering into moral panic or overgeneralization. The article will be grounded in current usage data, anecdotal examples, and relevant behavioral science.\",\r\n  \"comment\": \"Tik-Tok article\"\r\n  // corauthor.2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{submission_baseUrl}}/articles",
+							"host": [
+								"{{submission_baseUrl}}"
+							],
+							"path": [
+								"articles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Article - Synthetics",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{author1_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  //TODO - This journal doesn't exist yet, Create the journal first!\r\n  \"journalId\": 8, // Synthetic Biology\r\n  \"title\": \"New Synthetic formula\",\r\n  \"type\": \"OriginalResearch\",\r\n  \"scope\": \"• Cut through the buzzwords and focus on what matters in day-to-day coding.\\n• Explain the difference between AI concepts (ML, LLMs, neural nets) and how they fit into software projects.\\n• Show practical use cases where programmers can integrate AI into applications (text, code, images, decision-making).\\n• Introduce tools, frameworks, and APIs that developers can start using immediately.\\n• Highlight common pitfalls and misconceptions (e.g., 'AI will replace programmers' vs. 'AI as a coding assistant').\\n• Provide hands-on examples to demonstrate how to move from theory to implementation.\\n• Give working developers a clear path from curiosity → understanding → practical application.\",\r\n  \"comment\": \"AI article\"\r\n  // corauthor.1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{submission_baseUrl}}/articles",
+							"host": [
+								"{{submission_baseUrl}}"
+							],
+							"path": [
+								"articles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Article",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{author1_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{submission_baseUrl}}/articles/1",
+							"host": [
+								"{{submission_baseUrl}}"
+							],
+							"path": [
+								"articles",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Assign Existing Author",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{author1_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"isCorrespondingAuthor\": false,\r\n  \"contributionAreas\": [\r\n    \"OriginalDraft\",\r\n    \"Analysis\"\r\n  ],\r\n  \"comment\": \"author assigned\"  \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{submission_baseUrl}}/articles/1/authors/3",
+							"host": [
+								"{{submission_baseUrl}}"
+							],
+							"path": [
+								"articles",
+								"1",
+								"authors",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create & Assign Author - From User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{author1_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"comment\": \"author created & assigned\",\r\n  \"personId\": 4,\r\n  \"isCorrespondingAuthor\": false,\r\n  \"contributionAreas\": [\r\n    \"Revision\"\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{submission_baseUrl}}/articles/1/authors",
+							"host": [
+								"{{submission_baseUrl}}"
+							],
+							"path": [
+								"articles",
+								"1",
+								"authors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create & Assign Author - Without User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{author1_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"comment\": \"author created & assigned\",\r\n  \"firstName\": \"Author\",\r\n  \"lastName\": \"4\",\r\n  \"email\": \"author.4@articles.test\",\r\n  \"affiliation\":\"DotNetLabX – Real .NET solutions. From developer to architect\",\r\n  \"isCorrespondingAuthor\": false,\r\n  \"contributionAreas\": [\r\n    \"Visualization\"\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{submission_baseUrl}}/articles/1/authors",
+							"host": [
+								"{{submission_baseUrl}}"
+							],
+							"path": [
+								"articles",
+								"1",
+								"authors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upload Manuscript",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{author1_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/articles/data/article-files/manuscript-1.pdf"
+								},
+								{
+									"key": "assetType",
+									"value": "Manuscript",
+									"type": "text"
+								},
+								{
+									"key": "comment",
+									"value": "Uploaded",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{submission_baseUrl}}/articles/1/assets/manuscript:upload",
+							"host": [
+								"{{submission_baseUrl}}"
+							],
+							"path": [
+								"articles",
+								"1",
+								"assets",
+								"manuscript:upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upload Figure",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{author1_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/articles/data/article-files/figure-1.png"
+								},
+								{
+									"key": "assetType",
+									"value": "Figure",
+									"type": "text"
+								},
+								{
+									"key": "comment",
+									"value": "Uploaded",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{submission_baseUrl}}/articles/1/assets/supplementary-materials:upload",
+							"host": [
+								"{{submission_baseUrl}}"
+							],
+							"path": [
+								"articles",
+								"1",
+								"assets",
+								"supplementary-materials:upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upload DataSheet",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{author1_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/articles/data/article-files/datasheet-1.csv"
+								},
+								{
+									"key": "assetType",
+									"value": "DataSheet",
+									"type": "text"
+								},
+								{
+									"key": "comment",
+									"value": "Uploaded",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{submission_baseUrl}}/articles/1/assets/supplementary-materials:upload",
+							"host": [
+								"{{submission_baseUrl}}"
+							],
+							"path": [
+								"articles",
+								"1",
+								"assets",
+								"supplementary-materials:upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upload Supplementary",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{author2_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/articles/data/article-files/supplementary-3.pdf"
+								},
+								{
+									"key": "assetType",
+									"value": "SupplementaryFile",
+									"type": "text"
+								},
+								{
+									"key": "comment",
+									"value": "Uploaded",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{submission_baseUrl}}/articles/3/assets/supplementary-materials:upload",
+							"host": [
+								"{{submission_baseUrl}}"
+							],
+							"path": [
+								"articles",
+								"3",
+								"assets",
+								"supplementary-materials:upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Submit Article",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{author1_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"comment\":\"all good\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{submission_baseUrl}}/articles/1:submit",
+							"host": [
+								"{{submission_baseUrl}}"
+							],
+							"path": [
+								"articles",
+								"1:submit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Approve Article",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{editor1_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"comment\":\"approved. congrats for the first article!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{submission_baseUrl}}/articles/1:approve",
+							"host": [
+								"{{submission_baseUrl}}"
+							],
+							"path": [
+								"articles",
+								"1:approve"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reject Article",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{editor2_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"comment\":\"the topic is not original\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{submission_baseUrl}}/articles/1:reject",
+							"host": [
+								"{{submission_baseUrl}}"
+							],
+							"path": [
+								"articles",
+								"1:reject"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Download File",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{editor1_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{submission_baseUrl}}/articles/1/assets/1:download",
+							"host": [
+								"{{submission_baseUrl}}"
+							],
+							"path": [
+								"articles",
+								"1",
+								"assets",
+								"1:download"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Review",
+			"item": [
+				{
+					"name": "Get Article",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{editor1_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:4445/api/articles/1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "4445",
+							"path": [
+								"api",
+								"articles",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Download File",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{author1_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{review_baseUrl}}/articles/1/assets/1:download",
+							"host": [
+								"{{review_baseUrl}}"
+							],
+							"path": [
+								"articles",
+								"1",
+								"assets",
+								"1:download"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invite Reviewer - Existing Reviewer",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{editor1_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"comment\":\"invited\",\r\n    \"userId\":12\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{review_baseUrl}}/articles/1/invitations",
+							"host": [
+								"{{review_baseUrl}}"
+							],
+							"path": [
+								"articles",
+								"1",
+								"invitations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invite Reviewer - Existing User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{editor1_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"comment\":\"invited\",\r\n    \"userId\":10\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{review_baseUrl}}/articles/1/invitations",
+							"host": [
+								"{{review_baseUrl}}"
+							],
+							"path": [
+								"articles",
+								"1",
+								"invitations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invite Reviewer - New User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{editor1_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"Reviewer\",\r\n    \"lastName\": \"5\",\r\n    \"email\": \"reviewer.5@articles.test\",\r\n    \"comment\":\"invited\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{review_baseUrl}}/articles/1/invitations",
+							"host": [
+								"{{review_baseUrl}}"
+							],
+							"path": [
+								"articles",
+								"1",
+								"invitations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Invitations",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{editor1_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{review_baseUrl}}/articles/1/invitations",
+							"host": [
+								"{{review_baseUrl}}"
+							],
+							"path": [
+								"articles",
+								"1",
+								"invitations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Accept Invitation",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"comment\":\"thanks\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{review_baseUrl}}/articles/1/invitations/xODzAt3HzWKcNnRbehL18pnzF1wrR0FkADRWmmMaDBk:accept",
+							"host": [
+								"{{review_baseUrl}}"
+							],
+							"path": [
+								"articles",
+								"1",
+								"invitations",
+								"xODzAt3HzWKcNnRbehL18pnzF1wrR0FkADRWmmMaDBk:accept"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Decline Invitation",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"comment\":\"lack of time\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{review_baseUrl}}/articles/1/invitations/kRy-f88dc20ljVcA542aKKQseCtPUAcFbsLFIk7eLQg:decline",
+							"host": [
+								"{{review_baseUrl}}"
+							],
+							"path": [
+								"articles",
+								"1",
+								"invitations",
+								"kRy-f88dc20ljVcA542aKKQseCtPUAcFbsLFIk7eLQg:decline"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Assign Editor",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{editor-admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"comment\":\"thanks\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{review_baseUrl}}/articles/1/editor/9",
+							"host": [
+								"{{review_baseUrl}}"
+							],
+							"path": [
+								"articles",
+								"1",
+								"editor",
+								"9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upload Review Report 1",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{reviewer1_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/articles/data/article-files/review-report-1.pdf"
+								},
+								{
+									"key": "assetType",
+									"value": "ReviewReport",
+									"type": "text"
+								},
+								{
+									"key": "comment",
+									"value": "Uploaded",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{review_baseUrl}}/articles/1/assets/review-reports:upload",
+							"host": [
+								"{{review_baseUrl}}"
+							],
+							"path": [
+								"articles",
+								"1",
+								"assets",
+								"review-reports:upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upload Review Report 2",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{reviewer3_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/articles/data/article-files/review-report-3.pdf"
+								},
+								{
+									"key": "assetType",
+									"value": "ReviewReport",
+									"type": "text"
+								},
+								{
+									"key": "comment",
+									"value": "Uploaded",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{review_baseUrl}}/articles/1/assets/review-reports:upload",
+							"host": [
+								"{{review_baseUrl}}"
+							],
+							"path": [
+								"articles",
+								"1",
+								"assets",
+								"review-reports:upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Accept Article",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{editor1_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"comment\":\"great article\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{review_baseUrl}}/articles/1:accept",
+							"host": [
+								"{{review_baseUrl}}"
+							],
+							"path": [
+								"articles",
+								"1:accept"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ArticleHub",
+			"item": [
+				{
+					"name": "Search Articles",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{editor2_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"filter\": {\r\n    \"_and\": [\r\n      //{ \"title\": { \"_ilike\": \"%Balancing%\" } },\r\n      //{ \"stage\": { \"_eq\": \"Accepted\" } },\r\n      { \"journal\": { \"name\": { \"_ilike\": \"%Artificial Int%\" } } },\r\n      //{\"articleActors\": {\"person\": {\"email\": {\"_eq\": \"author.2@articles.test\"}}}}\r\n    ]\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{articleHub_baseUrl}}/articles/graphql",
+							"host": [
+								"{{articleHub_baseUrl}}"
+							],
+							"path": [
+								"articles",
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Article",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{author2_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{articleHub_baseUrl}}/articles/1",
+							"host": [
+								"{{articleHub_baseUrl}}"
+							],
+							"path": [
+								"articles",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Hasura GraphQL",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-hasura-admin-secret",
+								"value": "secret",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"query\": \"query FilterArticles($title: String!, $stage: String!, $journal: String!) { articles(where: { _or: [ { title: { _ilike: $title } }, { stage: { _eq: $stage } }, { journal: { name: { _ilike: $journal } } } ] }) { id title stage journal { name } } }\",\r\n    \"variables\": {\r\n        \"title\": \"%balancing%\",\r\n        \"stage\": \"InitialApproved\",\r\n        \"journal\": \"%Artificial%\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4493/v1/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4493",
+							"path": [
+								"v1",
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Production",
+			"item": [
+				{
+					"name": "Comming soon",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "API Gateway",
+			"item": []
+		}
+	]
+}

@@ -1,0 +1,57 @@
+[
+    {
+    "Id": 1,
+    "UserId": 1,
+    "FirstName": "DotNet",
+    "LastName": "LabX",
+    "Honorific": "Mr",
+    "Email": {"Value":"dotnetlabx@articles.test"},
+    "Affiliation": "DotNetLabX – Real .NET solutions. From developer to architect"
+  },
+  {
+    "$type": "Production.Domain.Articles.Author, Review.Domain",
+    "Id": 2,
+    //"UserId": 2,
+    "FirstName": "Author",
+    "LastName": "1",
+    "Honorific": "Mr",
+    "Email": {"Value":"author.1@articles.test"},
+    "Affiliation": "JTransatlantic Aerospace Technology Hub, Montreal",
+    "Degree": "PhD",
+    "Discipline": "Aerospace Engineering"
+  },
+  {
+    "$type": "Production.Domain.Articles.Author, Review.Domain",
+    "Id": 3,
+    //"UserId": 3,
+    "FirstName": "Author",
+    "LastName": "2",
+    "Honorific": "Ms",
+    "Email": {"Value":"author.2@articles.test"},
+    "Affiliation": "Centre for Sustainable Urban Technologies, Manchester"
+  },
+  {
+    "$type": "Production.Domain.Articles.Author, Review.Domain",
+    "Id": 6,
+    "UserId": 6,
+    "FirstName": "CorAuthor",
+    "LastName": "2",
+    "Honorific": "Mr",
+    "Email": {"Value":"corauthor.2@articles.test"},
+    "Affiliation": "International Institute of Aerospace Innovation, Abu Dhabi",
+    "Degree": "MsC",
+    "Discipline": "Planetary Science"
+  },
+  {
+    "$type": "Production.Domain.Articles.Typesetter, Review.Domain",
+    "Id": 14,
+    "UserId": 14,
+    "TypeDiscriminator": "Typesetter",
+    "FirstName": "Typesetter",
+    "LastName": "2",
+    "Title": "Mr",
+    "Email": {"Value":"typesetter.2@articles.test"},
+    "CompanyName": "Tyepesetter1",
+    "isDefault": true
+  }
+]

@@ -1,0 +1,40 @@
+@startuml UserSyncFlow_C4_Level2
+
+skinparam componentStyle rectangle
+skinparam defaultTextAlignment center
+skinparam shadowing false
+skinparam padding 8
+'skinparam linetype ortho
+
+title C4 Level 2 – User Synchronization Flow (UserCreated/UserUpdated)
+caption Triggered by Auth events → updates Person model in Submission service via gRPC
+
+actor "Admin (creates/updates user)" as Admin
+
+package "Auth Service" #F0F8FF {
+  [Create/Update User Endpoint] as SaveUser
+  [UserCreated/Updated Publisher\n(MassTransit)] as EventPub
+  [gRPC: GetUserById] as GRPC
+}
+
+package "Submission Service" #F9F0FF {
+  [PersonSyncHandler\n(Handles User Events)] as SyncHandler
+  [Person\n(Read Model – Display + Email)] as Person
+}
+
+queue "RabbitMQ\n(via MassTransit)" as MQ #E8FFF8
+
+' Flow
+Admin --> SaveUser : POST/PUT /users
+
+SaveUser --> EventPub : Emits UserCreated/Updated
+EventPub --> MQ
+
+MQ --> SyncHandler : UserCreated/Updated event
+
+SyncHandler --> GRPC : Fetch user by ID
+GRPC --> SyncHandler : User DTO
+
+SyncHandler --> Person : Upsert Person record
+
+@enduml

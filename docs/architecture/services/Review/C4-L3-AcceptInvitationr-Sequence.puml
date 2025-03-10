@@ -1,0 +1,89 @@
+@startuml
+skinparam DefaultFontSize 28
+skinparam participant {
+  FontSize 30
+  BackgroundColor White
+  BorderColor Black
+}
+skinparam ParticipantPadding 5
+skinparam BoxPadding 5
+skinparam ParticipantBackgroundColor<<Service>> #F2F2F2
+
+'skinparam SequenceDividerFontSize 28
+'skinparam SequenceDividerFontStyle bold
+'skinparam SequenceDividerBackgroundColor #F3F6FF
+'skinparam SequenceDividerBorderColor #C6D1FF
+
+
+title Accept Invitation – Sequence Diagram (C4-L3)
+caption Handles an "Accept Invitation" request, validate command, load article & invitation by token, resolve/create reviewer via Auth gRPC if needed, accept invitation, assign reviewer, persist, and publish domain event to notify the editor.
+
+actor Client as "Reviewer"
+
+box " Application Layer " #E6F0FF
+  participant Handler as "AcceptInvitationHandler\n(MediatR)"
+  participant Validator as "AcceptInvitationValidator\n(FluentValidation)"
+  participant EventPub as "EventPublisher\n(MediatR)"
+  participant RAssignedH as "ReviewerAssignedHandler\n(MediatR Notification)"
+end box
+
+box " Domain Layer " #FFF0E0
+  participant Article as "Article\n(Aggregate)"
+  participant Invitation as "ReviewInvitation\n(Aggregate)"
+  participant Reviewer as "Reviewer\n(Aggregate)"
+end box
+
+box " Persistence " #FFE0E0
+  participant Persistence as "Repository + DbContext\n(EF Core)"
+end box
+
+box " External & Infra " #E0F7FF
+  participant PersonSvc as "PersonService\n(gRPC)"
+  participant EmailSvc as "EmailService\n(Module)"
+end box
+
+Client -> Handler : AcceptInvitationCommand\n(ArticleId, Token)
+activate Handler
+
+== Validate Command ==
+Handler -> Validator : ValidateOrThrow(command)
+
+== Load Article & Invitation ==
+Handler -> Persistence : GetArticleByIdOrThrow(articleId)  → article
+|||
+Handler -> Persistence : GetInvitationByTokenOrThrow(token)  → invitation
+
+
+== Resolve / Ensure Reviewer ==
+alt Invitation has UserId
+  Handler -> Persistence : (1A) GetReviewerByUserIdAsync(userId)  → reviewer
+  |||
+else Invitation has Email only
+  Handler -> PersonSvc : (1B) CreatePersonAsync(createPersonRequest) → personInfo
+  |||
+  Handler -> Reviewer : CreateReviewer(personInfo) → reviewer
+end
+
+== Accept & Assign ==
+Handler -> Invitation : AcceptInvitation()
+|||
+Handler -> Article : AssignReviewer(reviewer)
+Article -> Article : AddDomainEvent\n(ReviewerAssigned)
+note right of Article
+  Domain event is added to the\naggregate’s pending events.
+end note
+
+== Persist & Publish Events ==
+Handler -> Persistence : SaveChangesAsync()
+Persistence -> EventPub : PublishDomainEvents()\n[includes ReviewerAssigned]
+|||
+EventPub -> RAssignedH : Handle(reviewerAssigned)
+RAssignedH -> EmailSvc : SendEmailAsync(editor)
+note right of RAssignedH
+  Notify editor that the reviewer was assigned to the article.
+end note
+
+== Response ==
+Handler --> Client : AcceptInvitationResponse\n(ArticleId, InvitationId, ReviewerId)
+deactivate Handler
+@enduml

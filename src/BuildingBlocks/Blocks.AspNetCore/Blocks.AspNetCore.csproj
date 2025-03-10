@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+	   <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Grpc.Net.Client"/>
+    <PackageReference Include="Grpc.Net.ClientFactory"/>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer"/>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi"/>
+    <PackageReference Include="Microsoft.Extensions.Http.Polly"/>
+    <PackageReference Include="protobuf-net.Grpc"/>
+    <PackageReference Include="Swashbuckle.AspNetCore"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Blocks.Domain\Blocks.Domain.csproj" />
+    <ProjectReference Include="..\Blocks.Exceptions\Blocks.Exceptions.csproj" />
+    <ProjectReference Include="..\Blocks.Core\Blocks.Core.csproj" />
+  </ItemGroup>
+
+</Project>

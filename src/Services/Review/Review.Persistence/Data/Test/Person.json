@@ -1,0 +1,75 @@
+[
+  {
+    "Id": 1,
+    "UserId": 1,
+    "FirstName": "DotNet",
+    "LastName": "LabX",
+    "Honorific": "Mr",
+    "Email": {"Value":"dotnetlabx@articles.test"},
+    "Affiliation": "DotNetLabX – Real .NET solutions. From developer to architect"
+  },
+  {
+    "$type": "Review.Domain.Articles.Author, Review.Domain",
+    "Id": 2,
+    //"UserId": 2,
+    "FirstName": "Author",
+    "LastName": "1",
+    "Honorific": "Mr",
+    "Email": {"Value":"author.1@articles.test"},
+    "Affiliation": "JTransatlantic Aerospace Technology Hub, Montreal",
+    "Degree": "PhD",
+    "Discipline": "Aerospace Engineering"
+  },
+  {
+    "$type": "Review.Domain.Articles.Author, Review.Domain",
+    "Id": 3,
+    //"UserId": 3,
+    "FirstName": "Author",
+    "LastName": "2",
+    "Honorific": "Ms",
+    "Email": {"Value":"author.2@articles.test"},
+    "Affiliation": "Centre for Sustainable Urban Technologies, Manchester"
+  },
+  {
+    "$type": "Review.Domain.Articles.Author, Review.Domain",
+    "Id": 6,
+    "UserId": 6,
+    "FirstName": "CorAuthor",
+    "LastName": "2",
+    "Honorific": "Mr",
+    "Email": {"Value":"corauthor.2@articles.test"},
+    "Affiliation": "International Institute of Aerospace Innovation, Abu Dhabi",
+    "Degree": "MsC",
+    "Discipline": "Planetary Science"
+  },
+  {
+    "$type": "Review.Domain.Articles.Editor, Review.Domain",
+    "Id": 9,
+    "UserId": 9,
+    "FirstName": "Editor",
+    "LastName": "3",
+    "Honorific": "Ms",
+    "Email": {"Value":"editor.3@articles.test"},
+    "Affiliation": "Academy for Creative Young Thinkers, New Delhi"
+  },
+  {
+    "$type": "Review.Domain.Reviewers.Reviewer, Review.Domain",
+    "Id": 12,
+    "UserId": 12,
+    "FirstName": "Reviewer",
+    "LastName": "3",
+    "Honorific": "Mr",
+    "Email": {"Value":"rev.3@articles.test"},
+    "Affiliation": "Asia-Pacific Smart Infrastructure Lab, Kuala Lumpur",
+		"_specializations": [
+      {
+        "JournalId": 1,
+				"ReviewerId": 12
+      },
+      {
+        "JournalId": 3,
+				"ReviewerId": 12
+      }
+    ]
+  }  
+]

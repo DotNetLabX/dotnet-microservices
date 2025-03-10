@@ -1,0 +1,30 @@
+[
+	{"SourceType": "StageTransition", "SourceId": "Accepted->InProduction", "RoleType": "POF"},
+	{"SourceType": "StageTransition", "SourceId": "InProduction->DraftProduction", "RoleType": "POF"},
+	{"SourceType": "StageTransition", "SourceId": "DraftProduction->FinalProduction", "RoleType": "POF"},
+	{"SourceType": "StageTransition", "SourceId": "FinalProduction->Published", "RoleType": "POF"},
+
+	{"SourceType": "StageTransition", "SourceId": "Accepted->InProduction", "RoleType": "TSOF"},
+	{"SourceType": "StageTransition", "SourceId": "InProduction->DraftProduction", "RoleType": "TSOF"},
+	{"SourceType": "StageTransition", "SourceId": "DraftProduction->FinalProduction", "RoleType": "TSOF"},
+	{"SourceType": "StageTransition", "SourceId": "FinalProduction->Published", "RoleType": "TSOF"},
+
+	{"SourceType": "StageTransition", "SourceId": "InProduction->DraftProduction", "RoleType": "CORAUT"},
+	{"SourceType": "StageTransition", "SourceId": "FinalProduction->Published", "RoleType": "CORAUT"},
+
+
+	{"SourceType": "ActionExecuted", "SourceId": "Upload", "RoleType": "POF"},
+	{"SourceType": "ActionExecuted", "SourceId": "Request", "RoleType": "POF"},
+	{"SourceType": "ActionExecuted", "SourceId": "CancelRequest", "RoleType": "POF"},
+	{"SourceType": "ActionExecuted", "SourceId": "Approve", "RoleType": "POF"},
+
+	{"SourceType": "ActionExecuted", "SourceId": "Upload", "RoleType": "TSOF"},
+	{"SourceType": "ActionExecuted", "SourceId": "Request", "RoleType": "TSOF"},
+	{"SourceType": "ActionExecuted", "SourceId": "CancelRequest", "RoleType": "TSOF"},
+	{"SourceType": "ActionExecuted", "SourceId": "Approve", "RoleType": "TSOF"},
+
+	{"SourceType": "ActionExecuted", "SourceId": "Upload", "RoleType": "CORAUT"},
+	{"SourceType": "ActionExecuted", "SourceId": "Request", "RoleType": "CORAUT"},
+	{"SourceType": "ActionExecuted", "SourceId": "CancelRequest", "RoleType": "CORAUT"},
+	{"SourceType": "ActionExecuted", "SourceId": "Approve", "RoleType": "CORAUT"},
+]

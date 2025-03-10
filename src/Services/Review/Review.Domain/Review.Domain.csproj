@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+		
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>   
+    <PackageReference Include="Mapster" />
+  </ItemGroup>
+  <ItemGroup>
+			<ProjectReference Include="..\..\..\BuildingBlocks\Blocks.Domain\Blocks.Domain.csproj" />
+			<ProjectReference Include="..\..\..\BuildingBlocks\Blocks.Exceptions\Blocks.Exceptions.csproj" />
+			<ProjectReference Include="..\..\..\BuildingBlocks\Blocks.Core\Blocks.Core.csproj" />
+			<ProjectReference Include="..\..\..\BuildingBlocks\Articles.Abstractions\Articles.Abstractions.csproj" />
+			<ProjectReference Include="..\..\..\BuildingBlocks\Articles.Grpc.Contracts\Articles.Grpc.Contracts.csproj" />
+			<ProjectReference Include="..\..\..\BuildingBlocks\Articles.Integration.Contracts\Articles.IntegrationEvents.Contracts.csproj" />
+			<ProjectReference Include="..\..\..\Modules\FileService\FileService.Contracts\FileStorage.Contracts.csproj" />
+  </ItemGroup>
+
+</Project>

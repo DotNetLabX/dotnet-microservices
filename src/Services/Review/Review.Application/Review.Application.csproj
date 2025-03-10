@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Flurl.Http" />
+    <PackageReference Include="Mapster" />
+    <PackageReference Include="Stateless" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\BuildingBlocks\Articles.Grpc.Contracts\Articles.Grpc.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\BuildingBlocks\Blocks.Core\Blocks.Core.csproj" />
+		<ProjectReference Include="..\..\..\BuildingBlocks\Blocks.MediatR\Blocks.MediatR.csproj" />
+    <ProjectReference Include="..\..\..\BuildingBlocks\Blocks.Messaging\Blocks.Messaging.csproj" />
+		<ProjectReference Include="..\..\..\BuildingBlocks\Blocks.Http.Abstractions\Blocks.Http.Abstractions.csproj" />
+		<ProjectReference Include="..\..\..\Modules\EmailService\EmailService.Contracts\EmailService.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\Modules\FileService\FileService.Contracts\FileStorage.Contracts.csproj" />
+    <ProjectReference Include="..\Review.Persistence\Review.Persistence.csproj" />
+  </ItemGroup>
+
+</Project>

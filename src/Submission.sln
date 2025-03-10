@@ -1,0 +1,93 @@
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34728.123
+MinimumVisualStudioVersion = 10.0.40219.1
+
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{0BE8E9B8-7592-4384-A537-900612306BEA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Submission", "Submission", "{9C191986-D0AE-4646-87B0-5C581278CAA6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Submission.Domain", "Services\Submission\Submission.Domain\Submission.Domain.csproj", "{17CBC2D1-1E35-4352-8816-081C270E06FB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Submission.Persistence", "Services\Submission\Submission.Persistence\Submission.Persistence.csproj", "{21740988-650D-446D-91FF-E201CB3AD5C7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Submission.Application", "Services\Submission\Submission.Application\Submission.Application.csproj", "{A9A544E0-C04C-409A-AA83-DDCC80D378A9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Submission.API", "Services\Submission\Submission.API\Submission.API.csproj", "{0878366E-D872-43E6-83A0-759E5F8BCE86}"
+EndProject
+
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BuildingBlocks", "BuildingBlocks", "{119E4BB2-4239-487F-B5F7-3BCED9AFF33C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blocks.EntityFrameworkCore", "BuildingBlocks\Blocks.EntityFrameworkCore\Blocks.EntityFrameworkCore.csproj", "{0F7B01A0-F6DC-4895-B7F6-6CF7902709D5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blocks.Exceptions", "BuildingBlocks\Blocks.Exceptions\Blocks.Exceptions.csproj", "{A08C513E-AAD1-4145-AED7-7B9258540A11}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blocks.Core", "BuildingBlocks\Blocks.Core\Blocks.Core.csproj", "{A8925387-2F7F-4A5A-B5D8-4FF3A964A6AE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blocks.Domain", "BuildingBlocks\Blocks.Domain\Blocks.Domain.csproj", "{C0C96231-8A2E-44CF-AA58-AFFB4A986E85}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blocks.MediatR", "BuildingBlocks\Blocks.MediatR\Blocks.MediatR.csproj", "{C715B632-DEB3-493E-9ACC-91A6CA799944}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blocks.AspNetCore", "BuildingBlocks\Blocks.AspNetCore\Blocks.AspNetCore.csproj", "{F7161139-4B9D-4212-93D6-616A5E896FFB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Articles.Abstractions", "BuildingBlocks\Articles.Abstractions\Articles.Abstractions.csproj", "{CC955DE0-748B-4533-BC09-D2D6F49260FF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Articles.Security", "BuildingBlocks\Articles.Security\Articles.Security.csproj", "{893F49BB-98A7-42D9-A4FF-F8D7F78FDD45}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blocks.Redis", "BuildingBlocks\Blocks.Redis\Blocks.Redis.csproj", "{FDA3174B-D497-4BDA-B273-24C3C88C2C78}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blocks.Messaging", "BuildingBlocks\Blocks.Messaging\Blocks.Messaging.csproj", "{783EDC9B-3137-4644-99B5-819600DBBB9F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Articles.Grpc.Contracts", "BuildingBlocks\Articles.Grpc.Contracts\Articles.Grpc.Contracts.csproj", "{9D45609A-2E00-4500-B70D-B4F8C92FBB8E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blocks.FastEndpoints", "BuildingBlocks\Blocks.FastEndpoints\Blocks.FastEndpoints.csproj", "{CF20E575-831D-4254-850D-75AADAA6B005}"
+EndProject
+
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{43093EE6-A060-4D76-A05C-8AD764B6BE15}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ClientServices", "ClientServices", "{8324F40B-DAB8-499F-9D43-49698B20E9B9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserServiceGrpcClient", "ClientServices\UserServiceGrpcClient\UserServiceGrpcClient.csproj", "{07C20046-7142-4640-B363-335E8716DE69}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiGateway", "ApiGateway\ApiGateway.csproj", "{9515CFB6-587B-4CB6-9191-129A432849A7}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{CED3B268-6093-4DCE-8CF9-65409BCFC71C}"
+EndProject
+
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{17CBC2D1-1E35-4352-8816-081C270E06FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17CBC2D1-1E35-4352-8816-081C270E06FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17CBC2D1-1E35-4352-8816-081C270E06FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17CBC2D1-1E35-4352-8816-081C270E06FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21740988-650D-446D-91FF-E201CB3AD5C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21740988-650D-446D-91FF-E201CB3AD5C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21740988-650D-446D-91FF-E201CB3AD5C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21740988-650D-446D-91FF-E201CB3AD5C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9A544E0-C04C-409A-AA83-DDCC80D378A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9A544E0-C04C-409A-AA83-DDCC80D378A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9A544E0-C04C-409A-AA83-DDCC80D378A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9A544E0-C04C-409A-AA83-DDCC80D378A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0878366E-D872-43E6-83A0-759E5F8BCE86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0878366E-D872-43E6-83A0-759E5F8BCE86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0878366E-D872-43E6-83A0-759E5F8BCE86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0878366E-D872-43E6-83A0-759E5F8BCE86}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9C191986-D0AE-4646-87B0-5C581278CAA6} = {0BE8E9B8-7592-4384-A537-900612306BEA}
+		{17CBC2D1-1E35-4352-8816-081C270E06FB} = {9C191986-D0AE-4646-87B0-5C581278CAA6}
+		{21740988-650D-446D-91FF-E201CB3AD5C7} = {9C191986-D0AE-4646-87B0-5C581278CAA6}
+		{A9A544E0-C04C-409A-AA83-DDCC80D378A9} = {9C191986-D0AE-4646-87B0-5C581278CAA6}
+		{0878366E-D872-43E6-83A0-759E5F8BCE86} = {9C191986-D0AE-4646-87B0-5C581278CAA6}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DB8333BC-C32E-4759-8E3B-CC033665D9E0}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,89 @@
+@startuml
+!define MUTED(x) <color:#888888>x</color>
+!define GRAY(x) <color:#505050>x</color>
+
+skinparam DefaultFontSize 24
+skinparam participant {
+  FontSize 26
+  BackgroundColor White
+  BorderColor Black
+}
+skinparam ParticipantPadding 20
+skinparam BoxPadding 10
+skinparam BboxBorderThickness 1
+skinparam ParticipantBackgroundColor<<Service>> #F2F2F2
+
+skinparam SequenceGroupBackgroundColor #EAEAEA
+skinparam SequenceGroupBorderColor #666666
+skinparam SequenceGroupFontColor #222222
+
+title Invite Reviewer – Sequence Diagram (C4-L3)
+caption This diagram illustrates the flow for handling an "Invite Reviewer" request in the Review Service, covering entity loading, validation, reviewer resolution, persistence, and notification via email.
+
+actor Client as "Editor"
+
+box " Application Layer " #E6F0FF
+  participant Handler as "InviteReviewerHandler\nGRAY((MediatR))"
+  participant Validator as "InviteReviewerValidator\nGRAY((FluentValidation))"
+end box
+
+box " Domain Layer " #FFF0E0
+  participant Article as "Article\nGRAY((Aggregate))"
+  participant Invitation as "ReviewInvitation\nGRAY((Aggregate))"
+end box
+
+box " Persistence Layer " #FFE0E0
+  participant Repository as "Repository\nGRAY((EF Core))"
+  participant DbContext as "ReviewDbContext\nGRAY((EF Core))"
+end box
+
+box " External & Infra " #E0F7FF
+  participant PersonSvc as "Auth.PersonService\nGRAY((gRPC))"
+  participant EmailSvc as "EmailService\nGRAY((Module))"
+  participant UrlHelper as "UrlHelper\nGRAY((Utility))"
+end box
+
+Client -> Handler : InviteReviewerCommand\n(ArticleId, UserId?, Email?, EditorId)
+activate Handler
+
+Handler -> Validator : ValidateOrThrow(command)
+
+== Load Article & Editor ==
+Handler -> Repository : GetArticleByIdOrThrow(articleId)
+Handler -> Repository : GetEditorByUserIdOrThrow(editorId)
+
+== Guard: Existing Open Invitation ==
+group if Open Invitation
+Handler -> Repository : OpenInvitationExistsAsync(userId?, email?) MUTED(→ throw)
+end
+
+'alt Guard fails: open invitation already exists
+  'Handler --> Client : Error: open invitation exists
+'end
+
+== Resolve Reviewer ==
+group if  [Reviewer is User (UserId exists)]
+  Handler -> Repository : GetReviewerByUserIdAsync(userId) MUTED(→ reviewer)
+  group if [Reviewer exists]
+    Handler -> Article : InviteReviewer(reviewer)
+  else Reviewer not found
+    Handler -> PersonSvc : GetPersonByUserIdAsync(userId) MUTED(→ personInfo)
+    Handler -> Article : InviteReviewer(personInfo)
+  end
+else Reviewer is not User
+  Handler -> Article : InviteReviewer(email) 
+end
+
+== Notify Reviewer ==
+Handler -> UrlHelper : BuildConfirmationUrl(invitation.Token) MUTED(→ confirmationUrl)
+Handler -> EmailSvc : SendEmailAsync(EmailMessage(confirmationUrl))
+
+== Persist ==
+Handler -> DbContext : SaveChangesAsync()
+
+
+== Response ==
+Handler --> Client : InviteReviewerResponse\n(ArticleId, InvitationId, Token)
+deactivate Handler
+
+@enduml
