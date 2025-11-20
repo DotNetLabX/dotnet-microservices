@@ -5,7 +5,7 @@
 This repository contains the **complete reference project** used in my Udemy course:
 
 🎓 **Udemy Course**
-[.NET 8/9 — Master Microservices with DDD & Vertical Architecture]([https://www.udemy.com/your-course-link-here](https://www.udemy.com/course/net-master-microservices-with-ddd-vertical-architecture/?referralCode=BBB4A0CA199A52D67853))
+[.NET 8/9 — Master Microservices with DDD & Vertical Architecture](https://www.udemy.com/course/net-master-microservices-with-ddd-vertical-architecture/?referralCode=BBB4A0CA199A52D67853)
 
 It represents a **complete MVP** inspired by a real system I partially architected and worked on, combined with patterns and decisions from multiple projects across the last years.
 
@@ -112,4 +112,5 @@ Upcoming additions include:
 ## 🙋‍♂️ **Stay in Touch**
 
 Connect on LinkedIn:
-[Laurentiu Dumit]([https://www.linkedin.com/in/your-profile-here](https://www.linkedin.com/in/laurentiu-dumitrescu/)
+[Laurentiu Dumitrescu](https://www.linkedin.com/in/laurentiu-dumitrescu/)
+
