@@ -8,10 +8,10 @@ public abstract class BaseEndpoint<TCommand, TResponse> : Endpoint<TCommand, TRe
         where TCommand : global::Articles.Abstractions.IArticleAction
 {
     protected readonly ArticleRepository _articleRepository;
-		protected Article _article;
+    protected Article _article;
 
-		public BaseEndpoint(ArticleRepository articleRepository) 
+    public BaseEndpoint(ArticleRepository articleRepository) 
         => _articleRepository = articleRepository;
 
-		protected virtual ArticleStage NextStage => _article.Stage;
+    protected virtual ArticleStage NextStage => _article.Stage;
 }

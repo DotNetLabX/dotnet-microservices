@@ -7,11 +7,11 @@ namespace EmailService.Empty;
 
 public static class MailServiceRegistration
 {
-		public static IServiceCollection AddEmptyEmailService(this IServiceCollection services, IConfiguration config)
-		{
-				services.AddAndValidateOptions<EmailOptions>(config);
-				services.AddSingleton<IEmailService, EmptyEmailService>();
+    public static IServiceCollection AddEmptyEmailService(this IServiceCollection services, IConfiguration config)
+    {
+        services.AddAndValidateOptions<EmailOptions>(config);
+        services.AddSingleton<IEmailService, EmptyEmailService>();
 
-				return services;
-		}
+        return services;
+    }
 }

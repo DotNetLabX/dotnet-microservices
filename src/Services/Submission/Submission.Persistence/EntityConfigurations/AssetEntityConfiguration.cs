@@ -6,31 +6,31 @@ internal class AssetEntityConfiguration : AuditedEntityConfiguration<Asset>
     {
         base.Configure(builder);
 
-				builder.Property(e => e.State).HasEnumConversion().IsRequired();
-				builder.Property(e => e.Type).HasEnumConversion().IsRequired();
+        builder.Property(e => e.State).HasEnumConversion().IsRequired();
+        builder.Property(e => e.Type).HasEnumConversion().IsRequired();
 
-				builder.ComplexProperty(
-					 e => e.Name, builder =>
-					 {
-							 builder.Property(vo => vo.Value)
-									 .HasColumnName(builder.Metadata.PropertyInfo!.Name)
-									 .HasMaxLength(MaxLength.C64).IsRequired();
-					 });
+        builder.ComplexProperty(
+             e => e.Name, builder =>
+             {
+                 builder.Property(vo => vo.Value)
+                     .HasColumnName(builder.Metadata.PropertyInfo!.Name)
+                     .HasMaxLength(MaxLength.C64).IsRequired();
+             });
 
-				builder.ComplexProperty(
-					 e => e.Number, builder =>
-					 {
-							 builder.Property(vo => vo.Value)
-									 .HasColumnName(builder.Metadata.PropertyInfo!.Name)
-									 .IsRequired();
-					 });
+        builder.ComplexProperty(
+             e => e.Number, builder =>
+             {
+                 builder.Property(vo => vo.Value)
+                     .HasColumnName(builder.Metadata.PropertyInfo!.Name)
+                     .IsRequired();
+             });
 
-				builder.ComplexProperty(e => e.File, fileBuilder =>
-				{
-						new FileEntityConfiguration().Configure(fileBuilder);
-				});
+        builder.ComplexProperty(e => e.File, fileBuilder =>
+        {
+            new FileEntityConfiguration().Configure(fileBuilder);
+        });
 
-				builder.HasOne(e => e.Article).WithMany(p => p.Assets)
+        builder.HasOne(e => e.Article).WithMany(p => p.Assets)
             .HasForeignKey(e => e.ArticleId)
             .OnDelete(DeleteBehavior.Cascade);
 
@@ -38,5 +38,5 @@ internal class AssetEntityConfiguration : AuditedEntityConfiguration<Asset>
             .HasForeignKey(e => e.Type)
             .HasPrincipalKey(p => p.Name)
             .IsRequired();
-		}
+    }
 }

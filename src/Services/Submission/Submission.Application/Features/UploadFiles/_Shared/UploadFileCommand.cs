@@ -20,56 +20,56 @@ public abstract record UploadFileCommand : ArticleCommand
     [Required]
     public IFormFile File { get; init; } = null!;
 
-		public override ArticleActionType ActionType => ArticleActionType.UploadAsset;
+    public override ArticleActionType ActionType => ArticleActionType.UploadAsset;
 }
 
 public abstract class UploadFileValidator<TUploadFileCommand> : ArticleCommandValidator<TUploadFileCommand>
-				where TUploadFileCommand : UploadFileCommand
+        where TUploadFileCommand : UploadFileCommand
 {
     private readonly AssetTypeRepository _assetTypeRepository;
-		private AssetTypeDefinition _assetTypeDefinition = null!;
+    private AssetTypeDefinition _assetTypeDefinition = null!;
 
-		public UploadFileValidator(AssetTypeRepository assetTypeRepository)
-		{
-				_assetTypeRepository = assetTypeRepository;
+    public UploadFileValidator(AssetTypeRepository assetTypeRepository)
+    {
+        _assetTypeRepository = assetTypeRepository;
 
-				RuleFor(r => r.AssetType).Must(IsAssetTypeAllowed)
-						.WithMessage(x => ValidationMessages.InvalidAssetType.FormatWith(_assetTypeDefinition.Name));
+        RuleFor(r => r.AssetType).Must(IsAssetTypeAllowed)
+            .WithMessage(x => ValidationMessages.InvalidAssetType.FormatWith(_assetTypeDefinition.Name));
 
-				RuleFor(x => x.File)
-						.NotNullWithMessage();
-				
-				When(x => x.File != null, () =>
-				{
-						RuleFor(x => x.File)
-								.Must(IsFileSizeValid).WithMessage(x => ValidationMessages.InvalidFileSize.FormatWith(_assetTypeDefinition.MaxFileSizeInMB))
-								.Must(IsFileExtensionValid).WithMessage(x => ValidationMessages.InvalidFileExtension.FormatWith(_assetTypeDefinition.Name, x.File.GetExtension()));
-				});
-		}
+        RuleFor(x => x.File)
+            .NotNullWithMessage();
+        
+        When(x => x.File != null, () =>
+        {
+            RuleFor(x => x.File)
+                .Must(IsFileSizeValid).WithMessage(x => ValidationMessages.InvalidFileSize.FormatWith(_assetTypeDefinition.MaxFileSizeInMB))
+                .Must(IsFileExtensionValid).WithMessage(x => ValidationMessages.InvalidFileExtension.FormatWith(_assetTypeDefinition.Name, x.File.GetExtension()));
+        });
+    }
 
-		public override ValidationResult Validate(ValidationContext<TUploadFileCommand> context)
-		{
-				// we are overriding it to get the asset type definition before the validation
-				_assetTypeDefinition = _assetTypeRepository.GetById(context.InstanceToValidate.AssetType);
-				return base.Validate(context);
-		}
+    public override ValidationResult Validate(ValidationContext<TUploadFileCommand> context)
+    {
+        // we are overriding it to get the asset type definition before the validation
+        _assetTypeDefinition = _assetTypeRepository.GetById(context.InstanceToValidate.AssetType);
+        return base.Validate(context);
+    }
 
-		public override Task<ValidationResult> ValidateAsync(ValidationContext<TUploadFileCommand> context, CancellationToken cancellation = default)
-		{
-				// we are overriding it to get the asset type definition before the validation
-				_assetTypeDefinition = _assetTypeRepository.GetById(context.InstanceToValidate.AssetType);
-				return base.ValidateAsync(context, cancellation);
-		}
+    public override Task<ValidationResult> ValidateAsync(ValidationContext<TUploadFileCommand> context, CancellationToken cancellation = default)
+    {
+        // we are overriding it to get the asset type definition before the validation
+        _assetTypeDefinition = _assetTypeRepository.GetById(context.InstanceToValidate.AssetType);
+        return base.ValidateAsync(context, cancellation);
+    }
 
 
-		private bool IsAssetTypeAllowed(AssetType assetType)
-				=> AllowedAssetTypes.Contains(assetType);
+    private bool IsAssetTypeAllowed(AssetType assetType)
+        => AllowedAssetTypes.Contains(assetType);
 
-		private bool IsFileSizeValid(IFormFile file)		
-				=> file.Length <= _assetTypeDefinition.MaxFileSizeInBytes;
+    private bool IsFileSizeValid(IFormFile file)    
+        => file.Length <= _assetTypeDefinition.MaxFileSizeInBytes;
 
-		public bool IsFileExtensionValid(IFormFile file)
-				=> _assetTypeDefinition.AllowedFileExtensions.IsValidExtension(file.GetExtension());
+    public bool IsFileExtensionValid(IFormFile file)
+        => _assetTypeDefinition.AllowedFileExtensions.IsValidExtension(file.GetExtension());
 
-		public abstract IReadOnlyCollection<AssetType> AllowedAssetTypes { get; }
+    public abstract IReadOnlyCollection<AssetType> AllowedAssetTypes { get; }
 }

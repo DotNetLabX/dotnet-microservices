@@ -2,9 +2,9 @@
 
 public class ArticleEntityConfiguration : EntityConfiguration<Article>
 {
-		protected override bool HasGeneratedId => false;
+    protected override bool HasGeneratedId => false;
 
-		public override void Configure(EntityTypeBuilder<Article> builder)
+    public override void Configure(EntityTypeBuilder<Article> builder)
     {
         base.Configure(builder);
 
@@ -17,9 +17,9 @@ public class ArticleEntityConfiguration : EntityConfiguration<Article>
 
         builder.Property(e => e.SubmittedOn).HasColumnType("timestamp without time zone").IsRequired();
         builder.Property(e => e.AcceptedOn).HasColumnType("timestamp without time zone");
-				builder.Property(e => e.PublishedOn).HasColumnType("timestamp without time zone");
+        builder.Property(e => e.PublishedOn).HasColumnType("timestamp without time zone");
 
-				builder.HasOne(e => e.SubmittedBy).WithMany()
+        builder.HasOne(e => e.SubmittedBy).WithMany()
             .HasForeignKey(e => e.SubmittedById)
             .IsRequired()
             .OnDelete(DeleteBehavior.Restrict);
@@ -29,9 +29,9 @@ public class ArticleEntityConfiguration : EntityConfiguration<Article>
             .IsRequired()
             .OnDelete(DeleteBehavior.Restrict);
 
-				builder.HasMany(e => e.Actors).WithOne()
-						.HasForeignKey(aa => aa.ArticleId)
+        builder.HasMany(e => e.Actors).WithOne()
+            .HasForeignKey(aa => aa.ArticleId)
             .IsRequired()
-						.OnDelete(DeleteBehavior.Cascade);
-		}
+            .OnDelete(DeleteBehavior.Cascade);
+    }
 }

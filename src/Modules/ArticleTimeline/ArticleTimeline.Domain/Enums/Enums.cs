@@ -1,8 +1,8 @@
 ﻿namespace ArticleTimeline.Domain.Enums
 {
-		public enum SourceType
-		{
-				StageTransition = 1,
-				ActionExecuted = 2,
-		}
+    public enum SourceType
+    {
+        StageTransition = 1,
+        ActionExecuted = 2,
+    }
 }

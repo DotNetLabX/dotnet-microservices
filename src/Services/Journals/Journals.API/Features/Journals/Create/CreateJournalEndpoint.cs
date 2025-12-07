@@ -17,13 +17,13 @@ public class CreateJournalEndpoint(Repository<Journal> _journalRepository, Repos
 {
     public override async Task HandleAsync(CreateJournalCommand command, CancellationToken ct)
     {
-				if (_journalRepository.Collection.Any(j => j.Abbreviation == command.Abbreviation ||  j.NormalizedName == command.NormalizedName ))
+        if (_journalRepository.Collection.Any(j => j.Abbreviation == command.Abbreviation ||  j.NormalizedName == command.NormalizedName ))
             throw new BadRequestException("Journal with the same name or abbreviation already exists");
 
         if (!_editorRepository.Collection.Any(e => e.Id == command.ChiefEditorId))
             await CreateEditor(command.ChiefEditorId, ct);
 
-				var journal = command.Adapt<Journal>();
+        var journal = command.Adapt<Journal>();
 
         await _journalRepository.AddAsync(journal);
 
@@ -32,14 +32,14 @@ public class CreateJournalEndpoint(Repository<Journal> _journalRepository, Repos
         await Send.OkAsync(new IdResponse(journal.Id));
     }
 
-		private async Task<Editor> CreateEditor(int userId, CancellationToken ct)
-		{
-				var response = await _personClient.GetPersonByUserIdAsync( new GetPersonByUserIdRequest { UserId = userId }, new CallOptions(cancellationToken: ct));
+    private async Task<Editor> CreateEditor(int userId, CancellationToken ct)
+    {
+        var response = await _personClient.GetPersonByUserIdAsync( new GetPersonByUserIdRequest { UserId = userId }, new CallOptions(cancellationToken: ct));
         var personInfo = response.PersonInfo;
 
-				var editor = Editor.Create(personInfo); 
-				await _editorRepository.AddAsync(editor);
+        var editor = Editor.Create(personInfo); 
+        await _editorRepository.AddAsync(editor);
 
-				return editor;
-		}
+        return editor;
+    }
 }

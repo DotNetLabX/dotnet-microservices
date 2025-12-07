@@ -13,18 +13,18 @@ public partial class ArticleTimelineDbContext //(DbContextOptions<ArticleTimelin
     }
     #region Entities
     public virtual DbSet<Timeline> Timelines { get; set; }
-		public virtual DbSet<TimelineTemplate> TimelineSourceConfigurations { get; set; }
-		public virtual DbSet<TimelineVisibility> TimelineVisibilities { get; set; }
-		#endregion
+    public virtual DbSet<TimelineTemplate> TimelineSourceConfigurations { get; set; }
+    public virtual DbSet<TimelineVisibility> TimelineVisibilities { get; set; }
+    #endregion
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasDefaultSchema("ArticleTimeline");
 
-				modelBuilder.ApplyConfiguration(new TimelineEntityConfiguration());
-				modelBuilder.ApplyConfiguration(new TimelineTemplateEntityConfiguration());
-				modelBuilder.ApplyConfiguration(new TimelineVisibilityEntityConfiguration());
+        modelBuilder.ApplyConfiguration(new TimelineEntityConfiguration());
+        modelBuilder.ApplyConfiguration(new TimelineTemplateEntityConfiguration());
+        modelBuilder.ApplyConfiguration(new TimelineVisibilityEntityConfiguration());
 
         base.OnModelCreating(modelBuilder);
     }

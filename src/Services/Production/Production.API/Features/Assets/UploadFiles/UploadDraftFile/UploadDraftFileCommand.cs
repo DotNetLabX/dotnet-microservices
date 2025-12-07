@@ -9,7 +9,7 @@ public record UploadDraftFileCommand : UploadFileCommand;
 
 public abstract class UploadDraftPdfCommandValidator : UploadFileValidator<UploadDraftFileCommand>
 {
-		public override IReadOnlyCollection<AssetType> AllowedAssetTypes => AssetTypeCategories.DraftAssets;
+    public override IReadOnlyCollection<AssetType> AllowedAssetTypes => AssetTypeCategories.DraftAssets;
 }
 
 // todo - remove commented code

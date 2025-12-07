@@ -4,8 +4,8 @@ namespace Review.Application.FileStorage;
 
 public enum FileStorageType
 {
-		Review,
-		Submission
+    Review,
+    Submission
 }
 
 public delegate IFileService FileServiceFactory(FileStorageType fileStorageType);

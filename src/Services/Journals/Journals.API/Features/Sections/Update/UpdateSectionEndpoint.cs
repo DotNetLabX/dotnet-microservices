@@ -15,14 +15,14 @@ public class UpdateSectionEndpoint(Repository<Journal> _repository)
 {
     public override async Task HandleAsync(UpdateSectionCommand command, CancellationToken ct)
     {
-				var journal = await _repository.GetByIdOrThrowAsync(command.JournalId);
-				var section = journal.Sections.SingleOrThrow(s => s.Id == command.SectionId);
-				command.Adapt(section);
+        var journal = await _repository.GetByIdOrThrowAsync(command.JournalId);
+        var section = journal.Sections.SingleOrThrow(s => s.Id == command.SectionId);
+        command.Adapt(section);
 
-				await _repository.ReplaceAsync(journal);
+        await _repository.ReplaceAsync(journal);
 
-				await PublishAsync(section.Adapt<SectionUpdated>());
+        await PublishAsync(section.Adapt<SectionUpdated>());
 
-				await Send.OkAsync(new IdResponse(section.Id));
+        await Send.OkAsync(new IdResponse(section.Id));
     }
 }

@@ -6,11 +6,11 @@ public class UpdateJournalCommandValidator : Validator<UpdateJournalCommand>
 {
     public UpdateJournalCommandValidator()
     {
-				RuleFor(r => r.JournalId).GreaterThan(0);
-				RuleFor(r => r.Abbreviation).NotEmpty();
-				RuleFor(r => r.Name).NotEmpty();
-				RuleFor(r => r.ISSN).NotEmpty();
-				RuleFor(r => r.Description).NotEmpty();
-				RuleFor(r => r.ChiefEditorId).GreaterThan(0);
-		}
+        RuleFor(r => r.JournalId).GreaterThan(0);
+        RuleFor(r => r.Abbreviation).NotEmpty();
+        RuleFor(r => r.Name).NotEmpty();
+        RuleFor(r => r.ISSN).NotEmpty();
+        RuleFor(r => r.Description).NotEmpty();
+        RuleFor(r => r.ChiefEditorId).GreaterThan(0);
+    }
 }

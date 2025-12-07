@@ -22,8 +22,8 @@ public enum AssetState
 
 public enum DiscussionType
 {
-		Default = 0,
-		Public = 1,
-		Private = 2
+    Default = 0,
+    Public = 1,
+    Private = 2
 }
 

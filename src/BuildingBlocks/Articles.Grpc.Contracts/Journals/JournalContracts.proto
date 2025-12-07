@@ -5,8 +5,8 @@ package journals;
 
 service JournalService
 {
-		rpc GetJournalById (GetJournalByIdRequest) returns (GetJournalResponse);
-		rpc IsEditorAssignedToJournal (IsEditorAssignedToJournalRequest) returns (IsEditorAssignedToJournalResponse);
+	rpc GetJournalById (GetJournalByIdRequest) returns (GetJournalResponse);
+	rpc IsEditorAssignedToJournal (IsEditorAssignedToJournalRequest) returns (IsEditorAssignedToJournalResponse);
 }
 
 message GetJournalByIdRequest

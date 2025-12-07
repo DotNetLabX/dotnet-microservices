@@ -13,6 +13,6 @@ public class GetJournalQueryValidator : Validator<GetJournalQuery>
 {
     public GetJournalQueryValidator()
     {
-				RuleFor(r => r.JournalId).GreaterThan(0);
-		}
+        RuleFor(r => r.JournalId).GreaterThan(0);
+    }
 }

@@ -2,7 +2,7 @@
 
 public record ApproveArticleCommand : ArticleCommand
 {
-		public override ArticleActionType ActionType => ArticleActionType.ApproveDraft;
+    public override ArticleActionType ActionType => ArticleActionType.ApproveDraft;
 }
 
 

@@ -17,8 +17,8 @@ public class CurrentUserRoleResolver(IClaimsProvider _claimsProvider) : IVariabl
 
 public class CurrentUserNameResolver(IClaimsProvider _claimsProvider) : IVariableResolver
 {
-		public async Task<string> GetValue(TimelineResolverModel resolverCommand) =>
-				_claimsProvider.GetUserName();
+    public async Task<string> GetValue(TimelineResolverModel resolverCommand) =>
+        _claimsProvider.GetUserName();
 }
 
 public class UploadedFileResolver : IVariableResolver
@@ -36,13 +36,13 @@ public class UploadedFileResolver : IVariableResolver
 public class ArticleNewStageResolver : IVariableResolver
 {
     public Task<string> GetValue(TimelineResolverModel resolverCommand) =>
-				Task.FromResult(resolverCommand.NewStage.ToString());
+        Task.FromResult(resolverCommand.NewStage.ToString());
 }
 
 public class ArticleCurrentStageResolver : IVariableResolver
 {
-		public Task<string> GetValue(TimelineResolverModel resolverCommand) =>
-				Task.FromResult(resolverCommand.CurrentStage.ToString());
+    public Task<string> GetValue(TimelineResolverModel resolverCommand) =>
+        Task.FromResult(resolverCommand.CurrentStage.ToString());
 }
 
 
@@ -51,7 +51,7 @@ public class ArticleCurrentStageResolver : IVariableResolver
 //    public async Task<string> GetValue(TimelineResolverModel resolverCommand)
 //    {
 //        var user = await _personRepository.GetByUserId(resolverCommand.Action.CreatedById);
-//				return user.FullName;
+//        return user.FullName;
 //    }
 //}
 

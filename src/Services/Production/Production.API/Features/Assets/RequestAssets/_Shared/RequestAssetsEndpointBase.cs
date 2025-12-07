@@ -23,21 +23,21 @@ public class RequestAssetsEndpointBase<TCommand>(ArticleRepository _articleRepos
                 .SingleOrDefault(asset => asset.Type == assetRequest.AssetType && asset.Number == assetRequest.AssetNumber);
             
             if (asset is null)
-								asset = CreateAsset(assetRequest.AssetType, assetRequest.AssetNumber);
+                asset = CreateAsset(assetRequest.AssetType, assetRequest.AssetNumber);
 
-						CheckAndThrowStateTransition(asset, command.ActionType);
-						asset.SetState(AssetState.Requested, command);
-						
+            CheckAndThrowStateTransition(asset, command.ActionType);
+            asset.SetState(AssetState.Requested, command);
+            
             assetsResponse.Add(asset);
-				}
+        }
 
-				_article.SetStage(NextStage, command);
-				await _articleRepository.SaveChangesAsync();
+        _article.SetStage(NextStage, command);
+        await _articleRepository.SaveChangesAsync();
 
         var response = new RequestAssetsResponse()
         {
             Assets = assetsResponse.Select(a => a.Adapt<AssetMinimalDto>())
-        };				
-				await Send.OkAsync(response);
+        };        
+        await Send.OkAsync(response);
     }
 }

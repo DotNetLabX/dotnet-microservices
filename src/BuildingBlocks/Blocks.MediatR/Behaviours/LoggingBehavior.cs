@@ -12,24 +12,24 @@ public class LoggingBehavior<TRequest, TResponse>
 {
     public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken ct)
     {
-				var correlationId = _requestContext.CorrelationId;
+        var correlationId = _requestContext.CorrelationId;
 
-				_logger.LogDebug("[Begin] Handling {Request} | CorrelationId: {CorrelationId}", typeof(TRequest).Name, correlationId);
+        _logger.LogDebug("[Begin] Handling {Request} | CorrelationId: {CorrelationId}", typeof(TRequest).Name, correlationId);
 
-				var stopwatch = Stopwatch.StartNew();
-				var response = await next();
-				stopwatch.Stop();
-				var requestDuration = stopwatch.Elapsed;
+        var stopwatch = Stopwatch.StartNew();
+        var response = await next();
+        stopwatch.Stop();
+        var requestDuration = stopwatch.Elapsed;
 
-				var thresholdMs = _requestContext.IsFileTransfer ? 3000 : 1000;
-				if (requestDuration.TotalMilliseconds > thresholdMs)
-				{
-						_logger.LogWarning("[PerfWarn] {Request} took {Elapsed} ms. (FileTransfer: {IsFileTransfer})",
-								typeof(TRequest).Name, (int)requestDuration.TotalMilliseconds, _requestContext.IsFileTransfer);
-				}
+        var thresholdMs = _requestContext.IsFileTransfer ? 3000 : 1000;
+        if (requestDuration.TotalMilliseconds > thresholdMs)
+        {
+            _logger.LogWarning("[PerfWarn] {Request} took {Elapsed} ms. (FileTransfer: {IsFileTransfer})",
+                typeof(TRequest).Name, (int)requestDuration.TotalMilliseconds, _requestContext.IsFileTransfer);
+        }
 
-				_logger.LogDebug("End handling {Request} in {Elapsed}ms | CorrelationId: {CorrelationId}", typeof(TRequest).Name, stopwatch.ElapsedMilliseconds, correlationId);
-				return response;
+        _logger.LogDebug("End handling {Request} in {Elapsed}ms | CorrelationId: {CorrelationId}", typeof(TRequest).Name, stopwatch.ElapsedMilliseconds, correlationId);
+        return response;
     }
 }
 

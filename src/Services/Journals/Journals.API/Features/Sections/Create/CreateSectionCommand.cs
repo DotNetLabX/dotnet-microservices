@@ -10,8 +10,8 @@ public class CreateSectionCommandValidator : Validator<CreateSectionCommand>
 {
     public CreateSectionCommandValidator()
     {
-				RuleFor(r => r.JournalId).GreaterThan(0);
-				RuleFor(r => r.Name).NotEmpty();
-				RuleFor(r => r.Description).NotEmpty();
-		}
+        RuleFor(r => r.JournalId).GreaterThan(0);
+        RuleFor(r => r.Name).NotEmpty();
+        RuleFor(r => r.Description).NotEmpty();
+    }
 }

@@ -7,10 +7,10 @@ namespace Production.Persistence.Migrations1
     /// <inheritdoc />
     public partial class SeedMasterData : Migration
     {
-				/// <inheritdoc />
-				protected override void Up(MigrationBuilder migrationBuilder)
-				{
-						migrationBuilder.Sql(@"
+        /// <inheritdoc />
+        protected override void Up(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.Sql(@"
             INSERT INTO [AssetType] 
             (id, code, name, defaultCategoryId, maxNumber, allowedFileExtensions, defaultFileExtension, MaxFileSizeInMB)
             VALUES
@@ -24,11 +24,11 @@ namespace Production.Persistence.Migrations1
             (8, 'DataSheet', 'Data Sheet', 2, 12, '[""csv"",""xls""]', 'csv', 1),
             (9, 'SupplementaryFile', 'Supplementary File', 2, 12, '[]', 'pdf', 10);
         ");
-				}
+        }
 
-				protected override void Down(MigrationBuilder migrationBuilder)
-				{
-						migrationBuilder.Sql("DELETE FROM [AssetType] WHERE id IN (1, 2, 3, 4, 5, 6, 7, 8, 9);");
-				}
-		}
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.Sql("DELETE FROM [AssetType] WHERE id IN (1, 2, 3, 4, 5, 6, 7, 8, 9);");
+        }
+    }
 }

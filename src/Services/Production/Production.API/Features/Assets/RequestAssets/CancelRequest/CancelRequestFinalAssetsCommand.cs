@@ -5,7 +5,7 @@ namespace Production.API.Features.Assets.RequestAssets.CancelRequest;
 
 public record CancelRequestFinalAssetsCommand : RequestMultipleAssetsCommand
 {
-		public override AssetActionType ActionType => AssetActionType.CancelRequest;
+    public override AssetActionType ActionType => AssetActionType.CancelRequest;
 }
 
 public record CancelRequestAuthorFilesCommand : RequestMultipleAssetsCommand

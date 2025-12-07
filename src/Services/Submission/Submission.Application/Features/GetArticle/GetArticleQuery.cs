@@ -7,8 +7,8 @@ public record GetArticleResonse(ArticleDto ArticleSummary);
 
 public class GetArticleValidator : AbstractValidator<GetArticleQuery>
 {
-		public GetArticleValidator()
-		{
-				RuleFor(c => c.ArticleId).GreaterThan(0).WithMessageForInvalidId(nameof(GetArticleQuery.ArticleId));
-		}
+    public GetArticleValidator()
+    {
+        RuleFor(c => c.ArticleId).GreaterThan(0).WithMessageForInvalidId(nameof(GetArticleQuery.ArticleId));
+    }
 }

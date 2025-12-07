@@ -13,8 +13,8 @@ public record AcceptInvitationResponse(int ArticleId, int InvitationId, int Revi
 
 public class AcceptInvitationCommandValidator : ArticleCommandValidator<AcceptInvitationCommand>
 {
-		public AcceptInvitationCommandValidator()
-		{
-				RuleFor(x => x.Token).NotEmpty();
-		}
+    public AcceptInvitationCommandValidator()
+    {
+        RuleFor(x => x.Token).NotEmpty();
+    }
 }

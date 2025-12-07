@@ -2,5 +2,5 @@
 
 public interface IDomainEventPublisher
 {
-		Task PublishAsync(IDomainEvent @event, CancellationToken ct = default);
+    Task PublishAsync(IDomainEvent @event, CancellationToken ct = default);
 }

@@ -11,6 +11,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Features\Users\GetUser\**" />
+    <Content Remove="Features\Users\GetUser\**" />
+    <EmbeddedResource Remove="Features\Users\GetUser\**" />
+    <None Remove="Features\Users\GetUser\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" />
     <PackageReference Include="Flurl.Http" />
 		<PackageReference Include="Grpc.AspNetCore" />
@@ -32,10 +39,6 @@
     <ProjectReference Include="..\Auth.Application\Auth.Application.csproj" />
     <ProjectReference Include="..\Auth.Persistence\Auth.Persistence.csproj" />
     <ProjectReference Include="..\Auth.Domain\Auth.Domain.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Features\Users\GetUser\" />
   </ItemGroup>
 
 </Project>

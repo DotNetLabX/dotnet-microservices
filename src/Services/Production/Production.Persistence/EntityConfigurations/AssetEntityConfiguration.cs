@@ -13,23 +13,23 @@ internal class AssetEntityConfiguration : AuditedEntityConfiguration<Asset>
         //entity.HasIndex(e => e.StatusId);
         //entity.HasIndex(e => e.TypeId);
 
-				builder.ComplexProperty(
-	         o => o.Name, builder =>
-	         {
-			         builder.Property(n => n.Value)
-					         .HasColumnName(builder.Metadata.PropertyInfo!.Name)
-					         .HasMaxLength(MaxLength.C64).IsRequired();
-	         });
+        builder.ComplexProperty(
+             o => o.Name, builder =>
+             {
+                 builder.Property(n => n.Value)
+                     .HasColumnName(builder.Metadata.PropertyInfo!.Name)
+                     .HasMaxLength(MaxLength.C64).IsRequired();
+             });
 
-				builder.ComplexProperty(
-	         o => o.Number, builder =>
-	         {
-			         builder.Property(n => n.Value)
-					         .HasColumnName(builder.Metadata.PropertyInfo!.Name)
+        builder.ComplexProperty(
+             o => o.Number, builder =>
+             {
+                 builder.Property(n => n.Value)
+                     .HasColumnName(builder.Metadata.PropertyInfo!.Name)
                    .HasDefaultValue(0).IsRequired();
-	         });
+             });
 
-				builder.Property(e => e.State).HasEnumConversion().IsRequired();
+        builder.Property(e => e.State).HasEnumConversion().IsRequired();
         builder.Property(e => e.CategoryId).HasConversion<int>().HasDefaultValue(AssetCategory.Core).IsRequired();
         builder.Property(e => e.Type).HasEnumConversion().IsRequired();
 

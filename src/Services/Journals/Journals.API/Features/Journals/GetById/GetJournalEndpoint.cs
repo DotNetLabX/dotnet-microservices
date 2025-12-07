@@ -29,15 +29,15 @@ public class GetJournalEndpoint(JournalDbContext _dbContext)
                 .AsReadOnly();
 
         foreach (var editorRole in editors)
-				{
-						var editor = await _dbContext.Editors.GetByIdOrThrowAsync(editorRole.EditorId);
+        {
+            var editor = await _dbContext.Editors.GetByIdOrThrowAsync(editorRole.EditorId);
             var editorDto = editor.AdaptWith<EditorDto>(editor => 
                 { 
                     editor.Role = journalDto.ChiefEditor.Id == editor.Id ? EditorRole.ChiefEditor : EditorRole.ReviewEditor; 
                 });
-						journalDto.Editors.Add(editorDto);
-				}
+            journalDto.Editors.Add(editorDto);
+        }
 
-				await Send.OkAsync(new GetJournalResponse(journalDto));
+        await Send.OkAsync(new GetJournalResponse(journalDto));
     }
 }

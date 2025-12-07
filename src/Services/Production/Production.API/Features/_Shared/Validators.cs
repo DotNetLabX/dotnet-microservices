@@ -4,7 +4,7 @@ using FluentValidation.Results;
 
 namespace Production.API.Features.Shared
 {
-		public abstract class BaseValidator<T> : Validator<T>
+    public abstract class BaseValidator<T> : Validator<T>
     {
         public override ValidationResult Validate(FluentValidation.ValidationContext<T> context)
         {

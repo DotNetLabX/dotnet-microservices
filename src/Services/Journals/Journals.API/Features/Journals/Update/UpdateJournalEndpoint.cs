@@ -14,15 +14,15 @@ public class UpdateJournalEndpoint(Repository<Journal> _journalRepository)
 {
     public override async Task HandleAsync(UpdateJournalCommand command, CancellationToken ct)
     {
-				var journal = await _journalRepository.GetByIdOrThrowAsync(command.JournalId);
-				
-				command.Adapt(journal);
+        var journal = await _journalRepository.GetByIdOrThrowAsync(command.JournalId);
+        
+        command.Adapt(journal);
 
-				// UpdateAsync does not work properly for children collections(e.g Sections), so we use ReplaceAsync.
-				await _journalRepository.ReplaceAsync(journal);
+        // UpdateAsync does not work properly for children collections(e.g Sections), so we use ReplaceAsync.
+        await _journalRepository.ReplaceAsync(journal);
 
-				await PublishAsync(new JournalUpdated(journal));
+        await PublishAsync(new JournalUpdated(journal));
 
-				await Send.OkAsync(new IdResponse(journal.Id));
+        await Send.OkAsync(new IdResponse(journal.Id));
     }
 }

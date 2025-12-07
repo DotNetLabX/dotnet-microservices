@@ -7,7 +7,7 @@ public abstract class ArticleCommandValidator<TFileActionCommand> : AbstractVali
     where TFileActionCommand : IArticleAction
 {
     public ArticleCommandValidator()
-		{
-				RuleFor(c => c.ArticleId).GreaterThan(0).WithMessageForInvalidId(nameof(ArticleCommand.ArticleId));
-    }		
+    {
+        RuleFor(c => c.ArticleId).GreaterThan(0).WithMessageForInvalidId(nameof(ArticleCommand.ArticleId));
+    }    
 }

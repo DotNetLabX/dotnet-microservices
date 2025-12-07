@@ -6,8 +6,8 @@ public class ArticleActionEntityConfiguration : EntityConfiguration<ArticleActio
     {
         base.Configure(builder);
 
-				builder.HasIndex(e => e.ArticleId);
-				//builder.HasIndex(e => e.EntityId);
+        builder.HasIndex(e => e.ArticleId);
+        //builder.HasIndex(e => e.EntityId);
 
         builder.Property(e => e.ActionType).HasEnumConversion();
     }

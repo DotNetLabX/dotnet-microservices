@@ -13,23 +13,23 @@ public class PersonEntityConfiguration : EntityConfiguration<Person>
     {
         base.Configure(entity);
 
-				entity.HasIndex(x => x.UserId).IsUnique();
+        entity.HasIndex(x => x.UserId).IsUnique();
 
         //insight about EF Core inheritance
-				entity.HasDiscriminator(e => e.TypeDiscriminator)
-						.HasValue<Person>(nameof(Person))
-						.HasValue<Author>(nameof(Author))
-						.HasValue<Typesetter>(nameof(Typesetter));
+        entity.HasDiscriminator(e => e.TypeDiscriminator)
+            .HasValue<Person>(nameof(Person))
+            .HasValue<Author>(nameof(Author))
+            .HasValue<Typesetter>(nameof(Typesetter));
 
-				entity.Property(e => e.UserId).IsRequired(false);
-				entity.Property(e => e.FirstName).HasMaxLength(MaxLength.C64).IsRequired();
+        entity.Property(e => e.UserId).IsRequired(false);
+        entity.Property(e => e.FirstName).HasMaxLength(MaxLength.C64).IsRequired();
         entity.Property(e => e.LastName).HasMaxLength(MaxLength.C64).IsRequired();
         entity.Property(e => e.Title).HasMaxLength(MaxLength.C64);
         entity.Property(e => e.Email).HasMaxLength(MaxLength.C256).IsRequired();
 
-				//entity.HasOne(p => p.User)
-				//		.WithOne(u => u.Person)
-				//		.HasForeignKey<Person>(p => p.UserId)
-				//		.OnDelete(DeleteBehavior.SetNull);
-		}
+        //entity.HasOne(p => p.User)
+        //    .WithOne(u => u.Person)
+        //    .HasForeignKey<Person>(p => p.UserId)
+        //    .OnDelete(DeleteBehavior.SetNull);
+    }
 }

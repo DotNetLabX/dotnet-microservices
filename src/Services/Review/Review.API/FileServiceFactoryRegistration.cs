@@ -7,17 +7,17 @@ namespace Review.API;
 
 public static class FileServiceFactoryRegistration
 {
-		public static IServiceCollection AddFileServiceFactory(this IServiceCollection services)
-		{
-				services.AddScoped<FileServiceFactory>(serviceProvider => fileStorageType =>
-				{
-						return fileStorageType switch
-						{
-								FileStorageType.Submission => serviceProvider.GetRequiredService<IFileService<SubmissionFileStorageOptions>>(),
-								FileStorageType.Review => serviceProvider.GetRequiredService<IFileService<MongoGridFsFileStorageOptions>>(),
-								_ => throw new ApplicationException()
-						};
-				});
-				return services;
-		}
+    public static IServiceCollection AddFileServiceFactory(this IServiceCollection services)
+    {
+        services.AddScoped<FileServiceFactory>(serviceProvider => fileStorageType =>
+        {
+            return fileStorageType switch
+            {
+                FileStorageType.Submission => serviceProvider.GetRequiredService<IFileService<SubmissionFileStorageOptions>>(),
+                FileStorageType.Review => serviceProvider.GetRequiredService<IFileService<MongoGridFsFileStorageOptions>>(),
+                _ => throw new ApplicationException()
+            };
+        });
+        return services;
+    }
 }

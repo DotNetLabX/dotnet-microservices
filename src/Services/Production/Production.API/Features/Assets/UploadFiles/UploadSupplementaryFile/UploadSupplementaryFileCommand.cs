@@ -7,13 +7,13 @@ namespace Production.API.Features.Assets.UploadFiles.UploadSupplementaryFile;
 
 public record UploadSupplementaryFileCommand : UploadFileCommand
 {
-		[Required]
-		public byte AssetNumber { get; set; }
+    [Required]
+    public byte AssetNumber { get; set; }
 
-		internal override byte GetAssetNumber() => AssetNumber;
+    internal override byte GetAssetNumber() => AssetNumber;
 }
 
 public abstract class UploadSupplementaryFileValidator : UploadFileValidator<UploadSupplementaryFileCommand>
 {
-		public override IReadOnlyCollection<AssetType> AllowedAssetTypes => AssetTypeCategories.SupplementaryAssets;
+    public override IReadOnlyCollection<AssetType> AllowedAssetTypes => AssetTypeCategories.SupplementaryAssets;
 }

@@ -16,47 +16,47 @@ namespace Production.API;
 
 public static class DependecyInjection
 {
-		public static void ConfigureApiOptions(this IServiceCollection services, IConfiguration configuration)
-		{
-				services
-				//.AddAndValidateOptions<FileStorage.Contracts.FileServerOptions>(configuration)
-				.AddAndValidateOptions<TransactionOptions>(configuration)
-				.Configure<JsonOptions>(opt =>
-				{
-						opt.SerializerOptions.PropertyNameCaseInsensitive = true;
-						opt.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
-				});
-		}
+    public static void ConfigureApiOptions(this IServiceCollection services, IConfiguration configuration)
+    {
+        services
+        //.AddAndValidateOptions<FileStorage.Contracts.FileServerOptions>(configuration)
+        .AddAndValidateOptions<TransactionOptions>(configuration)
+        .Configure<JsonOptions>(opt =>
+        {
+            opt.SerializerOptions.PropertyNameCaseInsensitive = true;
+            opt.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
+        });
+    }
 
-		public static IServiceCollection AddApiServices(this IServiceCollection services, IConfiguration configuration)
-		{
-				//insight - fluid vs normal
-				services.AddControllers();
+    public static IServiceCollection AddApiServices(this IServiceCollection services, IConfiguration configuration)
+    {
+        //insight - fluid vs normal
+        services.AddControllers();
 
-				services
-						.AddMemoryCache()
-						.AddFastEndpoints()
-						.AddMapster()
-						.SwaggerDocument()
-						.AddEndpointsApiExplorer()
-						//.AddAutoMapper(new Assembly[] { typeof(Production.API.Features.Shared.FileResponseMappingProfile).Assembly })
-						.AddDistributedMemoryCache() //.AddMemoryCache()
-						.AddSwaggerGen()
-						.AddJwtAuthentication(configuration)
-						.AddAuthorization();
+        services
+            .AddMemoryCache()
+            .AddFastEndpoints()
+            .AddMapster()
+            .SwaggerDocument()
+            .AddEndpointsApiExplorer()
+            //.AddAutoMapper(new Assembly[] { typeof(Production.API.Features.Shared.FileResponseMappingProfile).Assembly })
+            .AddDistributedMemoryCache() //.AddMemoryCache()
+            .AddSwaggerGen()
+            .AddJwtAuthentication(configuration)
+            .AddAuthorization();
 
-				services.AddScoped<IDomainEventPublisher, DomainEventPublisher>();
+        services.AddScoped<IDomainEventPublisher, DomainEventPublisher>();
 
-				//insight - SOLID principle interface segragation, injecting multiple interfaces using the same class
-				services.AddScoped<HttpContextProvider>();
-				services.AddScoped<IClaimsProvider, HttpContextProvider>();
-				services.AddScoped<IRouteProvider, HttpContextProvider>();
+        //insight - SOLID principle interface segragation, injecting multiple interfaces using the same class
+        services.AddScoped<HttpContextProvider>();
+        services.AddScoped<IClaimsProvider, HttpContextProvider>();
+        services.AddScoped<IRouteProvider, HttpContextProvider>();
 
-				services.AddScoped<IAuthorizationHandler, ArticleAccessAuthorizationHandler>();
+        services.AddScoped<IAuthorizationHandler, ArticleAccessAuthorizationHandler>();
 
-				// monolith modules registration 
-				services.AddAzureFileStorage(configuration);
+        // monolith modules registration 
+        services.AddAzureFileStorage(configuration);
 
-				return services;
-		}
+        return services;
+    }
 }

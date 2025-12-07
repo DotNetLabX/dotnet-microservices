@@ -20,19 +20,19 @@ public abstract record UploadFileCommand : AssetActionCommand<AssetActionRespons
     [Required]
     public IFormFile File { get; set; }
 
-		public override AssetActionType ActionType => AssetActionType.Upload;
+    public override AssetActionType ActionType => AssetActionType.Upload;
 
     internal virtual byte GetAssetNumber() => 0;
 }
 
 public abstract class UploadFileValidator<TUploadFileCommand> : ArticleCommandValidator<TUploadFileCommand>
-				where TUploadFileCommand : UploadFileCommand
+        where TUploadFileCommand : UploadFileCommand
 {
-		public UploadFileValidator()
-		{
-				RuleFor(r => r.AssetType).Must(a => AllowedAssetTypes.Contains(a)).WithMessage("AssetType not allowed");
-				//RuleFor(r => r.File.Length)
-		}
+    public UploadFileValidator()
+    {
+        RuleFor(r => r.AssetType).Must(a => AllowedAssetTypes.Contains(a)).WithMessage("AssetType not allowed");
+        //RuleFor(r => r.File.Length)
+    }
 
-		public abstract IReadOnlyCollection<AssetType> AllowedAssetTypes { get; }
+    public abstract IReadOnlyCollection<AssetType> AllowedAssetTypes { get; }
 }

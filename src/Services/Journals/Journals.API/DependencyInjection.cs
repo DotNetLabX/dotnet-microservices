@@ -16,45 +16,45 @@ namespace Journals.API;
 
 public static class DependencyInjection
 {
-		public static IServiceCollection ConfigureApiOptions(this IServiceCollection services, IConfiguration configuration)
-		{
-				services
-						.AddAndValidateOptions<JwtOptions>(configuration)
-						.Configure<JsonOptions>(opt =>
-						{
-								opt.SerializerOptions.PropertyNameCaseInsensitive = true;
-								opt.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
-								//opt.SerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
-						});
+    public static IServiceCollection ConfigureApiOptions(this IServiceCollection services, IConfiguration configuration)
+    {
+        services
+            .AddAndValidateOptions<JwtOptions>(configuration)
+            .Configure<JsonOptions>(opt =>
+            {
+                opt.SerializerOptions.PropertyNameCaseInsensitive = true;
+                opt.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
+                //opt.SerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+            });
 
-				return services;
-		}
+        return services;
+    }
 
-		public static IServiceCollection AddApiServices(this IServiceCollection services, IConfiguration config)
-		{
-				services
-					.AddFastEndpoints()
-					.AddEndpointsApiExplorer()
-					.AddSwaggerGen()
-					.AddJwtAuthentication(config)
-					.AddMapsterConfigsFromCurrentAssembly()
-					.AddAuthorization()
-					.AddMassTransitWithRabbitMQ(config, Assembly.GetExecutingAssembly())
-				;										
+    public static IServiceCollection AddApiServices(this IServiceCollection services, IConfiguration config)
+    {
+        services
+            .AddFastEndpoints()
+            .AddEndpointsApiExplorer()
+            .AddSwaggerGen()
+            .AddJwtAuthentication(config)
+            .AddMapsterConfigsFromCurrentAssembly()
+            .AddAuthorization()
+            .AddMassTransitWithRabbitMQ(config, Assembly.GetExecutingAssembly())
+        ;                    
 
-				services.AddScoped<IDomainEventPublisher, DomainEventPublisher>();
+        services.AddScoped<IDomainEventPublisher, DomainEventPublisher>();
 
-				// Grpc server
-				services.AddCodeFirstGrpc(options =>
-				{
-						options.ResponseCompressionLevel = CompressionLevel.Fastest;
-						options.EnableDetailedErrors = true;
-				});
+        // Grpc server
+        services.AddCodeFirstGrpc(options =>
+        {
+            options.ResponseCompressionLevel = CompressionLevel.Fastest;
+            options.EnableDetailedErrors = true;
+        });
 
-				// Grpc clients
-				var grpcOptions = config.GetSectionByTypeName<GrpcServicesOptions>();
-				services.AddCodeFirstGrpcClient<IPersonService>(grpcOptions, "Person");
+        // Grpc clients
+        var grpcOptions = config.GetSectionByTypeName<GrpcServicesOptions>();
+        services.AddCodeFirstGrpcClient<IPersonService>(grpcOptions, "Person");
 
-				return services;
-		}
+        return services;
+    }
 }

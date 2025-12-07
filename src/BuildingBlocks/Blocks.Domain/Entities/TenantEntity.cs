@@ -6,15 +6,15 @@
 /// </summary>
 public interface IMultitenancy
 {
-		public int TenantId { get; set; }
+    public int TenantId { get; set; }
 }
 
 public abstract class TenantEntity : Entity, IMultitenancy
 {
-		public int TenantId { get; set; }
+    public int TenantId { get; set; }
 }
 
 public abstract class AggregateTenantEntity : AggregateRoot<int>, IMultitenancy
 {
-		public int TenantId { get; set; }
+    public int TenantId { get; set; }
 }

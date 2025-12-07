@@ -5,9 +5,9 @@ namespace Submission.Application.Features.UploadFiles.UploadAuthorFile;
 
 public class UploadSupplementaryFileCommandHandler(
     ArticleRepository articleRepository,
-		AssetTypeRepository assetTypeRepository,
-		IFileService fileService,
-		ArticleStateMachineFactory stateMachineFactory)
+    AssetTypeRepository assetTypeRepository,
+    IFileService fileService,
+    ArticleStateMachineFactory stateMachineFactory)
     : UploadFileCommandHandler<UploadSupplementaryFileCommand>(articleRepository, assetTypeRepository, fileService, stateMachineFactory)
 {
 }

@@ -2,7 +2,7 @@
 
 public enum AssetCategory
 {
-		Core = 1,
-		Supplementary = 2,
-		Others = 3
+    Core = 1,
+    Supplementary = 2,
+    Others = 3
 }

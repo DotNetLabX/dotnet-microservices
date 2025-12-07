@@ -6,8 +6,8 @@ public record UploadManuscriptFileCommand : UploadFileCommand;
 
 public class UploadManuscriptCommandValidator : UploadFileValidator<UploadManuscriptFileCommand>
 {
-		public UploadManuscriptCommandValidator(AssetTypeRepository assetTypeRepository)
-				: base(assetTypeRepository) { }
+    public UploadManuscriptCommandValidator(AssetTypeRepository assetTypeRepository)
+        : base(assetTypeRepository) { }
 
-		public override IReadOnlyCollection<AssetType> AllowedAssetTypes => AssetTypeCategories.ManuscriptAsset;
+    public override IReadOnlyCollection<AssetType> AllowedAssetTypes => AssetTypeCategories.ManuscriptAsset;
 }

@@ -7,9 +7,9 @@ public record DownloadFileCommand(int ArticleId, int FileId);
 
 public class DownloadFileCommandValidator : BaseValidator<DownloadFileCommand>
 {
-		public DownloadFileCommandValidator()
-		{
-				RuleFor(r => r.ArticleId).GreaterThan(0);
-				RuleFor(r => r.FileId).GreaterThan(0);
-		}
+    public DownloadFileCommandValidator()
+    {
+        RuleFor(r => r.ArticleId).GreaterThan(0);
+        RuleFor(r => r.FileId).GreaterThan(0);
+    }
 }

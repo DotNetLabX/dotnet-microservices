@@ -11,5 +11,5 @@ public partial class File : IDomainObject, IValueObject
     public required long Size { get; init; }
     //insight - differencce between required property and IsRequired Ef.Core configuration
     public required FileName Name { get; init; }
-		public required FileExtension Extension { get; init; } = default!;
+    public required FileExtension Extension { get; init; } = default!;
 }

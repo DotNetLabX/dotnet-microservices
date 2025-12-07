@@ -9,7 +9,7 @@ public class DeclineInvitationCommandHandler(ArticleRepository _articleRepositor
     {
         var article = await _articleRepository.GetByIdOrThrowAsync(command.ArticleId);
 
-				var invitation = await _reviewInivtiationRepository.GetByTokenOrThrowAsync(command.Token);
+        var invitation = await _reviewInivtiationRepository.GetByTokenOrThrowAsync(command.Token);
 
         invitation.Decline();
 

@@ -5,8 +5,8 @@ namespace Blocks.EntityFrameworkCore;
 
 
 public abstract class TenantRepositoryBase<TContext, TEntity, TKey> : RepositoryBase<TContext, TEntity, TKey>
-		where TContext : DbContext
-		where TEntity : class, IEntity<TKey>
+    where TContext : DbContext
+    where TEntity : class, IEntity<TKey>
     where TKey : struct
 {
     IMultitenancy _multitenancy;
@@ -24,11 +24,8 @@ public abstract class TenantRepositoryBase<TContext, TEntity, TKey> : Repository
         return entity;
     }
 
-    //public TEntity? GetOrDefault(TKey id) => Query().SingleOrDefault(e => e.Id == id);
-
     public virtual async Task<TEntity> GetAsync(TKey id)
     {
         return await _dbContext.Set<TEntity>().FindAsync(_multitenancy.TenantId, id);
     }
-
 }

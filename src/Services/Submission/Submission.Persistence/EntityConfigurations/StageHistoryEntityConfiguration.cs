@@ -2,14 +2,14 @@
 
 public class StageHistoryEntityConfiguration : EntityConfiguration<StageHistory>
 {
-    public override void Configure(EntityTypeBuilder<StageHistory> entity)
+    public override void Configure(EntityTypeBuilder<StageHistory> builder)
     {
-        base.Configure(entity);
+        base.Configure(builder);
 
-        entity.HasIndex(e => e.ArticleId);
+        builder.HasIndex(e => e.ArticleId);
 
-        entity.Property(e => e.StartDate).IsRequired();
+        builder.Property(e => e.StartDate).IsRequired();
 
-        entity.HasOne<Stage>().WithMany().HasForeignKey(e => e.StageId).OnDelete(DeleteBehavior.Restrict);        
+        builder.HasOne<Stage>().WithMany().HasForeignKey(e => e.StageId).OnDelete(DeleteBehavior.Restrict);        
     }
 }

@@ -2,11 +2,11 @@
 
 public enum VariableResolverType
 {
-		DateTime,
-		RoleUser,
-		UploadedFile,
-		CurrentStage,
-		NewStage,
-		UserName,
-		Message
+    DateTime,
+    RoleUser,
+    UploadedFile,
+    CurrentStage,
+    NewStage,
+    UserName,
+    Message
 }

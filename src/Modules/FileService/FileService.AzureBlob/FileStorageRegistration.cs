@@ -9,23 +9,23 @@ namespace FileStorage.AzureBlob;
 
 public static class FileStorageRegistration
 {
-		public static IServiceCollection AddAzureFileStorage(this IServiceCollection services, IConfiguration config)
-		{
-				services.AddAndValidateOptions<AzureBlobFileStorageOptions>(config);
-				var options = config.GetSectionByTypeName<AzureBlobFileStorageOptions>();
+    public static IServiceCollection AddAzureFileStorage(this IServiceCollection services, IConfiguration config)
+    {
+        services.AddAndValidateOptions<AzureBlobFileStorageOptions>(config);
+        var options = config.GetSectionByTypeName<AzureBlobFileStorageOptions>();
 
-				services.AddSingleton(_ =>
-				{
-						var client = new BlobServiceClient(config.GetConnectionStringOrThrow(options.ConnectionStringName));
-						var container = client.GetBlobContainerClient(options.ContainerName);
+        services.AddSingleton(_ =>
+        {
+            var client = new BlobServiceClient(config.GetConnectionStringOrThrow(options.ConnectionStringName));
+            var container = client.GetBlobContainerClient(options.ContainerName);
 
-						container.CreateIfNotExists(PublicAccessType.None);
-						return container;
-				});
+            container.CreateIfNotExists(PublicAccessType.None);
+            return container;
+        });
 
-				services.AddSingleton<IFileService, FileService>();
-				services.AddScoped<FileService>();
+        services.AddSingleton<IFileService, FileService>();
+        services.AddScoped<FileService>();
 
-				return services;
-		}
+        return services;
+    }
 }

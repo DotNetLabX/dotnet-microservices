@@ -25,10 +25,10 @@ public class GetEditorsBySectionIdEndpoint(JournalDbContext _dbContext)
         foreach (var editorRole in section.EditorRoles)
         {
             var editor = await _dbContext.Editors.GetByIdOrThrowAsync(editorRole.EditorId);
-						var editorDto = editor.AdaptWith<EditorDto>(editor => editor.Role = editorRole.EditorRole);
-						editors.Add(editorDto);
-				}
+            var editorDto = editor.AdaptWith<EditorDto>(editor => editor.Role = editorRole.EditorRole);
+            editors.Add(editorDto);
+        }
 
-				await Send.OkAsync(new GetEditorsBySectionIdResponse(editors));
+        await Send.OkAsync(new GetEditorsBySectionIdResponse(editors));
     }
 }

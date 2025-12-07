@@ -8,12 +8,12 @@ public class AssetRepository(ProductionDbContext _dbContext)
     public override IQueryable<Asset> Query()
     {
         return base.Entity
-						.Include(x => x.Article)
-						.Include(e => e.CurrentFileLink)
+            .Include(x => x.Article)
+            .Include(e => e.CurrentFileLink)
                 .ThenInclude(e => e.File);
     }
 
-		public async Task<Asset> GetByIdAsync(int articleId, int assetId, bool throwNotFound = true)
-				=> await Query()
-						.SingleOrThrowAsync(e => e.ArticleId == articleId && e.Id == assetId);
+    public async Task<Asset> GetByIdAsync(int articleId, int assetId, bool throwNotFound = true)
+        => await Query()
+            .SingleOrThrowAsync(e => e.ArticleId == articleId && e.Id == assetId);
 }

@@ -3,6 +3,6 @@
 namespace ArticleHub.Domain.Dtos;
 
 public record ActorDto(
-		string Role, 
-		PersonDto Person
+    string Role, 
+    PersonDto Person
 );

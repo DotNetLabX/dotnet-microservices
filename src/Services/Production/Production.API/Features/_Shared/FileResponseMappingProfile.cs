@@ -8,10 +8,10 @@ public class FileResponseMappingProfile : Profile
 {
     public FileResponseMappingProfile()
     {
-				CreateMap<Asset, AssetMinimalDto>()
-						.IncludeMembers(src => src.CurrentFile);
+        CreateMap<Asset, AssetMinimalDto>()
+            .IncludeMembers(src => src.CurrentFile);
 
 
-				CreateMap<Domain.Assets.File, FileMinimalDto>();
+        CreateMap<Domain.Assets.File, FileMinimalDto>();
     }
 }

@@ -25,9 +25,9 @@ public record AssetActionResponse(AssetMinimalDto Asset) : IAssetActionResponse;
 
 public record AssetActionResponse2 : IAssetActionResponse
 {
-		public int Id { get; set; }
+    public int Id { get; set; }
 
-		[JsonConverter(typeof(JsonStringEnumConverter))]
-		public AssetState State { get; set; }
-		public FileMinimalDto? File { get; set; }
+    [JsonConverter(typeof(JsonStringEnumConverter))]
+    public AssetState State { get; set; }
+    public FileMinimalDto? File { get; set; }
 }

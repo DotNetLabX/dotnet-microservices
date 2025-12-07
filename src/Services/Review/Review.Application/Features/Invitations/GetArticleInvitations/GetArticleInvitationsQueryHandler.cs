@@ -9,10 +9,10 @@ public class GetArticleInvitationsQueryHandler(ArticleRepository _articleReposit
     {
         await _articleRepository.ExistsOrThrowAsync(command.ArticleId, ct);
 
-				var invitations = await _reviewInvitationRepository.GetByArticleIdAsync(command.ArticleId, ct);
+        var invitations = await _reviewInvitationRepository.GetByArticleIdAsync(command.ArticleId, ct);
 
         return new GetArticleInvitationsResonse(
             invitations.Select(i => i.Adapt<ReviewInvitationDto>())
         );
-		}
+    }
 }

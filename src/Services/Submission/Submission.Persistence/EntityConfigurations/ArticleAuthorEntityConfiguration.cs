@@ -4,6 +4,6 @@ public class ArticleAuthorEntityConfiguration : IEntityTypeConfiguration<Article
 {
     public void Configure(EntityTypeBuilder<ArticleAuthor> builder)
     {
-				builder.Property(e => e.ContributionAreas).HasJsonCollectionConversion().IsRequired();
-		}
+        builder.Property(e => e.ContributionAreas).HasJsonCollectionConversion().IsRequired();
+    }
 }

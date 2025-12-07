@@ -6,14 +6,14 @@ using Journals.Domain.Journals.Events;
 namespace Journals.API.Features.Journals.Update;
 
 public class PublishIntegrationEventOnJournalUpdatedHandler(Repository<Journal> _journalRepository, IPublishEndpoint _publishEndpoint)
-		: IEventHandler<JournalUpdated>
+    : IEventHandler<JournalUpdated>
 {
-		public async Task HandleAsync(JournalUpdated notification, CancellationToken ct)
-		{
-				var journal = await _journalRepository.GetByIdAsync(notification.Journal.Id);
+    public async Task HandleAsync(JournalUpdated notification, CancellationToken ct)
+    {
+        var journal = await _journalRepository.GetByIdAsync(notification.Journal.Id);
 
-				var journalDto = journal.Adapt<JournalDto>();
+        var journalDto = journal.Adapt<JournalDto>();
 
-				await _publishEndpoint.Publish(new JournalUpdatedEvent(journalDto), ct);
-		}
+        await _publishEndpoint.Publish(new JournalUpdatedEvent(journalDto), ct);
+    }
 }

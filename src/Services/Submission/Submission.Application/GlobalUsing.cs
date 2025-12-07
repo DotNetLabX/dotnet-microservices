@@ -1,4 +1,4 @@
-﻿// talk about global using :
+﻿// Insights - global using :
 // Benefits :
 // - reduces boirleplate using statements across the project.
 // - makes the files more readable 
@@ -33,6 +33,6 @@ global using Submission.Persistence;
 global using Submission.Persistence.Repositories;
 
 global using CachedAssetRepo = Blocks.EntityFrameworkCore.CachedRepository<
-				Submission.Persistence.SubmissionDbContext,
-				Submission.Domain.Entities.AssetTypeDefinition,
-				Articles.Abstractions.Enums.AssetType>;
+        Submission.Persistence.SubmissionDbContext,
+        Submission.Domain.Entities.AssetTypeDefinition,
+        Articles.Abstractions.Enums.AssetType>;

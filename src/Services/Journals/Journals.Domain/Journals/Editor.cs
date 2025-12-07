@@ -7,17 +7,17 @@ namespace Journals.Domain.Journals;
 //[Document(StorageType = StorageType.Hash)]
 public partial class Editor : Entity
 {
-		// Editor.Id = Editor.UserId. Editors are Users therefore they don't need their own IDs
+    // Editor.Id = Editor.UserId. Editors are Users therefore they don't need their own IDs
 
-		[Indexed]
+    [Indexed]
     public required string FullName { get; init; }
 
-		[Indexed]
-		public required string Email{ get; init; }
+    [Indexed]
+    public required string Email{ get; init; }
 
-		[Indexed]
-		public required string Affiliation { get; init; }
+    [Indexed]
+    public required string Affiliation { get; init; }
 
-		[Indexed]
-		public required int PersonId{ get; init; }
+    [Indexed]
+    public required int PersonId{ get; init; }
 }

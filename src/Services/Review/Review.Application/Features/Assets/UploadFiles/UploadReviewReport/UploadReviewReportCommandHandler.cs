@@ -11,7 +11,7 @@ public class UploadReviewReportCommandHandler(
     : UploadFileCommandHandler<UploadReviewReportCommand>(articleRepository, assetTypeRepository, fileService, stateMachineFactory)
 {
 
-		protected override ArticleStage NextStage
+    protected override ArticleStage NextStage
     {
         get
         {

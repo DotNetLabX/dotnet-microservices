@@ -18,8 +18,8 @@ public class HonorificTitle : StringValueObject
 
     public static HonorificTitle? FromEnum(Honorific? honorific)
     {
-				if(honorific.HasValue)
-				    return new HonorificTitle(honorific!.ToString());
+        if(honorific.HasValue)
+            return new HonorificTitle(honorific!.ToString());
 
         return null;
     }

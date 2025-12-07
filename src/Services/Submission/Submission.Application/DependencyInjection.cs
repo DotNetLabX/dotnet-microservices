@@ -16,28 +16,28 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddApplicationServices (this IServiceCollection services, IConfiguration configuration)
     {
-				services
-						.AddMapsterConfigsFromAssemblyContaining<GrpcMappings>()										// Register mapster configurations
-						.AddValidatorsFromAssemblyContaining<CreateArticleCommandValidator>()				// Register Fluent validators as transient
-						.AddMediatR(config =>
-						{
-								config.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
+        services
+            .AddMapsterConfigsFromAssemblyContaining<GrpcMappings>()                    // Register mapster configurations
+            .AddValidatorsFromAssemblyContaining<CreateArticleCommandValidator>()        // Register Fluent validators as transient
+            .AddMediatR(config =>
+            {
+                config.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
 
-								config.AddOpenBehavior(typeof(AssignUserIdBehavior<,>));
-								config.AddOpenBehavior(typeof(ValidationBehavior<,>));
-								config.AddOpenBehavior(typeof(LoggingBehavior<,>));
-						})
-						.AddMassTransitWithRabbitMQ(configuration, Assembly.GetExecutingAssembly());
+                config.AddOpenBehavior(typeof(AssignUserIdBehavior<,>));
+                config.AddOpenBehavior(typeof(ValidationBehavior<,>));
+                config.AddOpenBehavior(typeof(LoggingBehavior<,>));
+            })
+            .AddMassTransitWithRabbitMQ(configuration, Assembly.GetExecutingAssembly());
 
-				services.AddScoped<IDomainEventPublisher, DomainEventPublisher>();
-				services.AddScoped<IArticleAccessChecker, ArticleAccessChecker>();
+        services.AddScoped<IDomainEventPublisher, DomainEventPublisher>();
+        services.AddScoped<IArticleAccessChecker, ArticleAccessChecker>();
 
-				services.AddScoped<ArticleStateMachineFactory>(provider => articleStage =>
-				{
-						var cache = provider.GetRequiredService<IMemoryCache>();
-						return new ArticleStateMachine(articleStage, cache);
-				});
+        services.AddScoped<ArticleStateMachineFactory>(provider => articleStage =>
+        {
+            var cache = provider.GetRequiredService<IMemoryCache>();
+            return new ArticleStateMachine(articleStage, cache);
+        });
 
-				return services;
+        return services;
     }
 }

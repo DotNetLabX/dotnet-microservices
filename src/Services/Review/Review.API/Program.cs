@@ -9,12 +9,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 #region Add
 builder.Services
-		.ConfigureApiOptions(builder.Configuration);				// Configure Options
+    .ConfigureApiOptions(builder.Configuration);        // Configure Options
 
 builder.Services
-		.AddApiServices(builder.Configuration)							// Register API/Infra-specific services
-		.AddApplicationServices(builder.Configuration)			// Register Application-specific services (e.g., services for business logic)
-		.AddPersistenceServices(builder.Configuration);     // Register Persistence-specific services
+    .AddApiServices(builder.Configuration)                // Register API/Infra-specific services
+    .AddApplicationServices(builder.Configuration)        // Register Application-specific services (e.g., services for business logic)
+    .AddPersistenceServices(builder.Configuration);     // Register Persistence-specific services
 #endregion
 
 var app = builder.Build();
@@ -23,18 +23,18 @@ var app = builder.Build();
 app.Migrate<ReviewDbContext>();
 if (app.Environment.IsDevelopment())
 {
-		app.Services.SeedTestData();
+    app.Services.SeedTestData();
 }
 #endregion
 
 #region Use
 app
-		.UseSwagger()
-		.UseSwaggerUI()
-		.UseRouting()
-		.UseAuthentication()
-		.UseAuthorization()
-		.UseMiddleware<GlobalExceptionMiddleware>();
+    .UseSwagger()
+    .UseSwaggerUI()
+    .UseRouting()
+    .UseAuthentication()
+    .UseAuthorization()
+    .UseMiddleware<GlobalExceptionMiddleware>();
 
 var api = app.MapGroup("/api");
 api.MapCarter();

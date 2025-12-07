@@ -5,6 +5,6 @@ namespace Journals.Domain.Journals.Enums;
 [JsonConverter(typeof(JsonStringEnumConverter))]
 public enum EditorRole
 {
-		ChiefEditor,
-		ReviewEditor,
+    ChiefEditor,
+    ReviewEditor,
 }

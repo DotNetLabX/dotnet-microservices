@@ -3,12 +3,12 @@
 namespace Articles.IntegrationEvents.Contracts.Articles.Dtos;
 
 public record ActorDto(
-		UserRoleType Role,
-		HashSet<ContributionArea> ContributionAreas,
-		PersonDto Person
-		);
+    UserRoleType Role,
+    HashSet<ContributionArea> ContributionAreas,
+    PersonDto Person
+    );
 
 public record AuthorDto(
-		HashSet<ContributionArea> ContributionAreas,
-		PersonDto Person
-		);
+    HashSet<ContributionArea> ContributionAreas,
+    PersonDto Person
+    );

@@ -6,10 +6,10 @@ namespace Review.Domain.Articles;
 
 public partial class ArticleAction : Entity, IArticleAction
 {
-		public int ArticleId { get; init; }
-		//public int EntityId { get; init; }
+    public int ArticleId { get; init; }
+    //public int EntityId { get; init; }
     public string? Comment { get; init; } = default;
     public ArticleActionType ActionType { get; init; }
-		public int CreatedById { get; set; }
-		public DateTime CreatedOn { get; init; }
+    public int CreatedById { get; set; }
+    public DateTime CreatedOn { get; init; }
 }

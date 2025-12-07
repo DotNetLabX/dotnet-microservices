@@ -14,8 +14,8 @@ namespace Production.API.Features.Assets.UploadFiles.UploadDraftFile;
 [AllowFileUploads]
 [Tags("Files")]
 public class UploadDraftFileEndpoint(ArticleRepository articleRepository, AssetTypeRepository assetTypeRepository, IFileService fileService, AssetStateMachineFactory factory)
-		: UploadFileEndpoint<UploadDraftFileCommand>(articleRepository, assetTypeRepository, fileService, factory)
+    : UploadFileEndpoint<UploadDraftFileCommand>(articleRepository, assetTypeRepository, fileService, factory)
 {
 
-		protected override ArticleStage NextStage => ArticleStage.DraftProduction;
+    protected override ArticleStage NextStage => ArticleStage.DraftProduction;
 }

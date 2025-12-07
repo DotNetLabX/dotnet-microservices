@@ -10,11 +10,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 #region Add
 builder.Services
-		.ConfigureOptions(builder.Configuration);        // Configure Options
+    .ConfigureOptions(builder.Configuration);        // Configure Options
 
 builder.Services
-		.AddApiAndApplicationServices(builder.Configuration)    // Register API/Infra/Application-specific services
-		.AddPersistenceServices(builder.Configuration);					// Register Persistence-specific services
+    .AddApiAndApplicationServices(builder.Configuration)    // Register API/Infra/Application-specific services
+    .AddPersistenceServices(builder.Configuration);            // Register Persistence-specific services
 #endregion
 
 
@@ -22,14 +22,14 @@ var app = builder.Build();
 
 #region Use
 app
-		.UseSwagger()
-		.UseSwaggerUI()
-		.UseRouting()
-		.UseAuthentication()
-		.UseAuthorization()
-		.UseMiddleware<GlobalExceptionMiddleware>()
-		.UseMiddleware<RequestContextMiddleware>()
-		.UseMiddleware<RequestDiagnosticsMiddleware>();
+    .UseSwagger()
+    .UseSwaggerUI()
+    .UseRouting()
+    .UseAuthentication()
+    .UseAuthorization()
+    .UseMiddleware<GlobalExceptionMiddleware>()
+    .UseMiddleware<RequestContextMiddleware>()
+    .UseMiddleware<RequestDiagnosticsMiddleware>();
 
 var api = app.MapGroup("/api");
 api.MapCarter();
@@ -40,7 +40,7 @@ app.Migrate<ArticleHubDbContext>();
 
 if (app.Environment.IsDevelopment())
 {
-		//app.SeedTestData();
+    //app.SeedTestData();
 }
 #endregion
 

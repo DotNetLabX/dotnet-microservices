@@ -2,7 +2,7 @@
 
 public record SubmitArticleCommand : ArticleCommand
 {
-		public override ArticleActionType ActionType => ArticleActionType.SubmitDraft;
+    public override ArticleActionType ActionType => ArticleActionType.SubmitDraft;
 }
 
 

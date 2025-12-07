@@ -16,9 +16,9 @@ public partial class File : AggregateRoot
 
     public required FileName Name { get; init; }
 
-		public FileExtension Extension { get; init; } = default!;
+    public FileExtension Extension { get; init; } = default!;
 
-		public int AssetId { get; private set; }
+    public int AssetId { get; private set; }
 
     public virtual Asset? Asset { get; private set; }
 }

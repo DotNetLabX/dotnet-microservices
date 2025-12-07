@@ -5,11 +5,11 @@ namespace Auth.Domain.Users;
 
 public interface IUserCreationInfo : IPersonCreationInfo
 {
-		string? PhoneNumber { get; }
-		IReadOnlyList<IUserRole> UserRoles { get; }
+    string? PhoneNumber { get; }
+    IReadOnlyList<IUserRole> UserRoles { get; }
 
-		int? EmployeeId { get; }
-		bool IsSuperUser { get; }
+    int? EmployeeId { get; }
+    bool IsSuperUser { get; }
 }
 
 public interface IUserRole

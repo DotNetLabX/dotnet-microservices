@@ -18,10 +18,10 @@ public class UserRepository(AuthDbContext dbContext)
             .Include(u => u.RefreshTokens)
             .SingleOrDefaultAsync(u => u.RefreshTokens.Any(rt => 
                 rt.Token == refreshToken &&
-								u.RefreshTokens.Any(rt =>
-								    rt.Token == refreshToken &&
-								    rt.RevokedOn == null &&
-								    rt.ExpiresOn > DateTime.UtcNow)), 
+                u.RefreshTokens.Any(rt =>
+                    rt.Token == refreshToken &&
+                    rt.RevokedOn == null &&
+                    rt.ExpiresOn > DateTime.UtcNow)), 
             ct);
 
 

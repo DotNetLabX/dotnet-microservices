@@ -8,10 +8,10 @@ namespace Production.API.Features.Articles.GetArticle;
 [HttpGet("articles/{articleId:int}/assets")]
 public class GetArticleAssetsEndpointEndpoint(ArticleRepository _articleRepository) : Endpoint<GetArticleAssetsQuery>
 {
-		public override async Task HandleAsync(GetArticleAssetsQuery command, CancellationToken ct)
-		{
-				var article = await _articleRepository.GetArticleAssetsById(command.ArticleId);
+    public override async Task HandleAsync(GetArticleAssetsQuery command, CancellationToken ct)
+    {
+        var article = await _articleRepository.GetArticleAssetsById(command.ArticleId);
 
-				await Send.OkAsync(new GetArticleAssetsResponse(article.Assets.Adapt<IReadOnlyList<AssetDto>>()));
-		}
+        await Send.OkAsync(new GetArticleAssetsResponse(article.Assets.Adapt<IReadOnlyList<AssetDto>>()));
+    }
 }

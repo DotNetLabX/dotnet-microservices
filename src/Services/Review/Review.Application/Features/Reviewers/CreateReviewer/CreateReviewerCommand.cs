@@ -42,5 +42,5 @@ public class CreateReviewerCommandValidator : AbstractValidator<CreateReviewerCo
 
         RuleFor(x => x.Specializations).NotEmptyWithMessage("A reviewer must have at least one specialization");
 
-		}
+    }
 }

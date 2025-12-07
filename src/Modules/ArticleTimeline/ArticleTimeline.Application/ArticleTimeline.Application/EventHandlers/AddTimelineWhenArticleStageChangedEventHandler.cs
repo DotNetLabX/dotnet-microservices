@@ -10,8 +10,8 @@ using Production.Domain.Shared.Enums;
 namespace ArticleTimeline.Application.EventHandlers;
 
 public class AddTimelineWhenArticleStageChangedEventHandler(TransactionProvider transactionProvider, TimelineRepository timelineRepository, ArticleTimelineDbContext dbContext, VariableResolverFactory variableResolverFactory)
-		: AddTimelineEventHandler<ArticleStageChanged<ArticleActionType>, IArticleAction<ArticleActionType>>(transactionProvider, timelineRepository, dbContext,variableResolverFactory)
+    : AddTimelineEventHandler<ArticleStageChanged<ArticleActionType>, IArticleAction<ArticleActionType>>(transactionProvider, timelineRepository, dbContext,variableResolverFactory)
 {
-		protected override SourceType GetSourceType() => SourceType.StageTransition;
-		protected override string GetSourceId(ArticleStageChanged<ArticleActionType> eventModel) => $"{eventModel.CurrentStage}->{eventModel.NewStage}";
+    protected override SourceType GetSourceType() => SourceType.StageTransition;
+    protected override string GetSourceId(ArticleStageChanged<ArticleActionType> eventModel) => $"{eventModel.CurrentStage}->{eventModel.NewStage}";
 }

@@ -11,11 +11,11 @@ var builder = WebApplication.CreateBuilder(args);
 #region Add
 
 builder.Services
-		.ConfigureApiOptions(builder.Configuration);				// Configure Options
+    .ConfigureApiOptions(builder.Configuration);        // Configure Options
 
 builder.Services
-		.AddApiServices(builder.Configuration)              // Register API-specific services
-		.AddPersistenceServices(builder.Configuration);     // Register Persistence-specific services
+    .AddApiServices(builder.Configuration)              // Register API-specific services
+    .AddPersistenceServices(builder.Configuration);     // Register Persistence-specific services
 #endregion
 
 var app = builder.Build();
@@ -23,21 +23,21 @@ var app = builder.Build();
 
 #region Use
 app
-		.UseSwagger()
-		.UseSwaggerUI()
+    .UseSwagger()
+    .UseSwaggerUI()
 
-		.UseRedis()
-		
-		.UseHttpsRedirection()
-		
-		.UseMiddleware<GlobalExceptionMiddleware>()
-		
-		.UseRouting()
-		.UseAuthentication()
-		.UseAuthorization()
+    .UseRedis()
+    
+    .UseHttpsRedirection()
+    
+    .UseMiddleware<GlobalExceptionMiddleware>()
+    
+    .UseRouting()
+    .UseAuthentication()
+    .UseAuthorization()
 
-		.UseCustomFastEndpoints()
-		.UseSwaggerGen();
+    .UseCustomFastEndpoints()
+    .UseSwaggerGen();
 #endregion
 
 app.MapGrpcService<JournalGrpcService>();
@@ -45,7 +45,7 @@ app.MapGrpcService<JournalGrpcService>();
 #region InitData
 if (app.Environment.IsDevelopment())
 {
-		await app.SeedTestData();
+    await app.SeedTestData();
 }
 #endregion
 

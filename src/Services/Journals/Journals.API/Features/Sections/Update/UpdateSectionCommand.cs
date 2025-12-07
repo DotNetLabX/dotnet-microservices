@@ -9,9 +9,9 @@ public class UpdateSectionCommandValidator : Validator<UpdateSectionCommand>
 {
     public UpdateSectionCommandValidator()
     {
-				RuleFor(r => r.JournalId).GreaterThan(0);
-				RuleFor(r => r.SectionId).GreaterThan(0);
-				RuleFor(r => r.Name).NotEmpty();
-				RuleFor(r => r.Description).NotEmpty();
-		}
+        RuleFor(r => r.JournalId).GreaterThan(0);
+        RuleFor(r => r.SectionId).GreaterThan(0);
+        RuleFor(r => r.Name).NotEmpty();
+        RuleFor(r => r.Description).NotEmpty();
+    }
 }

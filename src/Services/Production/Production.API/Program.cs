@@ -15,18 +15,18 @@ var builder = WebApplication.CreateBuilder(args);
 #region Add
 
 builder.Services
-		.ConfigureApiOptions(builder.Configuration);        // Configure Options
+    .ConfigureApiOptions(builder.Configuration);        // Configure Options
 
 // Microservice layers
 builder.Services
-		.AddApiServices(builder.Configuration)
-		.AddApplicationServices(builder.Configuration)
-		.AddPersistenceServices(builder.Configuration);
+    .AddApiServices(builder.Configuration)
+    .AddApplicationServices(builder.Configuration)
+    .AddPersistenceServices(builder.Configuration);
 
 // Shared modules
 builder.Services
-		.AddArticleTimeline(builder.Configuration)
-		.AddAzureFileStorage(builder.Configuration);
+    .AddArticleTimeline(builder.Configuration)
+    .AddAzureFileStorage(builder.Configuration);
 
 #endregion
 
@@ -55,19 +55,19 @@ app.UseAuthorization();
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
-		endpoints.MapDefaultControllerRoute();
+    endpoints.MapDefaultControllerRoute();
 
 });
 app
     .UseFastEndpoints(config =>
     {
-		    config.Serializer.Options.Converters.Add(new JsonStringEnumConverter());
-		    config.Endpoints.Configurator = ep =>
-		    {
-				    ep.PreProcessor<AssignUserIdPreProcessor>(FastEndpoints.Order.Before);
-		    };
+        config.Serializer.Options.Converters.Add(new JsonStringEnumConverter());
+        config.Endpoints.Configurator = ep =>
+        {
+            ep.PreProcessor<AssignUserIdPreProcessor>(FastEndpoints.Order.Before);
+        };
     })
-		.UseSwaggerGen();
+    .UseSwaggerGen();
 
 
 var api = app.MapGroup("/api").AddEndpointFilter<AssignUserIdFilter>();

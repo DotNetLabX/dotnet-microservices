@@ -14,10 +14,10 @@ service PersonService {
 
 enum Honorific
 {
-		Mr = 0;
-		Mrs = 1;
-		Dr = 2;
-		Prof = 3;
+	Mr = 0;
+	Mrs = 1;
+	Dr = 2;
+	Prof = 3;
 }
 
 enum Gender
@@ -71,9 +71,9 @@ message CreatePersonRequest {
     Gender gender = 4;
     optional Honorific Honorific = 5;
     optional string picture_url = 6;
-		optional string CompanyName = 7;
-		optional string Position = 8;
-		optional string Affiliation = 9;
+	optional string CompanyName = 7;
+	optional string Position = 8;
+	optional string Affiliation = 9;
 }
 
 message CreatePersonResponse {

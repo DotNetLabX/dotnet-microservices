@@ -16,77 +16,77 @@ namespace Blocks.Hasura;
 
 public static class HasuraRegistration
 {
-		public static IServiceCollection AddHasuraGraphQL(this IServiceCollection services, IConfiguration configuration)
-		{
-				var hasuraOptions = configuration.GetSectionByTypeName<HasuraOptions>();
+    public static IServiceCollection AddHasuraGraphQL(this IServiceCollection services, IConfiguration configuration)
+    {
+        var hasuraOptions = configuration.GetSectionByTypeName<HasuraOptions>();
 
-				services.AddSingleton(_ =>
-				{
-						var jsonSerializerOptions = new JsonSerializerOptions
-						{
-								PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-								DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
-						};
+        services.AddSingleton(_ =>
+        {
+            var jsonSerializerOptions = new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+            };
 
-						var graphQLClientOptions = new GraphQLHttpClientOptions
-						{
-								EndPoint = new Uri(new Uri(hasuraOptions.BaseUrl), "v1/graphql")
-						};
+            var graphQLClientOptions = new GraphQLHttpClientOptions
+            {
+                EndPoint = new Uri(new Uri(hasuraOptions.BaseUrl), "v1/graphql")
+            };
 
-						var graphQLHttpClient = new GraphQLHttpClient(graphQLClientOptions, new SystemTextJsonSerializer(jsonSerializerOptions));
+            var graphQLHttpClient = new GraphQLHttpClient(graphQLClientOptions, new SystemTextJsonSerializer(jsonSerializerOptions));
 
-						//graphQLHttpClient.HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", hasuraOptions.AdminSecret);
-						graphQLHttpClient.HttpClient.DefaultRequestHeaders.Add("x-hasura-admin-secret", hasuraOptions.AdminSecret);
+            //graphQLHttpClient.HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", hasuraOptions.AdminSecret);
+            graphQLHttpClient.HttpClient.DefaultRequestHeaders.Add("x-hasura-admin-secret", hasuraOptions.AdminSecret);
 
-						// add other headers if needed, like tenant id, etc.
+            // add other headers if needed, like tenant id, etc.
 
-						return graphQLHttpClient;
-				});
+            return graphQLHttpClient;
+        });
 
-				return services;
-		}
+        return services;
+    }
 
-		public static IServiceCollection AddHasuraMetadata(this IServiceCollection services, IConfiguration configuration)
-		{
-				var hasuraOptions = configuration.GetSectionByTypeName<HasuraOptions>();
+    public static IServiceCollection AddHasuraMetadata(this IServiceCollection services, IConfiguration configuration)
+    {
+        var hasuraOptions = configuration.GetSectionByTypeName<HasuraOptions>();
 
-				//var refitSettings = new RefitSettings(new SystemTextJsonContentSerializer(
-				//		new JsonSerializerOptions
-				//		{
-				//				PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower,
-				//				DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
-				//		}));
+        //var refitSettings = new RefitSettings(new SystemTextJsonContentSerializer(
+        //    new JsonSerializerOptions
+        //    {
+        //        PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower,
+        //        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
+        //    }));
 
-				var refitSettings = new RefitSettings(new NewtonsoftJsonContentSerializer(
-						new JsonSerializerSettings
-						{
-								ContractResolver = new DefaultContractResolver
-								{
-										NamingStrategy = new SnakeCaseNamingStrategy()
-								},
-								NullValueHandling = NullValueHandling.Ignore
-						}));
+        var refitSettings = new RefitSettings(new NewtonsoftJsonContentSerializer(
+            new JsonSerializerSettings
+            {
+                ContractResolver = new DefaultContractResolver
+                {
+                    NamingStrategy = new SnakeCaseNamingStrategy()
+                },
+                NullValueHandling = NullValueHandling.Ignore
+            }));
 
-				services.AddRefitClient<IHasuraMetadataApi>(refitSettings)
-						.ConfigureHttpClient((sp, client) =>
-						{
-								var options = sp.GetRequiredService<IOptions<HasuraOptions>>().Value;
-								client.BaseAddress = new Uri(options.BaseUrl.TrimEnd('/') + "/");
-								client.DefaultRequestHeaders.Add("x-hasura-admin-secret", options.AdminSecret);
-						});
+        services.AddRefitClient<IHasuraMetadataApi>(refitSettings)
+            .ConfigureHttpClient((sp, client) =>
+            {
+                var options = sp.GetRequiredService<IOptions<HasuraOptions>>().Value;
+                client.BaseAddress = new Uri(options.BaseUrl.TrimEnd('/') + "/");
+                client.DefaultRequestHeaders.Add("x-hasura-admin-secret", options.AdminSecret);
+            });
 
-				services.AddRefitClient<IHasuraSqlApi>(refitSettings)
-						.ConfigureHttpClient((sp, client) =>
-						{
-								var options = sp.GetRequiredService<IOptions<HasuraOptions>>().Value;
-								client.BaseAddress = new Uri(options.BaseUrl.TrimEnd('/') + "/");
-								client.DefaultRequestHeaders.Add("x-hasura-admin-secret", options.AdminSecret);
-						});
+        services.AddRefitClient<IHasuraSqlApi>(refitSettings)
+            .ConfigureHttpClient((sp, client) =>
+            {
+                var options = sp.GetRequiredService<IOptions<HasuraOptions>>().Value;
+                client.BaseAddress = new Uri(options.BaseUrl.TrimEnd('/') + "/");
+                client.DefaultRequestHeaders.Add("x-hasura-admin-secret", options.AdminSecret);
+            });
 
-				services.AddSingleton<HasuraMetadataService>();
+        services.AddSingleton<HasuraMetadataService>();
 
 
-				return services;
-		}
+        return services;
+    }
 
 }

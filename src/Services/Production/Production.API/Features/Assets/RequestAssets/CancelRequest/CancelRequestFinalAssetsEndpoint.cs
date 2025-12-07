@@ -18,25 +18,25 @@ public class CancelRequestFinalAssetsEndpoint(ArticleRepository articleRepositor
     {
         _article = await _articleRepository.GetByIdWithAssetsAsync(command.ArticleId);
 
-				var assets = new List<Asset>();
-				foreach (var assetRequest in command.AssetRequests)
+        var assets = new List<Asset>();
+        foreach (var assetRequest in command.AssetRequests)
         {
-						var asset = _article.Assets
-            				.SingleOrDefault(asset => asset.Type == assetRequest.AssetType && asset.Number == assetRequest.AssetNumber);
+            var asset = _article.Assets
+                    .SingleOrDefault(asset => asset.Type == assetRequest.AssetType && asset.Number == assetRequest.AssetNumber);
 
             if (asset?.State == AssetState.Requested)
                 continue;
             
             asset!.SetState(AssetState.Uploaded, command);
-						assets.Add(asset);
-				}
-				
+            assets.Add(asset);
+        }
+        
         _article.SetStage(NextStage, command);
-				await _assetRepository.SaveChangesAsync();
+        await _assetRepository.SaveChangesAsync();
 
         await Send.OkAsync(new RequestAssetsResponse
         {
-						Assets = assets.Select(a => a.Adapt<AssetMinimalDto>())
-				});
+            Assets = assets.Select(a => a.Adapt<AssetMinimalDto>())
+        });
     }
 }

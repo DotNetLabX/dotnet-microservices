@@ -5,9 +5,9 @@ public class AssignEditorCommandHandler(ArticleRepository _articleRepository, Re
 {
     public async Task<IdResponse> Handle(AssignEditorCommand command, CancellationToken ct)
     {
-				var editor = await _dbContext.Editors.FindByIdOrThrowAsync(command.EditorId);
+        var editor = await _dbContext.Editors.FindByIdOrThrowAsync(command.EditorId);
 
-				var article = await _articleRepository.GetByIdOrThrowAsync(command.ArticleId);
+        var article = await _articleRepository.GetByIdOrThrowAsync(command.ArticleId);
 
         article.AssignEditor(editor, command);
 

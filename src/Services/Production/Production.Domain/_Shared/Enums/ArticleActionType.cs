@@ -2,8 +2,8 @@
 
 public enum ArticleActionType
 {
-		AssignTypesetter,
-		PublishArticle,
-		SchedulePublication,
-		//Accept = 101
+    AssignTypesetter,
+    PublishArticle,
+    SchedulePublication,
+    //Accept = 101
 }

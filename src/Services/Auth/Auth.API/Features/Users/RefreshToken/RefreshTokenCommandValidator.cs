@@ -2,9 +2,9 @@
 
 public class RefreshTokenCommandValidator : Validator<RefreshTokenCommand>
 {
-		public RefreshTokenCommandValidator()
-		{
-				RuleFor(x => x.RefreshToken)
-						.NotEmpty().WithMessage("Refresh token is required.");
-		}
+    public RefreshTokenCommandValidator()
+    {
+        RuleFor(x => x.RefreshToken)
+            .NotEmpty().WithMessage("Refresh token is required.");
+    }
 }

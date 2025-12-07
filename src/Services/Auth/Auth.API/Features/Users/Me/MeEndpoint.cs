@@ -9,18 +9,18 @@ namespace Auth.API.Features.Users.Me;
 [HttpGet("/users/me")]
 [Tags("Users")]
 public class MeEndpoint(UserRepository _userRepository, UserManager<User> _userManager, IClaimsProvider _claims)
-		: EndpointWithoutRequest<MeResponse>
+    : EndpointWithoutRequest<MeResponse>
 {
-		public override async Task HandleAsync(CancellationToken ct)
-		{
-				var user = await _userRepository.GetByIdOrThrowAsync(_claims.GetUserId());
+    public override async Task HandleAsync(CancellationToken ct)
+    {
+        var user = await _userRepository.GetByIdOrThrowAsync(_claims.GetUserId());
 
-				var roles = await _userManager.GetRolesAsync(user!);
+        var roles = await _userManager.GetRolesAsync(user!);
 
-				await Send.OkAsync(new MeResponse(
-						user.Id,
-						user.Email!,
-						user.Person.FullName,
-						roles.ToList()));
-		}
+        await Send.OkAsync(new MeResponse(
+            user.Id,
+            user.Email!,
+            user.Person.FullName,
+            roles.ToList()));
+    }
 }

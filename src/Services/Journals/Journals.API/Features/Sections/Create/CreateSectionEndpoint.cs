@@ -18,12 +18,12 @@ public class CreateSectionEndpoint(Repository<Journal> _repository)
         if(journal.Sections.Any(s => s.Name.EqualsIgnoreCase(command.Name)))
             throw new BadRequestException("Section with the same name already exists");
 
-				var section = command.Adapt<Section>();
-				section.Id = await _repository.GenerateNewId<Section>();
-				journal.Sections.Add(section);
+        var section = command.Adapt<Section>();
+        section.Id = await _repository.GenerateNewId<Section>();
+        journal.Sections.Add(section);
 
-				await _repository.ReplaceAsync(journal);
+        await _repository.ReplaceAsync(journal);
 
-				await Send.OkAsync(new IdResponse(section.Id));
+        await Send.OkAsync(new IdResponse(section.Id));
     }
 }

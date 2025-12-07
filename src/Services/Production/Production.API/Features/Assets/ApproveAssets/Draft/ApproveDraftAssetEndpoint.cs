@@ -20,16 +20,16 @@ public class ApproveDraftAssetEndpoint(AssetRepository _assetRepository, AssetTy
         var asset = await _assetRepository.GetByIdAsync(command.ArticleId, command.AssetId);
         _article = asset.Article;
 
-				//stateMachineFactory.ValidateStageTransition(_article.Stage, NextStage, asset.Type, command.ActionType);
+        //stateMachineFactory.ValidateStageTransition(_article.Stage, NextStage, asset.Type, command.ActionType);
 
-				CheckAndThrowStateTransition(asset, command.ActionType);
-				asset.SetState(AssetState.Approved, command);
+        CheckAndThrowStateTransition(asset, command.ActionType);
+        asset.SetState(AssetState.Approved, command);
 
-				_article.SetStage(NextStage, command);
+        _article.SetStage(NextStage, command);
 
         await _assetRepository.SaveChangesAsync();
         await Send.OkAsync(new AssetActionResponse(asset.Adapt<AssetMinimalDto>()));
     }
 
-		protected override ArticleStage NextStage => ArticleStage.FinalProduction;
+    protected override ArticleStage NextStage => ArticleStage.FinalProduction;
 }

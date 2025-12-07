@@ -14,7 +14,7 @@ public class InviteReviewerCommandHandler(
     ArticleRepository _articleRepository, 
     ReviewerRepository _reviewRepository,
     ReviewInvitationRepository _reviewInvitationRepository,
-		IPersonService _personClient, 
+    IPersonService _personClient, 
     IEmailService _emailService,
     IOptions<EmailOptions> emailOptions, 
     IOptions<AppUrlsOptions> appUrlsOptions)
@@ -23,12 +23,12 @@ public class InviteReviewerCommandHandler(
     public async Task<InviteReviewerResponse> Handle(InviteReviewerCommand command, CancellationToken ct)
     {
         var article = await _articleRepository.GetByIdOrThrowAsync(command.ArticleId);
-				var editor = await _dbContext.Editors.SingleAsync(r => r.UserId == command.CreatedById);
+        var editor = await _dbContext.Editors.SingleAsync(r => r.UserId == command.CreatedById);
 
         if (await _reviewInvitationRepository.OpenInvitationExistsAsync(command.ArticleId, command.UserId, command.Email, ct))
-						throw new DomainException("An open invitation already exists for this reviewer.");
+            throw new DomainException("An open invitation already exists for this reviewer.");
 
-				ReviewInvitation invitation = default!;
+        ReviewInvitation invitation = default!;
         if (command.UserId != null)
         {
             var reviewer = await _reviewRepository.GetByUserIdAsync(command.UserId.Value);
@@ -48,7 +48,7 @@ public class InviteReviewerCommandHandler(
         }
 
 
-				await _dbContext.SaveChangesAsync();
+        await _dbContext.SaveChangesAsync();
 
         await _emailService.SendEmailAsync(BuildEmailMessage(invitation, editor));
 
@@ -58,14 +58,14 @@ public class InviteReviewerCommandHandler(
     private EmailMessage BuildEmailMessage(ReviewInvitation invitation, Editor editor)
     {
         const string InvitationEmail =
-								@"Dear Contributor,<br/> 
-						You've been invited by {0} to review the following article: {1}.<br/>
-						Please accept or deny, the invitation will expire on {2}.<br/>
-						If you don't have an account please create one using the following URL: {3}";
+                @"Dear Contributor,<br/> 
+            You've been invited by {0} to review the following article: {1}.<br/>
+            Please accept or deny, the invitation will expire on {2}.<br/>
+            If you don't have an account please create one using the following URL: {3}";
 
         var url =
-								appUrlsOptions.Value.ReviewUIBaseUrl
-								.AppendPathSegment($"articles/{invitation.ArticleId}/invitations/{invitation.Token}");
+                appUrlsOptions.Value.ReviewUIBaseUrl
+                .AppendPathSegment($"articles/{invitation.ArticleId}/invitations/{invitation.Token}");
 
         return new EmailMessage(
                 "Review Invitation",
@@ -75,9 +75,9 @@ public class InviteReviewerCommandHandler(
                 );
     }
 
-		private async Task<PersonInfo> GetPersonByUserId(int userId, CancellationToken ct)
-		{
-				var response = await _personClient.GetPersonByUserIdAsync(new GetPersonByUserIdRequest { UserId = userId }, ct);
+    private async Task<PersonInfo> GetPersonByUserId(int userId, CancellationToken ct)
+    {
+        var response = await _personClient.GetPersonByUserIdAsync(new GetPersonByUserIdRequest { UserId = userId }, ct);
         return response.PersonInfo;
-		}
+    }
 }

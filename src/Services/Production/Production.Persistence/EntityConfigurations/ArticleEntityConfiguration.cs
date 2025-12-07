@@ -22,13 +22,13 @@ public class ArticleEntityConfiguration : AuditedEntityConfiguration<Article>
         entity.Property(e => e.AcceptedOn).IsRequired();
 
 
-				entity.HasOne<Stage>().WithMany()
-					 .HasForeignKey(e => e.Stage)
-					 .HasPrincipalKey(e => e.Name)
-					 .IsRequired()
-					 .OnDelete(DeleteBehavior.Restrict);
+        entity.HasOne<Stage>().WithMany()
+             .HasForeignKey(e => e.Stage)
+             .HasPrincipalKey(e => e.Name)
+             .IsRequired()
+             .OnDelete(DeleteBehavior.Restrict);
 
-				entity.HasOne(e => e.SubmitedBy).WithMany()
+        entity.HasOne(e => e.SubmitedBy).WithMany()
             .HasForeignKey(e => e.SubmitedById)
             //.HasPrincipalKey( e=> e.UserId)
             .IsRequired()

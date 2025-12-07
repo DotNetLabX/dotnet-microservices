@@ -13,7 +13,7 @@ public class GetJournalQueryValidator : Validator<GetSectionQuery>
 {
     public GetJournalQueryValidator()
     {
-				RuleFor(r => r.JournalId).GreaterThan(0);
-				RuleFor(r => r.SectionId).GreaterThan(0);
-		}
+        RuleFor(r => r.JournalId).GreaterThan(0);
+        RuleFor(r => r.SectionId).GreaterThan(0);
+    }
 }

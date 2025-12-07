@@ -5,10 +5,10 @@ namespace Auth.Application;
 
 public static class DependenciesConfiguration
 {
-		public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration config)
-		{
-				services.AddSingleton<TokenFactory>();
+    public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration config)
+    {
+        services.AddSingleton<TokenFactory>();
 
-				return services;
-		}
+        return services;
+    }
 }

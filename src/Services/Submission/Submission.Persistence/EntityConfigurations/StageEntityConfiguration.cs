@@ -2,10 +2,10 @@
 
 public class StageEntityConfiguration : EnumEntityConfiguration<Stage, ArticleStage>
 {
-    public override void Configure(EntityTypeBuilder<Stage> entity)
+    public override void Configure(EntityTypeBuilder<Stage> builder)
     {
-        base.Configure(entity);
+        base.Configure(builder);
 
-        entity.Property(e => e.Info).HasMaxLength(MaxLength.C512).IsRequired();
+        builder.Property(e => e.Info).HasMaxLength(MaxLength.C512).IsRequired();
     }
 }

@@ -16,50 +16,50 @@ namespace ArticleHub.API;
 
 public static class DependecyInjection
 {
-		public static void ConfigureOptions(this IServiceCollection services, IConfiguration configuration)
-		{
-				services
-						.AddAndValidateOptions<RabbitMqOptions>(configuration)
-						.AddAndValidateOptions<HasuraOptions>(configuration)
-						.Configure<JsonOptions>(opt =>
-						{
-								opt.SerializerOptions.PropertyNameCaseInsensitive = true;
-								opt.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
-						});
-		}
+    public static void ConfigureOptions(this IServiceCollection services, IConfiguration configuration)
+    {
+        services
+            .AddAndValidateOptions<RabbitMqOptions>(configuration)
+            .AddAndValidateOptions<HasuraOptions>(configuration)
+            .Configure<JsonOptions>(opt =>
+            {
+                opt.SerializerOptions.PropertyNameCaseInsensitive = true;
+                opt.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
+            });
+    }
 
-		public static IServiceCollection AddApiAndApplicationServices(this IServiceCollection services, IConfiguration configuration)
-		{
-				// API + Infra
-				services
-						.AddCarter()
-						.AddHttpContextAccessor()                // For accessing HTTP context
-						.AddEndpointsApiExplorer()               // Minimal API docs (Swagger)
-						.AddSwaggerGen()                         // Swagger setup
-						.AddJwtAuthentication(configuration)     // JWT Authentication
-						.AddAuthorization();                     // Authorization configuration
+    public static IServiceCollection AddApiAndApplicationServices(this IServiceCollection services, IConfiguration configuration)
+    {
+        // API + Infra
+        services
+            .AddCarter()
+            .AddHttpContextAccessor()                // For accessing HTTP context
+            .AddEndpointsApiExplorer()               // Minimal API docs (Swagger)
+            .AddSwaggerGen()                         // Swagger setup
+            .AddJwtAuthentication(configuration)     // JWT Authentication
+            .AddAuthorization();                     // Authorization configuration
 
-				// Application
-				services
-						.AddMemoryCache()
-						.AddMapsterConfigsFromCurrentAssembly()
-						.AddMassTransitWithRabbitMQ(configuration, Assembly.GetExecutingAssembly());
+        // Application
+        services
+            .AddMemoryCache()
+            .AddMapsterConfigsFromCurrentAssembly()
+            .AddMassTransitWithRabbitMQ(configuration, Assembly.GetExecutingAssembly());
 
 
 
-				//// http
-				services
-						.AddScoped<IClaimsProvider, HttpContextProvider>()
-						.AddScoped<IRouteProvider, HttpContextProvider>()
-						.AddScoped<HttpContextProvider>();
+        //// http
+        services
+            .AddScoped<IClaimsProvider, HttpContextProvider>()
+            .AddScoped<IRouteProvider, HttpContextProvider>()
+            .AddScoped<HttpContextProvider>();
 
-				services.AddScoped<RequestContext>();
+        services.AddScoped<RequestContext>();
 
-				//// authorization
-				//services
-				//		.AddScoped<IAuthorizationHandler, ArticleRoleAuthorizationHandler>()
-				//		.AddScoped<IArticleRoleChecker, ContributorRepository>();
+        //// authorization
+        //services
+        //    .AddScoped<IAuthorizationHandler, ArticleRoleAuthorizationHandler>()
+        //    .AddScoped<IArticleRoleChecker, ContributorRepository>();
 
-				return services;
-		}
+        return services;
+    }
 }

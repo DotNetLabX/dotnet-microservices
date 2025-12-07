@@ -10,8 +10,8 @@ public static class Seed
     {
         using var scope = host.Services.CreateScope();
         using var context = scope.ServiceProvider.GetRequiredService<AuthDbContext>();
-				using var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
-				context.SeedTestData(userManager);
+        using var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
+        context.SeedTestData(userManager);
     }
 
     public static void SeedTestData(this AuthDbContext context, UserManager<User> userManager)
@@ -19,32 +19,32 @@ public static class Seed
         const string DefaultPassword = "Pass.123!";
         using var transaction = context.Database.BeginTransaction();
 
-				var persons = context.LoadFromJson<Person>();
+        var persons = context.LoadFromJson<Person>();
 
         context.UseManualGenerateId<User>(true);
-				foreach (var person in persons) 
+        foreach (var person in persons) 
         {
             var user = person.User;
             person.User = null;
-						context.Persons.Add(person);
+            context.Persons.Add(person);
             context.SaveChanges();
 
-						if (user != null) {
+            if (user != null) {
                 user.UserName = person.Email;
                 user.Email = person.Email;
-								user.PersonId = person.Id;
+                user.PersonId = person.Id;
                 user.Id = person.Id;
 
-								var result = userManager.CreateAsync(user, DefaultPassword).GetAwaiter().GetResult();
-								if (!result.Succeeded)
-								{
-										throw new Exception($"User creation failed for {person.Email}");
-								}
+                var result = userManager.CreateAsync(user, DefaultPassword).GetAwaiter().GetResult();
+                if (!result.Succeeded)
+                {
+                    throw new Exception($"User creation failed for {person.Email}");
+                }
                 person.UserId = user.Id;
-						}
-				}
+            }
+        }
 
-				context.SaveChanges();
-				transaction.Commit();
+        context.SaveChanges();
+        transaction.Commit();
     }
 }

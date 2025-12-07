@@ -2,18 +2,18 @@
 
 public interface IAuditableAction
 {
-		int CreatedById { get; set; }
-		public bool IsAuthenticated => CreatedById != default;
-		DateTime CreatedOn { get; }
-		public string Action { get; }
-		string? Comment { get; }
+    int CreatedById { get; set; }
+    public bool IsAuthenticated => CreatedById != default;
+    DateTime CreatedOn { get; }
+    public string Action { get; }
+    string? Comment { get; }
 }
 
 public interface IAuditableAction<TActionType> : IAuditableAction
-		where TActionType : Enum
+    where TActionType : Enum
 {
-		TActionType ActionType { get; }
+    TActionType ActionType { get; }
 
-		//insight - default implementation in interfaces
-		string IAuditableAction.Action => ActionType.ToString();
+    //insight - default implementation in interfaces
+    string IAuditableAction.Action => ActionType.ToString();
 }

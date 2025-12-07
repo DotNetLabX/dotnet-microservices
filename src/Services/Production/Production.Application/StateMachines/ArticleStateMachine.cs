@@ -8,20 +8,20 @@ public delegate ArticleStateMachine ArticleStateMachineFactory(ArticleStage arti
 
 public class ArticleStateMachine
 {
-		private StateMachine<ArticleStage, ArticleActionType> _stateMachine;
+    private StateMachine<ArticleStage, ArticleActionType> _stateMachine;
 
-		public ArticleStateMachine(ArticleStage articleStage, ProductionDbContext _dbContext)
+    public ArticleStateMachine(ArticleStage articleStage, ProductionDbContext _dbContext)
     {
-				 _stateMachine = new(articleStage);
-				var transitions = _dbContext.GetAllCached<ArticleStageTransition>();
+         _stateMachine = new(articleStage);
+        var transitions = _dbContext.GetAllCached<ArticleStageTransition>();
 
-				foreach (var transition in transitions)
-				{
-						_stateMachine.Configure(transition.CurrentStage)
-								.Permit(transition.ActionType, transition.DestinationStage);
-				}
-		}
+        foreach (var transition in transitions)
+        {
+            _stateMachine.Configure(transition.CurrentStage)
+                .Permit(transition.ActionType, transition.DestinationStage);
+        }
+    }
 
-		public bool CanFire(ArticleActionType actionType) 
-				=> _stateMachine.CanFire(actionType);
+    public bool CanFire(ArticleActionType actionType) 
+        => _stateMachine.CanFire(actionType);
 }
