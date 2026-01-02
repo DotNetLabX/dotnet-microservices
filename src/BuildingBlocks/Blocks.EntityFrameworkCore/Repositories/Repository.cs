@@ -22,7 +22,9 @@ public abstract class RepositoryBase<TContext, TEntity, TKey>
         _entity = db.Set<TEntity>();
     }
 
-    protected DbSet<TEntity> Entity => _entity;
+	public TContext Context => _dbContext;
+
+	protected DbSet<TEntity> Entity => _entity;
     public virtual IQueryable<TEntity> Query() => _entity;
     public virtual IQueryable<TEntity> QueryNotTracked() => _entity.AsNoTracking();
 
