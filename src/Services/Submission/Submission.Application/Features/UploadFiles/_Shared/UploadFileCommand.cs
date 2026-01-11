@@ -24,7 +24,7 @@ public abstract record UploadFileCommand : ArticleCommand
 }
 
 public abstract class UploadFileValidator<TUploadFileCommand> : ArticleCommandValidator<TUploadFileCommand>
-        where TUploadFileCommand : UploadFileCommand
+    where TUploadFileCommand : UploadFileCommand
 {
     private readonly AssetTypeRepository _assetTypeRepository;
     private AssetTypeDefinition _assetTypeDefinition = null!;

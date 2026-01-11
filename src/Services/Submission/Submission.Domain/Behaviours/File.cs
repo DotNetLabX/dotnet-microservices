@@ -1,6 +1,6 @@
 ﻿using FileStorage.Contracts;
 
-namespace Submission.Domain.Entities;
+namespace Submission.Domain.ValueObjects;
 
 public partial class File
 {

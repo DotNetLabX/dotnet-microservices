@@ -43,8 +43,8 @@ public static class FileStorageRegistration
             });
         });
 
-        services.AddScoped<IFileService, TService>();
-        services.AddScoped<TService>(); 
+        services.AddSingleton<IFileService, TService>();
+        services.AddSingleton<TService>(); 
 
         return services;
     }

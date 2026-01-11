@@ -1,4 +1,4 @@
-﻿namespace Submission.Domain.Entities;
+﻿namespace Submission.Domain.ValueObjects;
 
 // NOTE: This is a Value Object but kept in Entities namespace to avoid System.IO.File name ambiguity
 

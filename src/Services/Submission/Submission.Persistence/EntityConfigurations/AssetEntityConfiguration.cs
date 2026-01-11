@@ -30,9 +30,10 @@ internal class AssetEntityConfiguration : AuditedEntityConfiguration<Asset>
             new FileEntityConfiguration().Configure(fileBuilder);
         });
 
-        builder.HasOne(e => e.Article).WithMany(p => p.Assets)
-            .HasForeignKey(e => e.ArticleId)
-            .OnDelete(DeleteBehavior.Cascade);
+        //todo - remove the relation because it is defined already in the ArticleEntityConfiguration
+        //builder.HasOne(e => e.Article).WithMany(p => p.Assets)
+        //    .HasForeignKey(e => e.ArticleId)
+        //    .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasOne(e => e.TypeRef).WithMany()
             .HasForeignKey(e => e.Type)
