@@ -26,5 +26,5 @@ public sealed class ProfessionalProfile : ValueObject
     }
 
     public override string ToString() =>
-            $"{Position}{(string.IsNullOrEmpty(Position) || string.IsNullOrEmpty(CompanyName) ? "" : " @ ")}{CompanyName}".Trim();
+        $"{Position}{(string.IsNullOrEmpty(Position) || string.IsNullOrEmpty(CompanyName) ? "" : " @ ")}{CompanyName}".Trim();
 }

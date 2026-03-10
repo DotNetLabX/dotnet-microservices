@@ -19,11 +19,11 @@ public partial class SubmissionDbContext(DbContextOptions<SubmissionDbContext> o
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        base.OnModelCreating(modelBuilder);
+
         modelBuilder.ApplyConfigurationsFromAssembly(this.GetType().Assembly);
 
         modelBuilder.UseEntityTypeNamesAsTables();
-
-        base.OnModelCreating(modelBuilder);
     }
 
     public async override Task<int> SaveChangesAsync(CancellationToken ct = default)

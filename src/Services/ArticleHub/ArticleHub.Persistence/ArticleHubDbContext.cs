@@ -15,6 +15,7 @@ public partial class ArticleHubDbContext(DbContextOptions<ArticleHubDbContext> o
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
+        // insight
         // this is the right place to configure the naming convention, but it doesn't work with UseEntityTypeNamesAsTables.
         // so it is better to have both policies in OnModelCreating.
         //optionsBuilder
@@ -23,11 +24,11 @@ public partial class ArticleHubDbContext(DbContextOptions<ArticleHubDbContext> o
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        base.OnModelCreating(modelBuilder);
+
         modelBuilder.UseEntityTypeNamesAsTables(new SnakeCaseNameRewriter(CultureInfo.InvariantCulture));
 
         modelBuilder.ApplyConfigurationsFromAssembly(this.GetType().Assembly);
-
-        base.OnModelCreating(modelBuilder);
     }
 
     public async override Task<int> SaveChangesAsync(CancellationToken ct = default)

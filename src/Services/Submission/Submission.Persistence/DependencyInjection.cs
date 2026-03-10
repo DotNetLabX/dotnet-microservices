@@ -35,7 +35,7 @@ public static class DependencyInjection
         services.AddScoped<AssetTypeRepository>(); // cached repository
 
 
-        //services.AddScoped(typeof(Repository<>));
+        // not neede anymore, because of the AddDerivedTypesOf
         //services.AddScoped<ArticleRepository>();
         //services.AddScoped<AssetRepository>();
         //services.AddScoped<AssetTypeRepository>();

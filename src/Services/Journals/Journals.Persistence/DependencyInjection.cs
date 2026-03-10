@@ -1,8 +1,6 @@
 ﻿using Blocks.Redis;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Redis.OM;
-using StackExchange.Redis;
 
 namespace Journals.Persistence;
 

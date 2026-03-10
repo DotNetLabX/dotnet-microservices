@@ -77,7 +77,9 @@ public static class GrpcClientRegistrationExtensions
                 {
                     HttpHandler = new HttpClientHandler
                     {
+#if DEBUG
                         ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+#endif
                     }
                 });
             return channel.CreateGrpcService<TClient>();

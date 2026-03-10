@@ -79,7 +79,7 @@ public static class DependenciesConfiguration
             //options.User.RequireUniqueEmail = false; //to-do - change back to true after test training users not needed anymore
             //options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+/ ";
         })
-          .AddRoles<Auth.Domain.Roles.Role>()
+        .AddRoles<Auth.Domain.Roles.Role>()
         .AddEntityFrameworkStores<AuthDbContext>()
         .AddSignInManager<SignInManager<User>>()
         .AddDefaultTokenProviders();

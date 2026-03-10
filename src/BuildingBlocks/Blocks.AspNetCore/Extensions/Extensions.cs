@@ -15,4 +15,16 @@ public static class Extensions
 
         return uriBuilder.Uri.AbsoluteUri;
     }
+
+    public static string GetClientIpAddress(this HttpContext context)
+    {
+        var forwardedFor = context.Request.Headers["X-Forwarded-For"].FirstOrDefault();
+        if (!string.IsNullOrWhiteSpace(forwardedFor))
+        {
+            // In case of multiple addresses, take the first one
+            return forwardedFor.Split(',')[0].Trim();
+        }
+
+        return context.Connection.RemoteIpAddress?.ToString() ?? "Unknown";
+    }
 }

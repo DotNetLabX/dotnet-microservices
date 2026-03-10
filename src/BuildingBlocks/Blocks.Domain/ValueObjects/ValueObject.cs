@@ -25,10 +25,12 @@ public abstract class ValueObject : IEquatable<ValueObject>, IValueObject
 
     public bool Equals(ValueObject? other)
     {
-        return 
-            other is not null && GetType() == other.GetType()
-            && GetEqualityComponents().SequenceEqual(other.GetEqualityComponents());
+        if (other is null || other.GetType() != GetType())
+            return false;
+
+        return GetEqualityComponents().SequenceEqual(other.GetEqualityComponents());
     }
+
 
     public static bool operator ==(ValueObject? a, ValueObject? b) => Equals(a, b);
     public static bool operator !=(ValueObject? a, ValueObject? b) => !Equals(a, b);

@@ -1,9 +1,10 @@
-﻿using System.Security.Claims;
+﻿using Auth.Application;
+using Auth.Persistence.Repositories;
+using Blocks.AspNetCore;
+using Blocks.Exceptions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Blocks.Exceptions;
-using Auth.Application;
-using Auth.Persistence.Repositories;
+using System.Security.Claims;
 
 namespace Auth.API.Features.Users.Login;
 
@@ -28,10 +29,9 @@ public class LoginEndpoint(UserManager<User> _userManager, SignInManager<User> _
         var userRoles = await _userManager.GetRolesAsync(user);
 
         var jwtToken = _tokenFactory.GenerateJWTToken(user.Id.ToString(), user.Person.FullName, command.Email, userRoles, Array.Empty<Claim>());
-        var refreshToken = _tokenFactory.GenerateRefreshToken();
-
+        var refreshToken = _tokenFactory.GenerateRefreshToken(HttpContext.GetClientIpAddress());
         user.AssignRefreshToken(refreshToken);
-        await _userManager.UpdateAsync(user);
+
         var userResult = await _userManager.UpdateAsync(user);
         if (!userResult.Succeeded)
             throw new BadRequestException("Could not persist refresh token.");

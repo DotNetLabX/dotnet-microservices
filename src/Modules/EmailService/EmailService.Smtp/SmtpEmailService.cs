@@ -19,29 +19,21 @@ public class SmtpEmailService : IEmailService
         var message = emailMessage.ToMailKitMessage();
 
         using var smtpClient = new SmtpClient();
-    
         try
         {
-            smtpClient.ServerCertificateValidationCallback =
-            (sender, certificate, certChainType, errors) => true;
+            //todo - remove this line
+            //smtpClient.ServerCertificateValidationCallback =
+            //(sender, certificate, certChainType, errors) => true;
 
-            await smtpClient.ConnectAsync(_emailOptions.Smtp.Host, _emailOptions.Smtp.Port, _emailOptions.Smtp.UseSSL);
-            await smtpClient.AuthenticateAsync(_emailOptions.Smtp.Username, _emailOptions.Smtp.Password);
-            await smtpClient.SendAsync(message);
+            await smtpClient.ConnectAsync(_emailOptions.Smtp.Host, _emailOptions.Smtp.Port, _emailOptions.Smtp.UseSSL, ct);
+            await smtpClient.AuthenticateAsync(_emailOptions.Smtp.Username, _emailOptions.Smtp.Password, ct);
+            await smtpClient.SendAsync(message, ct);
         }
         catch (Exception ex)
         {
-            //notification.AddError("EmailServiceFailure", $"The email service failed with message: {ex.Message}.");
+            //log the exception 
+            return false;
         }
-        finally
-        {
-            await smtpClient.DisconnectAsync(true);
-        }
-
-        //if (notification.HasErrors)
-        //{
-        //    throw new InternalException(notification);
-        //}    
 
         return true;
     }

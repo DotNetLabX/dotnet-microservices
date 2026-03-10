@@ -6,7 +6,6 @@ internal class RoleEntityConfiguration : EntityConfiguration<Role>
     {
         base.Configure(builder);
 
-        builder.Property(e => e.Id).ValueGeneratedOnAdd();
         builder.Property(e => e.Type).HasEnumConversion().HasMaxLength(MaxLength.C64).IsRequired();
         builder.Property(e => e.Description).HasMaxLength(MaxLength.C256).IsRequired(); ;
     }

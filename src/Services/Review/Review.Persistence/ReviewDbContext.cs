@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Caching.Memory;
+﻿using Microsoft.Extensions.Caching.Memory;
 using System.Diagnostics;
 
 namespace Review.Persistence;
@@ -24,11 +23,11 @@ public partial class ReviewDbContext(DbContextOptions<ReviewDbContext> options, 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfigurationsFromAssembly(this.GetType().Assembly);
-
-        modelBuilder.UseEntityTypeNamesAsTables();
-
         base.OnModelCreating(modelBuilder);
+        
+        modelBuilder.ApplyConfigurationsFromAssembly(this.GetType().Assembly);
+        
+        modelBuilder.UseEntityTypeNamesAsTables();
     }
 
     public async override Task<int> SaveChangesAsync(CancellationToken ct = default)

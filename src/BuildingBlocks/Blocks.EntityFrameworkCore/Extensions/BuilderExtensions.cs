@@ -78,6 +78,7 @@ public static class BuilderExtensions
 
     public static PropertyBuilder<TProperty> HasColumnNameSameAsProperty<TProperty>(this PropertyBuilder<TProperty> builder)
         => builder.HasColumnName(builder.Metadata.PropertyInfo?.Name);
+    
     public static ComplexTypePropertyBuilder<TProperty> HasColumnNameSameAsProperty<TProperty>(this ComplexTypePropertyBuilder<TProperty> builder)
         => builder.HasColumnName(builder.Metadata.PropertyInfo?.Name);
 }

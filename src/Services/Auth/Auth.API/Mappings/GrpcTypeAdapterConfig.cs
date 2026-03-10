@@ -6,7 +6,7 @@ public class GrpcTypeAdapterConfig : TypeAdapterConfig
 {
     public GrpcTypeAdapterConfig()
     {
-        // this is for standard GRPC, we can safely remove it
+        // todo: this is for standard GRPC, we can safely remove it
         this.ForType<string?, string>()
             .MapWith(src => src ?? string.Empty);
 
