@@ -1,0 +1,13 @@
+public class {Name} : StringValueObject
+{
+    internal {Name}(string value)
+    {
+        Value = value;
+    }
+
+    public static {Name} Create(string value)
+    {
+        Guard.ThrowIfNullOrWhiteSpace(value);
+        return new {Name}(value);
+    }
+}

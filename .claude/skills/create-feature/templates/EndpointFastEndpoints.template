@@ -1,0 +1,12 @@
+[Authorize(Roles = Role.{RequiredRole})]
+[Http{Method}("{route}")]
+[Tags("{Domain}")]
+public class {FeatureName}Endpoint({Dependencies})
+    : Endpoint<{RequestType}, {ResponseType}>
+{
+    public override async Task HandleAsync({RequestType} command, CancellationToken ct)
+    {
+        // Load, execute domain logic, save
+        await SendOkAsync(new {ResponseType}(...), ct);
+    }
+}

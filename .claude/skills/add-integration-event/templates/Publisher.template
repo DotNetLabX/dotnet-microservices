@@ -1,0 +1,13 @@
+public class Publish{IntegrationEvent}On{DomainEvent}Handler(
+    IPublishEndpoint _publishEndpoint,
+    {Repository} _repository)
+    : INotificationHandler<{DomainEvent}>
+{
+    public async Task Handle({DomainEvent} notification, CancellationToken ct)
+    {
+        var entity = await _repository.GetFullByIdAsync(notification.{Aggregate}.Id);
+        await _publishEndpoint.Publish(
+            new {IntegrationEvent}Event(entity.Adapt<{DtoType}>()),
+            ct);
+    }
+}

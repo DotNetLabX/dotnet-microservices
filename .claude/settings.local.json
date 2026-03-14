@@ -1,8 +1,52 @@
 {
+  "env": {},
   "permissions": {
     "allow": [
       "Bash(dir:*)",
-      "Bash(findstr:*)"
+      "Bash(findstr:*)",
+      "Bash(for dir:*)",
+      "Bash(find /d/src/dotnet-microservices/src -type f -name \"*.cs\" | xargs grep -l \"grpc\" -i | head -20)",
+      "Bash(find /d/src/dotnet-microservices/src/Services -type f -name \"DependencyInjection.cs\" -o -name \"Program.cs\" | xargs grep -l \"AddCodeFirstGrpcClient\\\\|AddConfiguredGrpcClient\" | head -10)",
+      "Bash(mkdir -p D:/src/dotnet-microservices/.claude/docs && mkdir -p D:/src/dotnet-microservices/.claude/agents)",
+      "WebSearch",
+      "Bash(mv D:/src/dotnet-microservices/.claude/agents/Architect.md D:/src/dotnet-microservices/agents/Architect.md && mv D:/src/dotnet-microservices/.claude/agents/Developer.md D:/src/dotnet-microservices/agents/Developer.md && rmdir D:/src/dotnet-microservices/.claude/agents)",
+      "Bash(mkdir -p D:/src/dotnet-microservices/agents && mv D:/src/dotnet-microservices/.claude/agents/Architect.md D:/src/dotnet-microservices/agents/Architect.md && mv D:/src/dotnet-microservices/.claude/agents/Developer.md D:/src/dotnet-microservices/agents/Developer.md && rmdir D:/src/dotnet-microservices/.claude/agents)",
+      "Bash(mkdir -p D:/src/dotnet-microservices/.claude/skills/plan-feature && mkdir -p D:/src/dotnet-microservices/.claude/skills/create-feature/workflows && mkdir -p D:/src/dotnet-microservices/.claude/skills/create-feature/templates && mkdir -p D:/src/dotnet-microservices/.claude/skills/create-aggregate/workflows && mkdir -p D:/src/dotnet-microservices/.claude/skills/create-aggregate/templates && mkdir -p D:/src/dotnet-microservices/.claude/skills/create-grpc-contract/workflows && mkdir -p D:/src/dotnet-microservices/.claude/skills/create-grpc-contract/templates && mkdir -p D:/src/dotnet-microservices/.claude/skills/add-integration-event/workflows && mkdir -p D:/src/dotnet-microservices/.claude/skills/add-integration-event/templates && mkdir -p D:/src/dotnet-microservices/.claude/skills/article-lifecycle && mkdir -p D:/src/dotnet-microservices/.claude/skills/service-boundaries && mkdir -p D:/src/dotnet-microservices/.claude/skills/domain-patterns && mkdir -p D:/src/dotnet-microservices/.claude/skills/cqrs-patterns)",
+      "Bash(cd:*)",
+      "Bash(dotnet tool:*)",
+      "Bash(dotnet build:*)",
+      "Bash(dotnet ef:*)",
+      "Bash(cat:*)",
+      "Bash(grep:*)",
+      "Bash(find:*)",
+      "Bash(echo:*)",
+      "Bash(python3:*)",
+      "Bash(chmod:*)",
+      "Bash(bash .claude/hooks/agent-loader.sh)",
+      "Bash(rm:*)"
+    ]
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|clear|compact|resume",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo \"be $CC_AGENT\""
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo \"be $CC_AGENT\""
+          }
+        ]
+      }
     ]
   }
 }

@@ -1,0 +1,18 @@
+// State file: {ServiceName}.Domain/{AggregateName}/{AggregateName}.cs
+public partial class {AggregateName} : AggregateRoot
+{
+    public required string {Property} { get; init; }
+
+    private readonly List<{ChildEntity}> _{items} = new();
+    public IReadOnlyList<{ChildEntity}> {Items} => _{items}.AsReadOnly();
+}
+
+// Behavior file: {ServiceName}.Domain/{AggregateName}/Behaviors/{AggregateName}.cs
+public partial class {AggregateName}
+{
+    public void {DomainMethod}({Parameters})
+    {
+        // Validate, mutate state, raise event
+        AddDomainEvent(new {EventName}(this, action));
+    }
+}

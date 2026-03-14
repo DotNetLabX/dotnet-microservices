@@ -1,0 +1,18 @@
+// Command
+public record {FeatureName}Command : ArticleCommand
+{
+    public override ArticleActionType ActionType => ArticleActionType.{ActionType};
+}
+
+// Handler
+public class {FeatureName}CommandHandler({Repository} _repository)
+    : IRequestHandler<{FeatureName}Command, IdResponse>
+{
+    public async Task<IdResponse> Handle({FeatureName}Command command, CancellationToken ct)
+    {
+        var entity = await _repository.FindByIdOrThrowAsync(command.ArticleId);
+        entity.{DomainMethod}(command);
+        await _repository.SaveChangesAsync();
+        return new IdResponse(entity.Id);
+    }
+}

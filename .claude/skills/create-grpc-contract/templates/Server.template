@@ -1,0 +1,9 @@
+public class {ServiceName}GrpcService({Repository} _repository)
+    : I{ServiceName}Service
+{
+    public async ValueTask<{Response}> {MethodName}Async({Request} request, CallContext context = default)
+    {
+        var entity = Guard.NotFound(await _repository.GetByIdAsync(request.{Id}));
+        return new {Response} { {Info} = entity.Adapt<{InfoType}>() };
+    }
+}

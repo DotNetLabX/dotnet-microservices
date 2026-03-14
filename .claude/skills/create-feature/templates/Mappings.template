@@ -1,0 +1,7 @@
+public class {FeatureName}Mappings : IRegister
+{
+    public void Register(TypeAdapterConfig config)
+    {
+        config.NewConfig<{Source}, {Destination}>();
+    }
+}

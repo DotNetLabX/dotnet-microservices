@@ -1,0 +1,22 @@
+// Event record
+public record {EventName}({AggregateName} {Aggregate}, IArticleAction Action) : DomainEvent(Action);
+
+// Handler (MediatR)
+public class {Action}On{EventName}Handler({Dependencies})
+    : INotificationHandler<{EventName}>
+{
+    public async Task Handle({EventName} notification, CancellationToken ct)
+    {
+        // Handle event
+    }
+}
+
+// Handler (FastEndpoints)
+public class {Action}On{EventName}Handler({Dependencies})
+    : IEventHandler<{EventName}>
+{
+    public async Task HandleAsync({EventName} notification, CancellationToken ct)
+    {
+        // Handle event
+    }
+}

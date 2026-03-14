@@ -1,0 +1,15 @@
+public static class {FeatureName}Endpoint
+{
+    public static void Map(this IEndpointRouteBuilder app)
+    {
+        app.Map{Method}("/{route}", async ({RequestType} command, ISender sender) =>
+        {
+            var response = await sender.Send(command);
+            return Results.Ok(response);
+        })
+        .RequireRoleAuthorization(Role.{RequiredRole})
+        .WithName("{FeatureName}")
+        .WithTags("{Domain}")
+        .Produces<{ResponseType}>(StatusCodes.Status200OK);
+    }
+}

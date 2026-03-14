@@ -1,0 +1,18 @@
+[ServiceContract]
+public interface I{ServiceName}Service
+{
+    [OperationContract]
+    ValueTask<{Response}> {MethodName}Async({Request} request, CallContext context = default);
+}
+
+[ProtoContract]
+public class {Request}
+{
+    [ProtoMember(1)] public int {Property} { get; set; }
+}
+
+[ProtoContract]
+public class {Response}
+{
+    [ProtoMember(1)] public {InfoType} {Info} { get; set; } = default!;
+}

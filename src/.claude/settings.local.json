@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx ccusage@latest)",
+      "Bash(npx ccusage@latest session)",
+      "Bash(npx ccusage@latest --breakdown)"
+    ]
+  }
+}

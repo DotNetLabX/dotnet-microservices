@@ -1,0 +1,25 @@
+public sealed class {EventName}Consumer({DbContext} _dbContext)
+    : IConsumer<{EventName}Event>
+{
+    public async Task Consume(ConsumeContext<{EventName}Event> context)
+    {
+        var dto = context.Message.{DtoName};
+
+        var existing = await _dbContext.{Entities}
+            .SingleOrDefaultAsync(e => e.Id == dto.Id);
+
+        if (existing != null)
+        {
+            // Update
+            existing.{Property} = dto.{Property};
+        }
+        else
+        {
+            // Create
+            var entity = dto.Adapt<{Entity}>();
+            await _dbContext.{Entities}.AddAsync(entity);
+        }
+
+        await _dbContext.SaveChangesAsync();
+    }
+}

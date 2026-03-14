@@ -1,0 +1,17 @@
+// MediatR services
+public class {FeatureName}Validator : AbstractValidator<{FeatureName}Command>
+{
+    public {FeatureName}Validator()
+    {
+        RuleFor(c => c.ArticleId).GreaterThan(0).WithMessageForInvalidId(nameof({FeatureName}Command.ArticleId));
+    }
+}
+
+// FastEndpoints services (Production)
+public class {FeatureName}Validator : BaseValidator<{FeatureName}Command>
+{
+    public {FeatureName}Validator()
+    {
+        RuleFor(c => c.ArticleId).GreaterThan(0).WithMessageForInvalidId(nameof({FeatureName}Command.ArticleId));
+    }
+}

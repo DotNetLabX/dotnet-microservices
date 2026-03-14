@@ -1,0 +1,16 @@
+public class {FeatureName}Endpoint : ICarterModule
+{
+    public void AddRoutes(IEndpointRouteBuilder app)
+    {
+        app.Map{Method}("/{route}", async ({RouteParams}, {RequestType} command, ISender sender) =>
+        {
+            var response = await sender.Send(command);
+            return Results.Ok(response);
+        })
+        .RequireRoleAuthorization(Role.{RequiredRole})
+        .WithName("{FeatureName}")
+        .WithTags("{Domain}")
+        .Produces<{ResponseType}>(StatusCodes.Status200OK)
+        .ProducesProblem(StatusCodes.Status400BadRequest);
+    }
+}

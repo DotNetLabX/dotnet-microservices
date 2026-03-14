@@ -1,0 +1,6 @@
+bin/
+obj/
+Migrations/
+.vs/
+*.lock
+docker-compose.override.yml
