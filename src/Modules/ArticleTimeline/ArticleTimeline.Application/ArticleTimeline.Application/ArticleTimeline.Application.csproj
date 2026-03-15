@@ -12,7 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Services\Production\Production.Persistence\Production.Persistence.csproj" />
     <ProjectReference Include="..\..\ArticleTimeline.Domain\ArticleTimeline.Domain.csproj" />
     <ProjectReference Include="..\..\ArticleTimeline.Persistence\ArticleTimeline.Persistence.csproj" />
   </ItemGroup>

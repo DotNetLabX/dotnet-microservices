@@ -1,4 +1,5 @@
 ﻿using Mapster;
+using Articles.Abstractions.Events;
 using Blocks.Domain;
 using Submission.Domain.StateMachines;
 

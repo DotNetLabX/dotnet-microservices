@@ -18,7 +18,7 @@ public class ArticleEntityConfiguration : AuditedEntityConfiguration<Article>
         entity.Property(e => e.VolumeId).IsRequired();
         entity.Property(e => e.Stage).HasEnumConversion().IsRequired();
 
-        entity.Property(e => e.SubmitedOn).IsRequired();
+        entity.Property(e => e.SubmittedOn).IsRequired();
         entity.Property(e => e.AcceptedOn).IsRequired();
 
 
@@ -28,8 +28,8 @@ public class ArticleEntityConfiguration : AuditedEntityConfiguration<Article>
              .IsRequired()
              .OnDelete(DeleteBehavior.Restrict);
 
-        entity.HasOne(e => e.SubmitedBy).WithMany()
-            .HasForeignKey(e => e.SubmitedById)
+        entity.HasOne(e => e.SubmittedBy).WithMany()
+            .HasForeignKey(e => e.SubmittedById)
             //.HasPrincipalKey( e=> e.UserId)
             .IsRequired()
             .OnDelete(DeleteBehavior.Restrict);

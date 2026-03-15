@@ -1,8 +1,6 @@
-﻿using Production.Domain.Shared;
-
 namespace Production.Domain.Articles;
 
-public class ArticleContributor : IAssociationEntity
+public class ArticleActor : IAssociationEntity
 {
     public int ArticleId { get; init; }
     public virtual Article Article { get; init; } = null!;

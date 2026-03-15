@@ -19,7 +19,8 @@ public class PersonEntityConfiguration : EntityConfiguration<Person>
         entity.HasDiscriminator(e => e.TypeDiscriminator)
             .HasValue<Person>(nameof(Person))
             .HasValue<Author>(nameof(Author))
-            .HasValue<Typesetter>(nameof(Typesetter));
+            .HasValue<Typesetter>(nameof(Typesetter))
+            .HasValue<ProductionOfficer>(nameof(ProductionOfficer));
 
         entity.Property(e => e.UserId).IsRequired(false);
         entity.Property(e => e.FirstName).HasMaxLength(MaxLength.C64).IsRequired();

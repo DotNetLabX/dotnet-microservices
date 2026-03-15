@@ -27,4 +27,8 @@
 	{"SourceType": "ActionExecuted", "SourceId": "Request", "RoleType": "CORAUT"},
 	{"SourceType": "ActionExecuted", "SourceId": "CancelRequest", "RoleType": "CORAUT"},
 	{"SourceType": "ActionExecuted", "SourceId": "Approve", "RoleType": "CORAUT"},
+
+	{"SourceType": "StageTransition", "SourceId": "None->Accepted", "RoleType": "POF"},
+	{"SourceType": "StageTransition", "SourceId": "None->Accepted", "RoleType": "TSOF"},
+	{"SourceType": "StageTransition", "SourceId": "None->Accepted", "RoleType": "CORAUT"},
 ]

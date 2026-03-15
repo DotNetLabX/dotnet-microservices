@@ -29,12 +29,11 @@ public class UploadFileEndpoint<TUploadCommand>
             asset = _article.CreateAsset(assetType, command.GetAssetNumber());
 
         CheckAndThrowStateTransition(asset, command.ActionType);
-        asset.SetState(AssetState.Uploaded, command);
 
         var fileMetadata = await UploadFile(command, asset, ct);
         try
         {
-            asset.CreateAndAddFile(fileMetadata, assetType);
+            asset.CreateAndAddFile(fileMetadata, assetType, command);
 
             _article.SetStage(NextStage, command);
 

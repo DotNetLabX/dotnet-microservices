@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
@@ -85,7 +85,7 @@ namespace Production.Persistence.Migrations
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
                     Affiliation = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: false, comment: "Institution or organization they are associated with when they conduct their research."),
                     UserId = table.Column<int>(type: "int", nullable: true),
-                    TypeDiscriminator = table.Column<string>(type: "nvarchar(13)", maxLength: 13, nullable: false),
+                    TypeDiscriminator = table.Column<string>(type: "nvarchar(21)", maxLength: 21, nullable: false),
                     IsDefault = table.Column<bool>(type: "bit", nullable: true, defaultValue: false),
                     CompanyName = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: true)
                 },
@@ -138,8 +138,8 @@ namespace Production.Persistence.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
                     Doi = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
-                    SubmitedById = table.Column<int>(type: "int", nullable: false),
-                    SubmitedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    SubmittedById = table.Column<int>(type: "int", nullable: false),
+                    SubmittedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AcceptedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Stage = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
                     JournalId = table.Column<int>(type: "int", nullable: false),
@@ -167,8 +167,8 @@ namespace Production.Persistence.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Article_Person_SubmitedById",
-                        column: x => x.SubmitedById,
+                        name: "FK_Article_Person_SubmittedById",
+                        column: x => x.SubmittedById,
                         principalTable: "Person",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -181,7 +181,7 @@ namespace Production.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ArticleContributor",
+                name: "ArticleActor",
                 columns: table => new
                 {
                     ArticleId = table.Column<int>(type: "int", nullable: false),
@@ -190,15 +190,15 @@ namespace Production.Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ArticleContributor", x => new { x.ArticleId, x.PersonId, x.Role });
+                    table.PrimaryKey("PK_ArticleActor", x => new { x.ArticleId, x.PersonId, x.Role });
                     table.ForeignKey(
-                        name: "FK_ArticleContributor_Article_ArticleId",
+                        name: "FK_ArticleActor_Article_ArticleId",
                         column: x => x.ArticleId,
                         principalTable: "Article",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ArticleContributor_Person_PersonId",
+                        name: "FK_ArticleActor_Person_PersonId",
                         column: x => x.PersonId,
                         principalTable: "Person",
                         principalColumn: "Id",
@@ -274,11 +274,7 @@ namespace Production.Persistence.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     AssetId = table.Column<int>(type: "int", nullable: false),
                     Comment = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TypeId = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
-                    CreatedById = table.Column<int>(type: "int", nullable: false),
-                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    LastModifiedById = table.Column<int>(type: "int", nullable: true),
-                    LastModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    TypeId = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -395,8 +391,8 @@ namespace Production.Persistence.Migrations
                     { 203, "Editor requested a revised manuscript from the author", "The editor has requested revisions. Please upload your revised manuscript to continue the review process.", "AwaitingRevision" },
                     { 204, "Article rejected after review", "Your article was rejected following review. Please read the feedback carefully if you plan to resubmit.", "Rejected" },
                     { 205, "Article accepted after review", "Your article has been accepted for publication. The production process will now begin.", "Accepted" },
-                    { 300, "Typesetter assigned to the article", "A typesetter has been assigned and is preparing your Author’s Proof.", "InProduction" },
-                    { 301, "Typesetter uploaded the draft PDF for author approval", "The Author’s Proof (draft PDF) is available for you to check and provide corrections.", "DraftProduction" },
+                    { 300, "Typesetter assigned to the article", "A typesetter has been assigned and is preparing your Author's Proof.", "InProduction" },
+                    { 301, "Typesetter uploaded the draft PDF for author approval", "The Author's Proof (draft PDF) is available for you to check and provide corrections.", "DraftProduction" },
                     { 302, "Author approved the draft PDF, finalization in progress", "The typesetter is preparing the final version of your article for publication.", "FinalProduction" },
                     { 304, "Article scheduled for online publication", "Quality checks are complete. Your article is scheduled for publication and will appear online within the next few working days.", "PublicationScheduled" },
                     { 305, "Article published", "Your article has been published and sent to repositories. Availability in repositories may vary depending on their processing times.", "Published" }
@@ -418,9 +414,9 @@ namespace Production.Persistence.Migrations
                 column: "Stage");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Article_SubmitedById",
+                name: "IX_Article_SubmittedById",
                 table: "Article",
-                column: "SubmitedById");
+                column: "SubmittedById");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Article_Title",
@@ -428,8 +424,8 @@ namespace Production.Persistence.Migrations
                 column: "Title");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ArticleContributor_PersonId",
-                table: "ArticleContributor",
+                name: "IX_ArticleActor_PersonId",
+                table: "ArticleActor",
                 column: "PersonId");
 
             migrationBuilder.CreateIndex(
@@ -497,7 +493,7 @@ namespace Production.Persistence.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ArticleContributor");
+                name: "ArticleActor");
 
             migrationBuilder.DropTable(
                 name: "ArticleStageTransition");

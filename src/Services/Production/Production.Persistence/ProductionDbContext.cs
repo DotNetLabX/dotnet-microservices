@@ -12,7 +12,6 @@ public partial class ProductionDbContext(DbContextOptions<ProductionDbContext> o
     #region Entities
     public virtual DbSet<Article> Articles { get; set; }
 
-    public virtual DbSet<ArticleContributor> ArticleContributors { get; set; }
     public virtual DbSet<Asset> Assets { get; set; }
     public virtual DbSet<AssetTypeDefinition> AssetTypes { get; set; }
 
@@ -24,6 +23,8 @@ public partial class ProductionDbContext(DbContextOptions<ProductionDbContext> o
     public virtual DbSet<Person> Persons { get; set; }
     public virtual DbSet<Author> Authors { get; set; }
     public virtual DbSet<Typesetter> Typesetters { get; set; }
+    public virtual DbSet<ProductionOfficer> ProductionOfficers { get; set; }
+    public virtual DbSet<ArticleActor> ArticleActors { get; set; }
     #endregion
 
 
@@ -41,7 +42,7 @@ public partial class ProductionDbContext(DbContextOptions<ProductionDbContext> o
         modelBuilder.ApplyConfiguration(new AssetCurrentFileLinkEntityConfiguration());
         modelBuilder.ApplyConfiguration(new AssetActionEntityConfiguration());
         modelBuilder.ApplyConfiguration(new AssetTypeDefinitionEntityConfiguration());
-        modelBuilder.ApplyConfiguration(new ArticleContributorEntityConfiguration());
+        modelBuilder.ApplyConfiguration(new ArticleActorEntityConfiguration());
         modelBuilder.ApplyConfiguration(new AuthorEntityConfiguration());
         modelBuilder.ApplyConfiguration(new FileEntityConfiguration());
         modelBuilder.ApplyConfiguration(new JournalEntityConfiguration());
@@ -50,7 +51,6 @@ public partial class ProductionDbContext(DbContextOptions<ProductionDbContext> o
         modelBuilder.ApplyConfiguration(new TypesetterEntityConfiguration());
         modelBuilder.ApplyConfiguration(new PersonEntityConfiguration());
 
-        //modelBuilder.ApplyConfiguration(new CustomerEntityConfiguration());
 
 
         modelBuilder.UseEntityTypeNamesAsTables();

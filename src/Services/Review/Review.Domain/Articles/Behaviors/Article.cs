@@ -1,6 +1,7 @@
 ﻿using Mapster;
 using Auth.Grpc;
 using Blocks.Domain;
+using Articles.Abstractions.Events;
 using Articles.IntegrationEvents.Contracts.Articles.Dtos;
 using Review.Domain.Articles.Events;
 using Review.Domain.Assets;

@@ -6,7 +6,8 @@ public class ArticleRepository(ProductionDbContext dbContext)
     public override IQueryable<Article> Query()
     {
         return base.Entity
-            .Include(e => e.Contributors);
+            .Include(e => e.Actors)
+                .ThenInclude(e => e.Person);
     }
 
     public async Task<Article> GetArticleAssetsById(int id, bool throwIfNotFound = true)
@@ -21,7 +22,7 @@ public class ArticleRepository(ProductionDbContext dbContext)
     {
         return await Entity
             .Include(e => e.Journal)
-            .Include(e => e.Contributors)
+            .Include(e => e.Actors)
                 .ThenInclude(e => e.Person)
             .SingleOrThrowAsync(e => e.Id == id);
 

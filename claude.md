@@ -73,7 +73,7 @@ Services use 4400–4499. HTTP/HTTPS pairs: (4401/4451), (4402/4452), etc.
 
 ## Feature plans
 
-Implementation plans live in `plans/{FeatureName}.md`. Created by Architect, consumed by Developer.
+Implementation plans live in `plans/{ServiceOrModule}/{FeatureName}.md`, grouped by the service or module that owns the work. Created by Architect, consumed by Developer.
 
 ## Compaction rules
 
@@ -86,6 +86,10 @@ After reading a file, trust your context. Do not re-read files unless told they 
 ## .claudeignore
 
 Exists at repo root — excludes bin/, obj/, Migrations/, .vs/, *.lock, docker-compose.override.yml.
+
+## Agent auto-loading
+If the CC_AGENT environment variable is set, immediately be agents/{CC_AGENT}.md 
+and follow that role for the entire session. Do this before responding to any prompt.
 
 ## Agent loading
 

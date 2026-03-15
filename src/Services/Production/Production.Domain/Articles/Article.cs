@@ -8,9 +8,9 @@ public partial class Article : AggregateRoot
     public required string Doi { get; set; }
     //public string JournalSection { get; set; } = default!;
 
-    public required virtual int SubmitedById { get; set; }
-    public virtual Person SubmitedBy { get; set; } = null!;
-    public DateTime SubmitedOn { get; set; }
+    public required virtual int SubmittedById { get; set; }
+    public virtual Person SubmittedBy { get; set; } = null!;
+    public DateTime SubmittedOn { get; set; }
 
     public DateTime AcceptedOn { get; set; }
 
@@ -31,7 +31,7 @@ public partial class Article : AggregateRoot
     private readonly List<StageHistory> _stageHistories = new();
     public IReadOnlyList<StageHistory> StageHistories => _stageHistories.AsReadOnly();
 
-    private readonly List<ArticleContributor> _contributors = new();
-    public IReadOnlyCollection<ArticleContributor> Contributors => _contributors.AsReadOnly();
-    public Typesetter? Typesetter => Contributors.Where(aa => aa.Person is Typesetter).Select(aa => aa.Person as Typesetter).FirstOrDefault();
+    private readonly List<ArticleActor> _actors = new();
+    public IReadOnlyCollection<ArticleActor> Actors => _actors.AsReadOnly();
+    public Typesetter? Typesetter => Actors.Where(aa => aa.Person is Typesetter).Select(aa => aa.Person as Typesetter).FirstOrDefault();
 }

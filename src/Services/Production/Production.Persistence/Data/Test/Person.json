@@ -53,5 +53,16 @@
     "Email": {"Value":"typesetter.2@articles.test"},
     "CompanyName": "Tyepesetter1",
     "isDefault": true
+  },
+  {
+    "$type": "Production.Domain.Articles.ProductionOfficer, Production.Domain",
+    "Id": 15,
+    "UserId": 15,
+    "TypeDiscriminator": "ProductionOfficer",
+    "FirstName": "Production",
+    "LastName": "Officer",
+    "Title": "Ms",
+    "Email": {"Value":"pof.1@articles.test"},
+    "Affiliation": "DotNetLabX Editorial Production Office"
   }
 ]

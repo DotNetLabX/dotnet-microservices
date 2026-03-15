@@ -2,8 +2,8 @@
 
 public enum ArticleActionType
 {
+    AcceptForProduction,
     AssignTypesetter,
     PublishArticle,
     SchedulePublication,
-    //Accept = 101
 }

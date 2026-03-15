@@ -14,7 +14,6 @@ using Articles.Abstractions;
 namespace ArticleTimeline.Application.EventHandlers;
 
 public abstract class AddTimelineEventHandler<TDomainEvent, TAction>(TransactionProvider _transactionProvider, TimelineRepository _timelineRepository, DbContext _dbContext, VariableResolverFactory _variableResolverFactory)
-    //: IEventHandler<ArticleStageChangedDomainEvent>
     : INotificationHandler<TDomainEvent>
     where TDomainEvent : DomainEvent<TAction>
     where TAction : IArticleAction

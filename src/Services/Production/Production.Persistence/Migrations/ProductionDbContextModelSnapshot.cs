@@ -68,10 +68,10 @@ namespace Production.Persistence.Migrations
                         .HasMaxLength(64)
                         .HasColumnType("nvarchar(64)");
 
-                    b.Property<int>("SubmitedById")
+                    b.Property<int>("SubmittedById")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("SubmitedOn")
+                    b.Property<DateTime>("SubmittedOn")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Title")
@@ -90,14 +90,14 @@ namespace Production.Persistence.Migrations
 
                     b.HasIndex("Stage");
 
-                    b.HasIndex("SubmitedById");
+                    b.HasIndex("SubmittedById");
 
                     b.HasIndex("Title");
 
                     b.ToTable("Article", (string)null);
                 });
 
-            modelBuilder.Entity("Production.Domain.Articles.ArticleContributor", b =>
+            modelBuilder.Entity("Production.Domain.Articles.ArticleActor", b =>
                 {
                     b.Property<int>("ArticleId")
                         .HasColumnType("int");
@@ -115,7 +115,7 @@ namespace Production.Persistence.Migrations
 
                     b.HasIndex("PersonId");
 
-                    b.ToTable("ArticleContributor", (string)null);
+                    b.ToTable("ArticleActor", (string)null);
                 });
 
             modelBuilder.Entity("Production.Domain.Articles.ArticleStageTransition", b =>
@@ -408,18 +408,6 @@ namespace Production.Persistence.Migrations
                     b.Property<string>("Comment")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("CreatedById")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("LastModifiedById")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("LastModifiedOn")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("TypeId")
                         .IsRequired()
@@ -776,8 +764,8 @@ namespace Production.Persistence.Migrations
 
                     b.Property<string>("TypeDiscriminator")
                         .IsRequired()
-                        .HasMaxLength(13)
-                        .HasColumnType("nvarchar(13)");
+                        .HasMaxLength(21)
+                        .HasColumnType("nvarchar(21)");
 
                     b.Property<int?>("UserId")
                         .HasColumnType("int");
@@ -802,6 +790,15 @@ namespace Production.Persistence.Migrations
                     b.ToTable("Person", (string)null);
 
                     b.HasDiscriminator().HasValue("Author");
+                });
+
+            modelBuilder.Entity("Production.Domain.Articles.ProductionOfficer", b =>
+                {
+                    b.HasBaseType("Production.Domain.Shared.Person");
+
+                    b.ToTable("Person", (string)null);
+
+                    b.HasDiscriminator().HasValue("ProductionOfficer");
                 });
 
             modelBuilder.Entity("Production.Domain.Articles.Typesetter", b =>
@@ -842,9 +839,9 @@ namespace Production.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Production.Domain.Shared.Person", "SubmitedBy")
+                    b.HasOne("Production.Domain.Shared.Person", "SubmittedBy")
                         .WithMany()
-                        .HasForeignKey("SubmitedById")
+                        .HasForeignKey("SubmittedById")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -852,13 +849,13 @@ namespace Production.Persistence.Migrations
 
                     b.Navigation("PublishedBy");
 
-                    b.Navigation("SubmitedBy");
+                    b.Navigation("SubmittedBy");
                 });
 
-            modelBuilder.Entity("Production.Domain.Articles.ArticleContributor", b =>
+            modelBuilder.Entity("Production.Domain.Articles.ArticleActor", b =>
                 {
                     b.HasOne("Production.Domain.Articles.Article", "Article")
-                        .WithMany("Contributors")
+                        .WithMany("Actors")
                         .HasForeignKey("ArticleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -967,9 +964,9 @@ namespace Production.Persistence.Migrations
 
             modelBuilder.Entity("Production.Domain.Articles.Article", b =>
                 {
-                    b.Navigation("Assets");
+                    b.Navigation("Actors");
 
-                    b.Navigation("Contributors");
+                    b.Navigation("Assets");
 
                     b.Navigation("StageHistories");
                 });

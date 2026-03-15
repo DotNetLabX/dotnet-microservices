@@ -1,12 +1,11 @@
 ﻿using Production.Domain.Articles;
 using Production.Domain.Shared.Enums;
+using Production.Domain.StateMachines;
 using Stateless;
 
 namespace Production.Application.StateMachines;
 
-public delegate ArticleStateMachine ArticleStateMachineFactory(ArticleStage articleStage);
-
-public class ArticleStateMachine
+public class ArticleStateMachine : IArticleStateMachine
 {
     private StateMachine<ArticleStage, ArticleActionType> _stateMachine;
 

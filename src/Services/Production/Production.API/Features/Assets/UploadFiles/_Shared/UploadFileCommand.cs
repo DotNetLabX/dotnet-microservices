@@ -1,8 +1,10 @@
-﻿using FluentValidation;
+﻿using Blocks.Core;
+using FluentValidation;
 using System.ComponentModel.DataAnnotations;
 using Articles.Abstractions.Enums;
 using Production.API.Features.Shared;
 using Production.Domain.Assets.Enums;
+using Production.Persistence.Repositories;
 
 namespace Production.API.Features.Assets.UploadFiles._Shared;
 
@@ -28,10 +30,17 @@ public abstract record UploadFileCommand : AssetActionCommand<AssetActionRespons
 public abstract class UploadFileValidator<TUploadFileCommand> : ArticleCommandValidator<TUploadFileCommand>
         where TUploadFileCommand : UploadFileCommand
 {
-    public UploadFileValidator()
+    public UploadFileValidator(AssetTypeRepository assetTypeRepository)
     {
         RuleFor(r => r.AssetType).Must(a => AllowedAssetTypes.Contains(a)).WithMessage("AssetType not allowed");
-        //RuleFor(r => r.File.Length)
+        RuleFor(r => r.File)
+            .Must((command, file) =>
+            {
+                var assetType = assetTypeRepository.GetById(command.AssetType);
+                return file.Length <= assetType.MaxFileSizeInMB * 1024 * 1024;
+            })
+            .WithMessage(command => ValidatorsMessagesConstants.InvalidFileSize
+                .FormatWith(assetTypeRepository.GetById(command.AssetType).MaxFileSizeInMB));
     }
 
     public abstract IReadOnlyCollection<AssetType> AllowedAssetTypes { get; }

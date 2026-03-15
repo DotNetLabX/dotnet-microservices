@@ -1,4 +1,4 @@
-﻿using Articles.Abstractions.Enums;
+using Articles.Abstractions.Enums;
 using Production.Persistence.Repositories;
 using Production.Domain.Articles;
 
@@ -10,7 +10,7 @@ public abstract class BaseEndpoint<TCommand, TResponse> : Endpoint<TCommand, TRe
     protected readonly ArticleRepository _articleRepository;
     protected Article _article;
 
-    public BaseEndpoint(ArticleRepository articleRepository) 
+    public BaseEndpoint(ArticleRepository articleRepository)
         => _articleRepository = articleRepository;
 
     protected virtual ArticleStage NextStage => _article.Stage;

@@ -1,4 +1,4 @@
-﻿using Mapster;
+using Mapster;
 using Articles.Abstractions.Enums;
 using Production.Persistence.Repositories;
 using Production.API.Features.Shared;
@@ -11,23 +11,22 @@ namespace Production.API.Features.Assets.ApproveAssets.Draft;
 [Authorize(Roles = $"{Role.ProdAdmin},{Role.Author}")]
 [HttpPut("articles/{articleId:int}/assets/draft/{assetId:int}:approve")]
 [Tags("Assets")]
-
-public class ApproveDraftAssetEndpoint(AssetRepository _assetRepository, AssetTypeRepository assetTypeRepository, AssetStateMachineFactory stateMachineFactory)
+public class ApproveDraftAssetEndpoint(ArticleRepository articleRepository, AssetTypeRepository assetTypeRepository, AssetStateMachineFactory stateMachineFactory)
     : AssetBaseEndpoint<ApproveDraftAssetCommand, AssetActionResponse>(assetTypeRepository, stateMachineFactory)
 {
+    private readonly ArticleRepository _articleRepository = articleRepository;
+
     public override async Task HandleAsync(ApproveDraftAssetCommand command, CancellationToken ct)
     {
-        var asset = await _assetRepository.GetByIdAsync(command.ArticleId, command.AssetId);
-        _article = asset.Article;
-
-        //stateMachineFactory.ValidateStageTransition(_article.Stage, NextStage, asset.Type, command.ActionType);
+        _article = await _articleRepository.GetByIdWithAssetsAsync(command.ArticleId);
+        var asset = _article.Assets.Single(a => a.Id == command.AssetId);
 
         CheckAndThrowStateTransition(asset, command.ActionType);
         asset.SetState(AssetState.Approved, command);
 
         _article.SetStage(NextStage, command);
 
-        await _assetRepository.SaveChangesAsync();
+        await _articleRepository.SaveChangesAsync();
         await Send.OkAsync(new AssetActionResponse(asset.Adapt<AssetMinimalDto>()));
     }
 

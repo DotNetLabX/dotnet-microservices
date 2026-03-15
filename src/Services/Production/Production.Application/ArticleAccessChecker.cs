@@ -18,7 +18,7 @@ public class ArticleAccessChecker(ProductionDbContext _dbContext) : IArticleAcce
         if (roles.Contains(UserRoleType.POF)) 
             return true;
 
-        return await _dbContext.ArticleContributors
+        return await _dbContext.ArticleActors
             .AnyAsync(e => e.ArticleId == articleId && e.Person.UserId == userId, ct);
     }
 }

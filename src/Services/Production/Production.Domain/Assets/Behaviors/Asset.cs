@@ -29,6 +29,19 @@ public partial class Asset
 
     public bool IsFileRequested => this.State == AssetState.Requested;
 
+    public static Asset CreateFromReview(int articleId, AssetTypeDefinition type, byte assetNumber)
+    {
+        return new Asset()
+        {
+            ArticleId = articleId,
+            Number = AssetNumber.FromNumber(assetNumber, type),
+            Name = AssetName.FromAssetType(type),
+            Type = type.Name,
+            CategoryId = type.DefaultCategoryId,
+            State = AssetState.None,
+        };
+    }
+
     public static Asset Create(Article article, AssetTypeDefinition type, byte assetNumber = 0)
     {
         //insight - value objects for AssetName & AssetNumber, encapsulate validation            
@@ -58,19 +71,21 @@ public partial class Asset
         if (this.State != AssetState.Requested)
             throw new DomainException("Wrong status");
 
-        //this.Status = newStatus;
-        this.LastModifiedOn = DateTime.UtcNow;
-        this.LastModifiedById = action.CreatedById;
-        AddAction(action);
+        SetState(AssetState.Uploaded, action);
     }
 
-    public File CreateAndAddFile(FileMetadata uploadResponse, AssetTypeDefinition assetTypeDefinition)
+    public File CreateAndAddFile(FileMetadata uploadResponse, AssetTypeDefinition assetTypeDefinition, IArticleAction<AssetActionType>? action = null)
     {
         var file = File.CreateFile(uploadResponse, this, assetTypeDefinition);
 
         _files.Add(file);
         CurrentFileLink = new AssetCurrentFileLink() { File = file };
-        State = AssetState.Uploaded;
+
+        if (action is not null)
+            SetState(AssetState.Uploaded, action);
+        else
+            State = AssetState.Uploaded;
+
         return file;
     }
 

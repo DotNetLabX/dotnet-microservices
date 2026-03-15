@@ -9,8 +9,8 @@ public record ArticleSummaryDto(
     ArticleStage Stage, 
     JournalDto Journal,
     int VolumeId,
-    DateTime SubmitedOn,
-    PersonDto SubmitedBy,
+    DateTime SubmittedOn,
+    PersonDto SubmittedBy,
     DateTime PublishedOn,
     PersonDto PublishedBy,
     List<ContributorDto> Contributors

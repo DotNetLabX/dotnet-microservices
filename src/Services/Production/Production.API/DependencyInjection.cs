@@ -3,9 +3,12 @@ using Blocks.Core;
 using Blocks.Core.Security;
 using Blocks.Domain;
 using Blocks.EntityFrameworkCore;
-using Blocks.FastEndpoints;
+using Blocks.Messaging;
+using Blocks.Messaging.MassTransit;
+using EmailService.Empty;
 using FastEndpoints.Swagger;
 using FileStorage.AzureBlob;
+using FileStorage.MongoGridFS;
 using Microsoft.AspNetCore.Http.Json;
 using Production.Application;
 using Production.Persistence.Repositories;
@@ -19,13 +22,13 @@ public static class DependecyInjection
     public static void ConfigureApiOptions(this IServiceCollection services, IConfiguration configuration)
     {
         services
-        //.AddAndValidateOptions<FileStorage.Contracts.FileServerOptions>(configuration)
-        .AddAndValidateOptions<TransactionOptions>(configuration)
-        .Configure<JsonOptions>(opt =>
-        {
-            opt.SerializerOptions.PropertyNameCaseInsensitive = true;
-            opt.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
-        });
+            .AddAndValidateOptions<RabbitMqOptions>(configuration)
+            .AddAndValidateOptions<TransactionOptions>(configuration)
+            .Configure<JsonOptions>(opt =>
+            {
+                opt.SerializerOptions.PropertyNameCaseInsensitive = true;
+                opt.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
+            });
     }
 
     public static IServiceCollection AddApiServices(this IServiceCollection services, IConfiguration configuration)
@@ -43,9 +46,11 @@ public static class DependecyInjection
             .AddDistributedMemoryCache() //.AddMemoryCache()
             .AddSwaggerGen()
             .AddJwtAuthentication(configuration)
-            .AddAuthorization();
+            .AddAuthorization()
+            .AddMassTransitWithRabbitMQ(configuration, Assembly.GetExecutingAssembly());
 
-        services.AddScoped<IDomainEventPublisher, DomainEventPublisher>();
+        services.AddMediatR(config => config.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+        services.AddScoped<IDomainEventPublisher, Blocks.MediatR.DomainEventPublisher>();
 
         //insight - SOLID principle interface segragation, injecting multiple interfaces using the same class
         services.AddScoped<HttpContextProvider>();
@@ -54,8 +59,10 @@ public static class DependecyInjection
 
         services.AddScoped<IAuthorizationHandler, ArticleAccessAuthorizationHandler>();
 
-        // monolith modules registration 
+        // monolith modules registration
         services.AddAzureFileStorage(configuration);
+        services.AddEmptyEmailService(configuration);
+        services.AddMongoFileStorageAsScoped<ReviewFileStorageOptions>(configuration);
 
         return services;
     }

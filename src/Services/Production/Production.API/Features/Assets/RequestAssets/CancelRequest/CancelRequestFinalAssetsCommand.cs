@@ -8,6 +8,3 @@ public record CancelRequestFinalAssetsCommand : RequestMultipleAssetsCommand
     public override AssetActionType ActionType => AssetActionType.CancelRequest;
 }
 
-public record CancelRequestAuthorFilesCommand : RequestMultipleAssetsCommand
-{
-}
