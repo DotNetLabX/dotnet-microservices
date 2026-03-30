@@ -10,7 +10,6 @@ public class ArticleRoleRequirement : IAuthorizationRequirement
 
     public ArticleRoleRequirement(IEnumerable<string> allowedRoles)
     {
-        HashSet<string> rolesSet = allowedRoles.ToHashSet(StringComparer.OrdinalIgnoreCase);
         AllowedRoles = allowedRoles.Select(r => r.ToEnum<UserRoleType>()).ToHashSet();
     }
 

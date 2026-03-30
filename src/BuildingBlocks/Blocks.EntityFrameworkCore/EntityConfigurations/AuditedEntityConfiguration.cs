@@ -19,11 +19,13 @@ public abstract class AuditedEntityConfiguration<T, TKey> : EntityConfiguration<
     where T : class, IEntity<TKey>, IAggregateRoot<TKey>
     where TKey : struct
 {
+    protected virtual string DefaultDateSql => "GETUTCDATE()";
+
     public override void Configure(EntityTypeBuilder<T> builder)
     {
         base.Configure(builder);
 
-        builder.Property(e => e.CreatedOn).IsRequired().HasDefaultValueSql("GETUTCDATE()");
+        builder.Property(e => e.CreatedOn).IsRequired().HasDefaultValueSql(DefaultDateSql);
         builder.Property(e => e.CreatedById).IsRequired();
         builder.Property(e => e.LastModifiedOn);
         builder.Property(e => e.LastModifiedById);

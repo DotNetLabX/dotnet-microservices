@@ -16,5 +16,5 @@ public abstract class SingleValueObject<T> : IValueObject, IEquatable<SingleValu
         return Value.Equals(other.Value);
     }
     public bool Equals(T other) => Value.Equals(other);
-    public override bool Equals(object? other)  => Equals(other as SingleValueObject<T>);
+    public override bool Equals(object? obj) => obj is SingleValueObject<T> other ? Equals(other) : obj is T val && Equals(val);
 }
