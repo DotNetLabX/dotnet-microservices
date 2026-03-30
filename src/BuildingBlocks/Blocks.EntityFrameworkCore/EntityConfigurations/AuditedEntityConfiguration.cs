@@ -20,6 +20,7 @@ public abstract class AuditedEntityConfiguration<T, TKey> : EntityConfiguration<
     where TKey : struct
 {
     protected virtual string DefaultDateSql => "GETUTCDATE()";
+    protected virtual bool HasConcurrencyToken => false;
 
     public override void Configure(EntityTypeBuilder<T> builder)
     {
@@ -29,5 +30,8 @@ public abstract class AuditedEntityConfiguration<T, TKey> : EntityConfiguration<
         builder.Property(e => e.CreatedById).IsRequired();
         builder.Property(e => e.LastModifiedOn);
         builder.Property(e => e.LastModifiedById);
+
+        if (HasConcurrencyToken)
+            builder.Property<byte[]>("RowVersion").IsRowVersion();
     }
 }
