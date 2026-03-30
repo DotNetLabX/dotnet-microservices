@@ -1,5 +1,5 @@
 ﻿using Articles.Abstractions.Enums;
-using Blocks.Entitities;
+using Blocks.Entities;
 using Blocks.Core.Cache;
 using System.Collections.Immutable;
 using Production.Domain.Assets.Enums;

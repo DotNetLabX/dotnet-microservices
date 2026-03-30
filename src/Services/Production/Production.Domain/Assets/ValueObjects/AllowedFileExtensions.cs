@@ -1,4 +1,4 @@
-﻿using Blocks.Entitities;
+﻿using Blocks.Entities;
 using System.Collections.Immutable;
 
 namespace Production.Domain.Assets.ValueObjects;

@@ -1,4 +1,4 @@
-﻿namespace Blocks.Entitities;
+﻿namespace Blocks.Entities;
 
 /// <summary>
 /// use those entities if you want to store multiple tenants in the same database

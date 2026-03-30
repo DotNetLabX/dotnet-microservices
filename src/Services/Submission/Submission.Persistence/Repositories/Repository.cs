@@ -1,4 +1,4 @@
-﻿using Blocks.Entitities;
+﻿using Blocks.Entities;
 
 namespace Submission.Persistence.Repositories;
 

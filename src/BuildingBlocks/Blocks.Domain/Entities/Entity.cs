@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace Blocks.Entitities;
+namespace Blocks.Entities;
 
 public interface IEntity : IEntity<int>;
 public abstract class Entity : Entity<int>, IEntity;

@@ -1,4 +1,4 @@
-﻿namespace Blocks.Entitities;
+﻿namespace Blocks.Entities;
 
 public interface IValueObject : IDomainObject;
 

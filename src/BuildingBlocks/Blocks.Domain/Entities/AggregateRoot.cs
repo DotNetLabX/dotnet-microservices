@@ -1,7 +1,7 @@
 ﻿using Blocks.Domain;
 using Blocks.Domain.Entities;
 
-namespace Blocks.Entitities;
+namespace Blocks.Entities;
 
 public interface IAggregateRoot : IAggregateRoot<int>;
 

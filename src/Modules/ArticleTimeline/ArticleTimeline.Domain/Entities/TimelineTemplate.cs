@@ -1,4 +1,4 @@
-﻿using Blocks.Entitities;
+﻿using Blocks.Entities;
 using Blocks.Core.Cache;
 using ArticleTimeline.Domain.Enums;
 

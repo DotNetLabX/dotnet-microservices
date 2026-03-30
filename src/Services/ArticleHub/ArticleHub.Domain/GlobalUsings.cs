@@ -1,2 +1,2 @@
 ﻿// Internal libraries
-global using Blocks.Entitities;
+global using Blocks.Entities;

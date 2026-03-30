@@ -1,4 +1,4 @@
-﻿namespace Blocks.Entitities;
+﻿namespace Blocks.Entities;
 
 public abstract class StringValueObject : IValueObject, IEquatable<StringValueObject>, IEquatable<string>
 {

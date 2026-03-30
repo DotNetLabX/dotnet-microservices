@@ -1,4 +1,4 @@
-﻿using Blocks.Entitities;
+﻿using Blocks.Entities;
 using Newtonsoft.Json;
 using Production.Domain.Assets;
 

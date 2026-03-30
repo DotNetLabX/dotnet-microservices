@@ -1,4 +1,4 @@
-﻿namespace Blocks.Entitities;
+﻿namespace Blocks.Entities;
 
 public abstract class SingleValueObject<T> : IValueObject, IEquatable<SingleValueObject<T>>, IEquatable<T>
     where T : struct

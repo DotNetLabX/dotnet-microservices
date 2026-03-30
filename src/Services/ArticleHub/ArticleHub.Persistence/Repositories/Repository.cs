@@ -1,4 +1,4 @@
-﻿using Blocks.Entitities;
+﻿using Blocks.Entities;
 
 namespace ArticleHub.Persistence.Repositories;
 public class Repository<TEntity>(ArticleHubDbContext dbContext)
