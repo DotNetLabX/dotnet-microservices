@@ -50,6 +50,5 @@ public class Repository<T>
     public async Task DeleteAsync(T entity) => await _collection.DeleteAsync(entity);
 
     public async Task<int> GenerateNewId() => (int) await _redisDb.StringIncrementAsync($"{typeof(T).Name}:Id:Sequence");
-    public async Task<int> GenerateNewId<TOther>() => (int)await _redisDb.StringIncrementAsync($"{typeof(TOther).Name}:Id:Sequence");
-    public async Task<int> SetNewId(Entity entity) => entity.Id = (int)await _redisDb.StringIncrementAsync($"{entity.GetType().Name}:Id:Sequence");
+    public async Task<int> GenerateNewId<TOther>() where TOther : Entity => (int)await _redisDb.StringIncrementAsync($"{typeof(TOther).Name}:Id:Sequence");
 }

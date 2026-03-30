@@ -46,13 +46,5 @@ public static class Extensions
             }
             await collection.InsertAsync(entities);
         }
-
-        try { await collection.SaveAsync(); }
-        catch (Exception ex)
-        {
-            //collection.DeleteAsync(data);
-            Console.WriteLine(ex.Message);
-            throw;
-        }
     }
 }
