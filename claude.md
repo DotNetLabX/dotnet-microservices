@@ -38,7 +38,7 @@ src/
 
 ## Core principles
 
-DDD, Vertical Slice, CQRS. No explanations needed — skills have the details.
+**Architecture style:** Clean Architecture layering (`.API`, `.Application`, `.Domain`, `.Persistence`) with Vertical Slice feature organization inside `.Application/Features/`. DDD lives in `.Domain`. CQRS via MediatR. These are not mutually exclusive — the layering is structural, the slicing is organizational. Skills have the details.
 
 ## Naming conventions
 
@@ -60,9 +60,6 @@ DDD, Vertical Slice, CQRS. No explanations needed — skills have the details.
 ## Commands
 
 ```bash
-dotnet build
-dotnet test
-docker compose up -d
 dotnet ef migrations add Name -p Services/{Svc}/{Svc}.Persistence -s Services/{Svc}/{Svc}.API
 dotnet ef database update -p Services/{Svc}/{Svc}.Persistence -s Services/{Svc}/{Svc}.API
 ```
@@ -93,7 +90,7 @@ and follow that role for the entire session. Do this before responding to any pr
 
 ## Agent loading
 
-"Load/be {agent}" → read `agents/{Agent}.md`, follow its instructions silently. Never show file contents unless explicitly asked.
+"Load/be {agent}" → read `ai-coding/agents/{Agent}.md`, follow its instructions silently. Never show file contents unless explicitly asked.
 
 ## Skills
 

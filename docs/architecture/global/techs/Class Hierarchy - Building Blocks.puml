@@ -1,0 +1,156 @@
+@startuml ClassHierarchy_Domain
+
+skinparam classAttributeIconSize 0
+skinparam defaultTextAlignment center
+skinparam shadowing false
+skinparam padding 6
+skinparam classBackgroundColor White
+skinparam classBorderColor #444444
+skinparam classArrowColor #555555
+skinparam interfaceBackgroundColor #FAFAFF
+skinparam interfaceBorderColor #444444
+
+title Class Hierarchy – Domain Building Blocks
+caption Interfaces, abstract base types and representative concrete classes from the domain layer.
+
+' ================================================================
+' Blocks.Domain — Entities
+' (base types + service-domain concrete examples, stacked vertically)
+' ================================================================
+package "Blocks.Domain — Entities" #F9F0FF {
+
+  interface IDomainObject
+  interface IEntity
+  interface IAuditedEntity
+  interface IAggregateRoot
+
+  IDomainObject  <|-- IEntity
+  IEntity        <|-- IAuditedEntity
+  IAuditedEntity <|-- IAggregateRoot
+
+  abstract class "Entity<T>" as EntityT {
+    + Id : T
+    + IsNew : bool
+  }
+  abstract class "Entity : Entity<int>" as Entity
+  EntityT ..|> IEntity
+  EntityT <|-- Entity
+
+  abstract class "AggregateRoot<T>" as AggT {
+    + CreatedById, CreatedOn
+    + LastModifiedById, LastModifiedOn
+    + DomainEvents
+    + AddDomainEvent()
+    + ClearDomainEvents()
+  }
+  abstract class "AggregateRoot : AggregateRoot<int>" as AggregateRoot
+  EntityT <|-- AggT
+  AggT ..|> IAggregateRoot
+  AggT <|-- AggregateRoot
+
+  abstract class "EnumEntity<TEnum>" as EnumEntityT {
+    + Name : TEnum
+    + Description : string
+  }
+  EntityT <|-- EnumEntityT
+
+  ' Concrete examples hanging off AggregateRoot
+  class "Article, Person, Asset, File, Timeline\n(Submission, Production, Auth,\nArticleTimeline module)" as AggConcretes
+  AggregateRoot <|-- AggConcretes
+
+  ' Concrete examples hanging off Entity (non-aggregate children)
+  class "Journal, Section, Editor,\nArticleAction, StageHistory\n(Submission, Production, Review, Auth)" as EntityConcretes
+  Entity <|-- EntityConcretes
+
+  ' Concrete examples hanging off EnumEntity<TEnum>
+  class "Stage : EnumEntity<ArticleStage>\nAssetTypeDefinition : EnumEntity<AssetType>" as EnumConcretes
+  EnumEntityT <|-- EnumConcretes
+}
+
+' ================================================================
+' Blocks.Domain — Value Objects
+' ================================================================
+package "Blocks.Domain — Value Objects" #F9F0FF {
+
+  interface IValueObject
+  abstract class ValueObject {
+    # GetEqualityComponents()
+  }
+  abstract class "SingleValueObject<T>" as SVO {
+    + Value : T
+  }
+  abstract class StringValueObject {
+    + Value : string
+  }
+  IDomainObject     <|-- IValueObject
+  ValueObject       ..|> IValueObject
+  SVO               ..|> IValueObject
+  StringValueObject ..|> IValueObject
+
+  class "ProfessionalProfile" as VoComposite
+  ValueObject <|-- VoComposite
+
+  class "AssetNumber, FileVersion" as VoSingle
+  SVO <|-- VoSingle
+
+  class "EmailAddress, FileName, FileExtension,\nHonorificTitle, AssetName" as VoString
+  StringValueObject <|-- VoString
+}
+
+' ================================================================
+' Blocks.Domain — Events
+' ================================================================
+package "Blocks.Domain — Events" #F9F0FF {
+  interface IDomainEvent
+  note bottom of IDomainEvent
+    extends MediatR.INotification
+    and FastEndpoints.IEvent
+  end note
+}
+
+' ================================================================
+' Articles.Abstractions — cross-service domain contracts
+' ================================================================
+package "Articles.Abstractions" #F0F8FF {
+
+  interface IAuditableAction
+  interface IArticleAction {
+    + ArticleId : int
+  }
+  IAuditableAction <|-- IArticleAction
+
+  abstract class "ArticleCommandBase<T>\n<<record>>" as ArtCmd {
+    + ArticleId, Comment
+    + ActionType : T
+    + CreatedOn, CreatedById
+  }
+  ArtCmd ..|> IArticleAction
+
+  abstract class "DomainEvent<T>\n<<record>>" as DomEvT {
+    + Action : T
+  }
+  DomEvT ..|> IDomainEvent
+
+  class "ArticleCommand\n(Submission, Production)" as CmdConcrete
+  ArtCmd <|-- CmdConcrete
+
+  class "ArticleStageChanged" as EventConcrete
+  DomEvT <|-- EventConcrete
+}
+
+' ================================================================
+' Layout hints — force packages to stack vertically:
+'   Articles.Abstractions  (top)
+'   Blocks.Domain — Events
+'   Blocks.Domain — Value Objects
+'   Blocks.Domain — Entities  (bottom)
+' ================================================================
+CmdConcrete       -[hidden]down- IDomainEvent
+IDomainEvent      -[hidden]down- IValueObject
+StringValueObject -[hidden]down- IDomainObject
+
+' Narrow the Entities package by stacking its concretes vertically
+AggConcretes    -[hidden]down- EntityConcretes
+EntityConcretes -[hidden]down- EnumConcretes
+
+@enduml
