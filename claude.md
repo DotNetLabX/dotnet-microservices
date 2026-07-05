@@ -9,7 +9,7 @@ src/
 ├── BuildingBlocks/
 │   ├── Articles.Abstractions        — Shared article interfaces & enums (ArticleStage, IArticleAction, ArticleCommandBase)
 │   ├── Articles.Grpc.Contracts      — gRPC code-first contracts ([ServiceContract]/[ProtoContract])
-│   ├── Articles.Integration.Contracts — MassTransit integration event records
+│   ├── Articles.Integration.Contracts — MassTransit integration event records (assembly/namespace: Articles.IntegrationEvents.Contracts — folder name differs)
 │   ├── Articles.Security            — JWT config, role constants, authorization handlers
 │   ├── Blocks.Core                  — Guards, IClaimsProvider, caching, extensions, RequestContext
 │   ├── Blocks.Domain                — Entity<T>, AggregateRoot<T>, ValueObject, IDomainEvent
