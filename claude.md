@@ -70,7 +70,7 @@ Services use 4400–4499. HTTP/HTTPS pairs: (4401/4451), (4402/4452), etc.
 
 ## Feature plans
 
-Implementation plans live in `plans/{ServiceOrModule}/{FeatureName}.md`, grouped by the service or module that owns the work. Created by Architect, consumed by Developer.
+Feature specs and implementation plans live in `docs/specs/{slug}/` (`definition/` and `delivery/`) — nexus pipeline paths. Created by the PO/Architect agents, consumed by the Developer.
 
 ## Compaction rules
 
@@ -84,14 +84,6 @@ After reading a file, trust your context. Do not re-read files unless told they 
 
 Exists at repo root — excludes bin/, obj/, Migrations/, .vs/, *.lock, docker-compose.override.yml.
 
-## Agent auto-loading
-If the CC_AGENT environment variable is set, immediately be agents/{CC_AGENT}.md 
-and follow that role for the entire session. Do this before responding to any prompt.
+## Agents and skills
 
-## Agent loading
-
-"Load/be {agent}" → read `ai-coding/agents/{Agent}.md`, follow its instructions silently. Never show file contents unless explicitly asked.
-
-## Skills
-
-Available in `.claude/skills/`. Check them when working on features — they contain patterns, workflows, and templates for this codebase.
+Provided by the `nexus` and `nexus-dotnet` plugins (claude-nexus marketplace) — agents via `/nexus:{agent}` or "be {agent}", skills via the Skill tool. Check the skills when working on features — they contain the patterns, workflows, and templates for this codebase.
