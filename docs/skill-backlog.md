@@ -175,3 +175,56 @@ All 13 entries below route to `docs/plugin-feedback/nexus-dotnet-1.3.1-2026-07-0
 - **Source:** Clean-room regeneration + comparative evaluation (verdict #10)
 - **Description:** Routed 3 defects — misstated entity-configuration ladder (real: `AuditedEntityConfiguration<T> : AuditedEntityConfiguration<T,int> : EntityConfiguration<T,TKey>`); missing spine rules (repository-as-unit-of-work, type-keyed reference-data cache); ungrounded SQLite/foreign examples.
 - **Date:** 2026-07-05
+
+### improve-skills (nexus core — lint + recipe)
+- **Status:** Routed-to-plugin
+- **Type:** Fix
+- **Source:** Utility-skill audit vs research canon (docs/skill-evals/2026-07-06-nexus-utility-skills.md; docs/kb/research/dotnet-agent-skill-estates.md)
+- **Description:** Routed 5 findings to `docs/plugin-feedback/nexus-1.23.1-2026-07-06.md` — extend lint E6 to `scripts/`/`assets/` citations (F1); add W3 body-size warning >500 lines (F2); sanction `scripts/` in the recipe element menu + scaffold step as the P1 home (F4); add the degrees-of-freedom axis to the recipe (F5); add W4 nested-reference warning (F6). All WARN-level or additive-menu — no behavior break.
+- **Date:** 2026-07-06
+
+### evaluate-skill (nexus core — rubric)
+- **Status:** Routed-to-plugin
+- **Type:** Fix
+- **Source:** Utility-skill audit vs research canon (docs/skill-evals/2026-07-06-nexus-utility-skills.md)
+- **Description:** Routed 1 finding to `docs/plugin-feedback/nexus-1.23.1-2026-07-06.md` — rubric Layer 0 item 6 (skills-index check) is labeled scripted but skill-lint.mjs has no such check (AP1) and it duplicates Layer 4.3 (AP3); delete from Layer 0. Plus the F5 pointing clause in Layer 2.2 (degrees of freedom).
+- **Date:** 2026-07-06
+
+## Deferred Gaps
+
+Coverage dimensions surfaced by the 2026-07-06 external research (`docs/kb/research/dotnet-agent-skill-estates.md`) — recorded, not built; each becomes a skill only when the need first materializes (Quality Gate: repeatable, concrete, no existing coverage).
+
+### upgrade-playbook
+- **Status:** Deferred
+- **Type:** Gap
+- **Source:** Research finding — awesome-copilot ships dotnet-upgrade + MAUI 9→10 playbooks as first-class instruction files
+- **Description:** A .NET/package version-migration playbook skill (TFM bumps, breaking-API tiers, CPM version sweeps, validation sequence). Defer until the repo's next framework upgrade provides the real material — a playbook without a lived upgrade is theory.
+- **Date:** 2026-07-06
+
+### verification-scripts
+- **Status:** Deferred
+- **Type:** Gap
+- **Source:** Research finding — morphir-dotnet's executable pre-commit gates; Anthropic scripts/ anatomy
+- **Description:** Promote the skills' inline verification greps into bundled executable `scripts/` where a grep is insufficient (multi-file invariants, count regressions). Depends on the improve-skills F1/F4 fixes landing first so lint covers script citations.
+- **Date:** 2026-07-06
+
+### testing-strategy
+- **Status:** Deferred
+- **Type:** Gap
+- **Source:** Research finding — morphir's four-tool layer mapping with coverage floors; repo has zero test projects (architecture-reference §12.1)
+- **Description:** A testing-strategy skill (tool-per-layer, coverage expectations, where tests live per service). Blocked on the owner decision to introduce test projects at all — the course repo currently ships none by design; revisit when mine-verify-cover-dotnet is first used.
+- **Date:** 2026-07-06
+
+### observability
+- **Status:** Deferred
+- **Type:** Gap
+- **Source:** Research finding — observability discipline present in mature public estates, absent here beyond the correlation-id chain (infra-2)
+- **Description:** Logging/telemetry discipline skill (structured logging conventions, what gets logged where, OpenTelemetry if adopted). Defer until the repo adopts a telemetry stack — currently only Serilog-style console logging + correlation-id middleware exists to encode.
+- **Date:** 2026-07-06
+
+### build-release
+- **Status:** Deferred
+- **Type:** Gap
+- **Source:** Research finding — dotnet-cursor-rules' CI/CD, packaging, and BenchmarkDotNet dimensions
+- **Description:** Build/release surfaces skill (Dockerfile discipline — incl. the known sdk:8.0 vs net9.0 debt, compose registration, CI pipeline when one exists). Partial overlap with create-service Phase 7 (containerize); defer the rest until a CI pipeline exists.
+- **Date:** 2026-07-06

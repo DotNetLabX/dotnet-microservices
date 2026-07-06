@@ -21,6 +21,7 @@ The **verified pattern rules** — what the codebase does and *why*, each backed
 11. [Service-Specific Patterns](#11-service-specific-patterns)
 12. [Testing Patterns](#12-testing-patterns)
 13. [Configuration and Infrastructure](#13-configuration-and-infrastructure)
+14. [AI Skill Estate — Design Decision](#14-ai-skill-estate--design-decision)
 
 ---
 
@@ -1023,6 +1024,21 @@ Configured once in `Articles.Security/ConfigureAuthentication.cs`: validates iss
 All implementations register as `IFileService` (or `IFileService<TOptions>` for multi-instance scenarios).
 
 *(rules: `reference-model.md` → File-Storage Abstraction, filestorage-1..4)*
+
+---
+
+## 14. AI Skill Estate — Design Decision
+
+**What exists:** 13 project-local skills under `.claude/skills/` (built 2026-07-05 from the verified registry), plus the nexus / nexus-dotnet plugin skills. Build log and pending gaps: [`docs/skill-backlog.md`](skill-backlog.md).
+
+**The opinionated shape (decision, Laurentiu, 2026-07-06):** skills here are **phased, variant-aware, and repo-exact** — numbered phases for multi-step procedures, per-service variants where microservices apply the same pattern differently (endpoint framework, event bus, storage engine), lifted code templates from real files, verification greps as done-conditions, and scope fences naming sibling skills. Activation is semantic (task intent + service variant), not file-glob.
+
+**Why (practical reasons, not theory):**
+- Different services deliberately apply the same pattern differently — a single generic recipe produces the wrong variant; variants encode the fork explicitly.
+- The skills feed agents editing *this* repo — repo-exact citations and registry row ids (`reference-model.md`) beat generic guidance on fit, verified by 10/10 comparative evaluations against the shipped generic skills (Phase B, 2026-07-05).
+- Multi-step procedures fail mid-way without phases and verification gates; a grep the agent must run catches drift a prose reminder does not.
+
+**Standing rule:** external canon (e.g. Anthropic's <500-line SKILL.md guidance) is a *flag to justify per skill*, not a kill — we deviate deliberately where the practical reasons above demand it, and we change this architecture only for a demonstrably better one serving the same practical reasons. We stay open to better approaches: externally validated 2026-07-06 against the strongest public .NET estates and Anthropic's authoring canon — no public estate uses phases or variants; the borrowable material is coverage dimensions and executable verification scripts, recorded in [`docs/kb/research/dotnet-agent-skill-estates.md`](kb/research/dotnet-agent-skill-estates.md) and backlogged in `skill-backlog.md`.
 
 ---
 
