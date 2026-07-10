@@ -19,8 +19,6 @@ public partial class User
             Person = person
         };
 
-        ///user.AddDomainEvent(new UserCreated(this));
-
         return user;
     }
 
