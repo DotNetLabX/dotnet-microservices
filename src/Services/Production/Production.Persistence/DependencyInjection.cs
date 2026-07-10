@@ -29,6 +29,8 @@ public static class DependencyInjection
         // decide if we need the same DBConnection/Transaction when we are saving the Timeline
         services.AddScoped<TransactionProvider>();
 
+        // ArticleTimeline registers its own DbContext — see AddArticleTimelinePersistence().
+
         services.AddScoped(typeof(Repository<>));
         services.AddScoped<ArticleRepository>();
         services.AddScoped<AssetRepository>();
