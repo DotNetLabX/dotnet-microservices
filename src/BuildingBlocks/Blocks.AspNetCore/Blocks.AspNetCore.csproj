@@ -12,10 +12,8 @@
 
   <ItemGroup>
     <PackageReference Include="Grpc.Net.Client"/>
-    <PackageReference Include="Grpc.Net.ClientFactory"/>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer"/>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi"/>
-    <PackageReference Include="Microsoft.Extensions.Http.Polly"/>
     <PackageReference Include="protobuf-net.Grpc"/>
     <PackageReference Include="Swashbuckle.AspNetCore"/>
   </ItemGroup>
