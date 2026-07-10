@@ -28,25 +28,12 @@ public static class DependencyInjection
 
         // decide if we need the same DBConnection/Transaction when we are saving the Timeline
         services.AddScoped<TransactionProvider>();
-        //services.AddDbContext<ArticleTimelineDbContext>((provider, options) =>
-        //{
-        //    var dbConnection = provider.GetRequiredService<DbConnection>();
-        //    //options.UseSqlServer(dbConnection);
-        //    options.AddInterceptors(provider.GetServices<ISaveChangesInterceptor>());
-        //    options.UseSqlServer(dbConnection, options =>
-        //    {
-        //        options.MigrationsHistoryTable("__EFMigrationsHistory", "ArticleTimeline");
-        //    });
-        //});
 
         services.AddScoped(typeof(Repository<>));
         services.AddScoped<ArticleRepository>();
         services.AddScoped<AssetRepository>();
         services.AddScoped<AssetTypeRepository>();
         services.AddScoped<FileRepository>();
-
-
-        //services.AddHostedService<DatabaseCacheLoader>();
 
         return services;
     }
