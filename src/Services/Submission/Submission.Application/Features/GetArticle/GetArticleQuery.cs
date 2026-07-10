@@ -2,8 +2,8 @@
 
 namespace Submission.Application.Features.GetArticle;
 
-public record GetArticleQuery(int ArticleId) : IQuery<GetArticleResonse>;
-public record GetArticleResonse(ArticleDto ArticleSummary);
+public record GetArticleQuery(int ArticleId) : IQuery<GetArticleResponse>;
+public record GetArticleResponse(ArticleDto ArticleSummary);
 
 public class GetArticleValidator : AbstractValidator<GetArticleQuery>
 {

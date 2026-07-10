@@ -14,7 +14,7 @@ public static class GetArticleEndpoint
         .RequireRoleAuthorization(Role.Author, Role.Editor, Role.EditorAdmin)
         .WithName("GetArticle")
         .WithTags("Articles")
-        .Produces<GetArticleResonse>(StatusCodes.Status200OK)
+        .Produces<GetArticleResponse>(StatusCodes.Status200OK)
         .ProducesProblem(StatusCodes.Status404NotFound)
         .ProducesProblem(StatusCodes.Status401Unauthorized);
     }
