@@ -14,7 +14,7 @@ public class GetArticleEndpoint : ICarterModule
         .RequireRoleAuthorization(Role.Author, Role.Editor, Role.Reviewer, Role.EditorAdmin)
         .WithName("GetArticle")
         .WithTags("Articles")
-        .Produces<GetArticleResonse>(StatusCodes.Status200OK)
+        .Produces<GetArticleResponse>(StatusCodes.Status200OK)
         .ProducesProblem(StatusCodes.Status404NotFound)
         .ProducesProblem(StatusCodes.Status401Unauthorized);
     }
