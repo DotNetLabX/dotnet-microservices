@@ -17,12 +17,12 @@ public class SendGridEmailService(ISendGridClient sendGridClient, IOptions<SendG
 
         if (response == null)
         {
-            logger.LogError($"unknow error");
+            logger.LogError("unknown error");
             return false;
         }
         else if (!response.IsSuccessStatusCode)
         {
-            logger.LogError($"the mail service returned status code response.StatusCode");
+            logger.LogError("the mail service returned status code {StatusCode}", response.StatusCode);
             return false;
         }
 
