@@ -66,10 +66,16 @@ public class ThreadSafeMemoryCache(IMemoryCache _cache) : IThreadSafeMemoryCache
 
     public T Set<T>(string cacheKey, T value)
     {
-        return _cache.Set(cacheKey, value, _cacheOptions);
+        using (_mutex.Lock())
+        {
+            return _cache.Set(cacheKey, value, _cacheOptions);
+        }
     }
     public void Remove(string cacheKey)
     {
-        _cache.Remove(cacheKey);
+        using (_mutex.Lock())
+        {
+            _cache.Remove(cacheKey);
+        }
     }
 }
