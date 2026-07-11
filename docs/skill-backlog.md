@@ -1,5 +1,14 @@
 # Skill Backlog
 
+## Refresh Queue
+
+### mine-reference-model refresh
+- **Status:** Owed
+- **Type:** Refresh
+- **Source:** adhoc-MineFamilyCore P0 record hygiene (nexus); pilot ran 2026-07-05 (self-reference, runs 1-3), `last_verified: 2026-07-05`
+- **Description:** Re-run `mine-reference-model` (self-reference mode) to refresh `docs/reference-model.md` against this repo's git delta since `last_verified: 2026-07-05`. Refresh owner: operator.
+- **Date:** 2026-07-10
+
 ## Skills Created
 
 ### Error Handling
