@@ -24,5 +24,5 @@ public partial class ReviewInvitation : AggregateRoot
 
     public required InvitationToken Token { get; init; }
 
-    public InvitationStatus Status { get; set; } = InvitationStatus.Open;
+    public InvitationStatus Status { get; private set; } = InvitationStatus.Open;
 }

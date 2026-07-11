@@ -12,7 +12,7 @@ public partial class Article : AggregateRoot
     public int? SubmittedById { get; set; }
     public Person? SubmittedBy { get; set; }
 
-    public ArticleStage Stage { get; set; }
+    public ArticleStage Stage { get; private set; }
 
     public int JournalId { get; init; }
     public required Journal Journal { get; init; } = null!;

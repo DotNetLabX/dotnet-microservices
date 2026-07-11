@@ -1,6 +1,6 @@
 ﻿using FileStorage.Contracts;
 using Production.Persistence.Repositories;
-using Production.Application.StateMachines;
+using Production.Domain.StateMachines;
 using Production.API.Features.Assets.UploadFiles._Shared;
 
 namespace Production.API.Features.Assets.UploadFiles.UploadSupplementaryFile;

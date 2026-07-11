@@ -30,21 +30,35 @@ public sealed class ArticleAcceptedForProductionConsumer(
         if (await articleRepository.ExistsAsync(articleDto.Id))
             return;
 
-        var journal = await GetOrCreateJournal(articleDto);
-        var actors = await CreateActors(articleDto, ct);
-        var assets = await CreateAssets(articleDto, ct);
+        var uploadedFiles = new List<FileMetadata>();
 
-        var action = new ArticleAction
+        try
         {
-            ArticleId = articleDto.Id,
-            ActionType = ArticleActionType.AcceptForProduction,
-            CreatedById = articleDto.SubmittedBy.UserId ?? 0,
-        };
+            var journal = await GetOrCreateJournal(articleDto);
+            var actors = await CreateActors(articleDto, ct);
+            var assets = await CreateAssets(articleDto, uploadedFiles, ct);
 
-        var article = Article.FromReview(articleDto, actors, assets, action);
-        await articleRepository.AddAsync(article);
+            var action = new ArticleAction
+            {
+                ArticleId = articleDto.Id,
+                ActionType = ArticleActionType.AcceptForProduction,
+                CreatedById = articleDto.SubmittedBy.UserId ?? 0,
+            };
 
-        await dbContext.SaveChangesAsync(ct);
+            var article = Article.FromReview(articleDto, actors, assets, action);
+            await articleRepository.AddAsync(article);
+
+            await dbContext.SaveChangesAsync(ct);
+        }
+        catch (Exception)
+        {
+            // mid-loop or post-loop failure orphans every file uploaded so far in this message;
+            // compensate all of them, then rethrow so MassTransit redelivers the whole message
+            foreach (var uploadedFile in uploadedFiles)
+                await azureBlobFileService.TryDeleteAsync(uploadedFile.StoragePath);
+
+            throw;
+        }
     }
 
     private async Task<Journal> GetOrCreateJournal(ArticleDto articleDto)
@@ -95,7 +109,7 @@ public sealed class ArticleAcceptedForProductionConsumer(
         return actors;
     }
 
-    private async Task<IEnumerable<Asset>> CreateAssets(ArticleDto articleDto, CancellationToken ct)
+    private async Task<IEnumerable<Asset>> CreateAssets(ArticleDto articleDto, List<FileMetadata> uploadedFiles, CancellationToken ct)
     {
         var assets = new List<Asset>();
         foreach (var assetDto in articleDto.Assets)
@@ -109,6 +123,8 @@ public sealed class ArticleAcceptedForProductionConsumer(
                 new FileUploadRequest(fileMetadata.StoragePath, fileMetadata.FileName, fileMetadata.ContentType, fileMetadata.FileSize),
                 fileStream,
                 ct: ct);
+
+            uploadedFiles.Add(uploadedMetadata);
 
             asset.CreateAndAddFile(uploadedMetadata, assetType);
 

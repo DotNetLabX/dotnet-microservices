@@ -2,7 +2,7 @@ using Mapster;
 using Production.API.Features.Assets.RequestAssets._Shared;
 using Production.API.Features.Shared;
 using Production.Application.Dtos;
-using Production.Application.StateMachines;
+using Production.Domain.StateMachines;
 using Production.Domain.Assets;
 using Production.Domain.Assets.Enums;
 using Production.Persistence.Repositories;
@@ -30,8 +30,7 @@ public class CancelRequestFinalAssetsEndpoint(ArticleRepository articleRepositor
             if (asset?.State != AssetState.Requested)
                 continue;
 
-            CheckAndThrowStateTransition(asset, command.ActionType);
-            asset.CancelRequest(command);
+            asset.CancelRequest(command, _stateMachineFactory);
             assets.Add(asset);
         }
 

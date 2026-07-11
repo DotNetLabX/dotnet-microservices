@@ -27,26 +27,40 @@ public class ArticleApprovedForReviewConsumer(
 
         //insight - inbox pattern vs simple business rules(chek if the article already exists)
         await _articleRepository.EnsureNotExistsOrThrowAsync(articleDto.Id, context.CancellationToken);
-        
-        var actors = await CreateActors(articleDto);
 
-        var assets = await CreateAssets(articleDto, context.CancellationToken);
+        var uploadedFiles = new List<FileMetadata>();
 
-        var journal = await GetOrCreateJournal(articleDto);
-
-
-        var action = new ArticleAction
+        try
         {
-            ArticleId = articleDto.Id,
-            ActionType = ArticleActionType.ApproveForReview,
-            CreatedById = actors.Single(a => a.Role == UserRoleType.REVED).Person.UserId!.Value, // the editor who approved the article is the creator of the action
-        };
+            var actors = await CreateActors(articleDto);
 
-        var article = Article.FromSubmission(articleDto, actors, assets, _stateMachineFactory, action);
-        await _articleRepository.AddAsync(article);
+            var assets = await CreateAssets(articleDto, uploadedFiles, context.CancellationToken);
+
+            var journal = await GetOrCreateJournal(articleDto);
 
 
-        await _dbContext.SaveChangesAsync(context.CancellationToken);
+            var action = new ArticleAction
+            {
+                ArticleId = articleDto.Id,
+                ActionType = ArticleActionType.ApproveForReview,
+                CreatedById = actors.Single(a => a.Role == UserRoleType.REVED).Person.UserId!.Value, // the editor who approved the article is the creator of the action
+            };
+
+            var article = Article.FromSubmission(articleDto, actors, assets, _stateMachineFactory, action);
+            await _articleRepository.AddAsync(article);
+
+
+            await _dbContext.SaveChangesAsync(context.CancellationToken);
+        }
+        catch (Exception)
+        {
+            // mid-loop or post-loop failure orphans every file uploaded so far in this message;
+            // compensate all of them, then rethrow so MassTransit redelivers the whole message
+            foreach (var uploadedFile in uploadedFiles)
+                await _reviewFileService.TryDeleteAsync(uploadedFile.StoragePath);
+
+            throw;
+        }
     }
 
     private async Task<Journal> GetOrCreateJournal(ArticleDto articleDto)
@@ -61,7 +75,7 @@ public class ArticleApprovedForReviewConsumer(
         return journal;
     }
 
-    private async Task<IEnumerable<Asset>> CreateAssets(ArticleDto articleDto, CancellationToken ct = default)
+    private async Task<IEnumerable<Asset>> CreateAssets(ArticleDto articleDto, List<FileMetadata> uploadedFiles, CancellationToken ct = default)
     {
         var submissionFileService = _fileServiceFactory(FileStorageType.Submission);
 
@@ -77,6 +91,8 @@ public class ArticleApprovedForReviewConsumer(
             fileMetadata = await _reviewFileService.UploadAsync(
                 new FileUploadRequest(fileMetadata.StoragePath, fileMetadata.FileName, fileMetadata.ContentType, fileMetadata.FileSize),
                 fileStream);
+
+            uploadedFiles.Add(fileMetadata);
 
             asset.CreateFile(fileMetadata, assetTypeDefinition);
 

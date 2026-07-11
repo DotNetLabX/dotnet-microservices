@@ -12,5 +12,5 @@ public partial class Asset : AggregateRoot
     public int ArticleId { get; private set; }
     public virtual Article Article { get; private set; } = null!;
 
-    public File File { get; set; } = null!; 
+    public File File { get; private set; } = null!;
 }
