@@ -1,4 +1,5 @@
 ﻿using Blocks.Core;
+using Blocks.Domain;
 using Newtonsoft.Json;
 
 namespace Submission.Domain.ValueObjects;
@@ -15,10 +16,11 @@ public class FileExtension: StringValueObject
 
     public static FileExtension FromFileName(string fileName, AssetTypeDefinition assetType)
     {
-        var extension = Path.GetExtension(fileName).Remove(0, 1); //removing the '.'
-        Guard.ThrowIfNullOrWhiteSpace(extension);
+        var extension = Path.GetExtension(fileName)?.TrimStart('.');
+        if (string.IsNullOrWhiteSpace(extension))
+            throw new DomainException($"File name '{fileName}' has no extension");
         Guard.ThrowIfNotEqual(
-            assetType.AllowedFileExtensions.IsValidExtension(extension), true); 
+            assetType.AllowedFileExtensions.IsValidExtension(extension), true);
 
         return new FileExtension(extension);
     }
