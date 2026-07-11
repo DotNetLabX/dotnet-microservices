@@ -7,6 +7,24 @@ namespace Submission.Domain.Entities;
 
 public partial class Article
 {
+    public static Article Create(string title, ArticleType type, string scope, Journal journal, IArticleAction action)
+    {
+        var article = new Article
+        {
+            Title = title,
+            Type = type,
+            Scope = scope,
+            Journal = journal,
+            Stage = ArticleStage.Created,
+            CreatedById = action.CreatedById,
+            CreatedOn = action.CreatedOn
+        };
+
+        article.AddDomainEvent(new ArticleCreated(article, action));
+
+        return article;
+    }
+
     public void SetStage(ArticleStage newStage, IArticleAction<ArticleActionType> action, ArticleStateMachineFactory stateMachineFactory)
     {
         stateMachineFactory.ValidateStageTransition(Stage, action.ActionType);

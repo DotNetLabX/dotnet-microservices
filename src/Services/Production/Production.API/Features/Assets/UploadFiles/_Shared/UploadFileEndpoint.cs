@@ -2,7 +2,7 @@
 using Mapster;
 using Production.API.Features.Shared;
 using Production.Application.Dtos;
-using Production.Application.StateMachines;
+using Production.Domain.StateMachines;
 using Production.Domain.Assets;
 using Production.Domain.Assets.Enums;
 using Production.Persistence.Repositories;
@@ -28,12 +28,10 @@ public class UploadFileEndpoint<TUploadCommand>
         if (asset is null)
             asset = _article.CreateAsset(assetType, command.GetAssetNumber());
 
-        CheckAndThrowStateTransition(asset, command.ActionType);
-
         var fileMetadata = await UploadFile(command, asset, ct);
         try
         {
-            asset.CreateAndAddFile(fileMetadata, assetType, command);
+            asset.CreateAndAddFile(fileMetadata, assetType, command, _stateMachineFactory);
 
             _article.SetStage(NextStage, command);
 

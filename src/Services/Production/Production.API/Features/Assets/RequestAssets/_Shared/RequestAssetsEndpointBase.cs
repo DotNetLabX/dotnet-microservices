@@ -1,7 +1,7 @@
 ﻿using Mapster;
 using Production.API.Features.Shared;
 using Production.Application.Dtos;
-using Production.Application.StateMachines;
+using Production.Domain.StateMachines;
 using Production.Domain.Assets.Enums;
 using Production.Domain.Assets;
 using Production.Persistence.Repositories;
@@ -25,8 +25,7 @@ public class RequestAssetsEndpointBase<TCommand>(ArticleRepository _articleRepos
             if (asset is null)
                 asset = CreateAsset(assetRequest.AssetType, assetRequest.AssetNumber);
 
-            CheckAndThrowStateTransition(asset, command.ActionType);
-            asset.SetState(AssetState.Requested, command);
+            asset.SetState(AssetState.Requested, command, _stateMachineFactory);
             
             assetsResponse.Add(asset);
         }

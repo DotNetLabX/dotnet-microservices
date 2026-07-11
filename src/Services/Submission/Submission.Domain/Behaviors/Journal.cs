@@ -6,20 +6,9 @@ public partial class Journal
 {
     public Article CreateArticle(string title, ArticleType Type, string scope, IArticleAction action)
     {
-        var article = new Article
-        {
-            Title = title,
-            Type = Type,
-            Scope = scope,
-            Journal = this,
-            Stage = ArticleStage.Created,
-            CreatedById = action.CreatedById,
-            CreatedOn = action.CreatedOn
-        };
+        var article = Article.Create(title, Type, scope, this, action);
         _articles.Add(article);
 
-        var domainEvent = new ArticleCreated(article, action);
-        article.AddDomainEvent(domainEvent);
         return article;
     }
 

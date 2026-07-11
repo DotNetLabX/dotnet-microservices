@@ -4,7 +4,7 @@ using Articles.Security;
 using Articles.Abstractions.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Production.Persistence.Repositories;
-using Production.Application.StateMachines;
+using Production.Domain.StateMachines;
 using Production.API.Features.Assets.UploadFiles._Shared;
 
 namespace Production.API.Features.Assets.UploadFiles.UploadDraftFile;

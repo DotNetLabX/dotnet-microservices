@@ -5,6 +5,7 @@ using Production.Domain.Articles;
 using Production.Domain.Assets.Enums;
 using Production.Domain.Assets.Events;
 using Production.Domain.Assets.ValueObjects;
+using Production.Domain.StateMachines;
 
 namespace Production.Domain.Assets;
 
@@ -58,31 +59,37 @@ public partial class Asset
         };
     }
 
-    public void SetState(AssetState newState, IArticleAction<AssetActionType> action)
+    public void SetState(AssetState newState, IArticleAction<AssetActionType> action, AssetStateMachineFactory stateMachineFactory)
     {
+        if (!stateMachineFactory(this.State).CanFire(this.Article.Stage, this.Type, action.ActionType))
+            throw new DomainException("Action not allowed for current stage");
+
         this.State = newState;
         this.LastModifiedOn = DateTime.UtcNow;
         this.LastModifiedById = action.CreatedById;
         AddAction(action);
     }
 
-    public void CancelRequest(IArticleAction<AssetActionType> action)
+    public void CancelRequest(IArticleAction<AssetActionType> action, AssetStateMachineFactory stateMachineFactory)
     {
         if (this.State != AssetState.Requested)
             throw new DomainException("Wrong status");
 
-        SetState(AssetState.Uploaded, action);
+        SetState(AssetState.Uploaded, action, stateMachineFactory);
     }
 
-    public File CreateAndAddFile(FileMetadata uploadResponse, AssetTypeDefinition assetTypeDefinition, IArticleAction<AssetActionType>? action = null)
+    public File CreateAndAddFile(FileMetadata uploadResponse, AssetTypeDefinition assetTypeDefinition, IArticleAction<AssetActionType>? action = null, AssetStateMachineFactory? stateMachineFactory = null)
     {
+        if ((action is null) != (stateMachineFactory is null))
+            throw new DomainException($"{nameof(action)} and {nameof(stateMachineFactory)} must be supplied together");
+
         var file = File.CreateFile(uploadResponse, this, assetTypeDefinition);
 
         _files.Add(file);
         CurrentFileLink = new AssetCurrentFileLink() { File = file };
 
         if (action is not null)
-            SetState(AssetState.Uploaded, action);
+            SetState(AssetState.Uploaded, action, stateMachineFactory!);
         else
             State = AssetState.Uploaded;
 

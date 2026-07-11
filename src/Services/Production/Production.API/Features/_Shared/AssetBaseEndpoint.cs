@@ -1,6 +1,5 @@
 ﻿using Articles.Abstractions.Enums;
-using Blocks.Exceptions;
-using Production.Application.StateMachines;
+using Production.Domain.StateMachines;
 using Production.Domain.Articles;
 using Production.Domain.Assets;
 using Production.Domain.Assets.Enums;
@@ -18,12 +17,6 @@ public abstract class AssetBaseEndpoint<TCommand, TResponse>(AssetTypeRepository
     protected Article _article = null!;
 
     protected virtual ArticleStage NextStage => _article!.Stage; // by default the stage doesn't change
-
-    protected virtual void CheckAndThrowStateTransition(Asset asset, AssetActionType actionType)
-    {
-        if (!_stateMachineFactory(asset.State).CanFire(asset.Article.Stage, asset.Type, actionType))
-            throw new BadRequestException("Action not allowed");
-    }
 
     protected Asset CreateAsset(AssetType assetType, byte assetNumber)
     {

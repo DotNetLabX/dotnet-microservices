@@ -3,7 +3,7 @@ using Articles.Abstractions.Enums;
 using Production.Persistence.Repositories;
 using Production.API.Features.Shared;
 using Production.Application.Dtos;
-using Production.Application.StateMachines;
+using Production.Domain.StateMachines;
 using Production.Domain.Assets.Enums;
 
 namespace Production.API.Features.Assets.ApproveAssets.Draft;
@@ -21,8 +21,7 @@ public class ApproveDraftAssetEndpoint(ArticleRepository articleRepository, Asse
         _article = await _articleRepository.GetByIdWithAssetsAsync(command.ArticleId);
         var asset = _article.Assets.Single(a => a.Id == command.AssetId);
 
-        CheckAndThrowStateTransition(asset, command.ActionType);
-        asset.SetState(AssetState.Approved, command);
+        asset.SetState(AssetState.Approved, command, _stateMachineFactory);
 
         _article.SetStage(NextStage, command);
 

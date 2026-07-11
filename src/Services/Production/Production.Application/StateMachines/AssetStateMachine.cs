@@ -2,14 +2,13 @@
 using Microsoft.EntityFrameworkCore;
 using Production.Domain.Assets.Enums;
 using Production.Domain.Assets;
+using Production.Domain.StateMachines;
 using Production.Persistence;
 using Stateless;
 
 namespace Production.Application.StateMachines;
 
-public delegate AssetStateMachine AssetStateMachineFactory(AssetState assetState);
-
-public class AssetStateMachine
+public class AssetStateMachine : IAssetStateMachine
 {
     private readonly StateMachine<AssetState, AssetActionType> _stateMachine;
     private readonly IEnumerable<AssetStateTransitionCondition> _conditions;

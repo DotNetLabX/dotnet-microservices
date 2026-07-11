@@ -14,7 +14,7 @@ public partial class Article : AggregateRoot
 
     public DateTime AcceptedOn { get; set; }
 
-    public ArticleStage Stage { get; set; }
+    public ArticleStage Stage { get; private set; }
 
     public required int JournalId { get; set; }
     public int VolumeId { get; set; }

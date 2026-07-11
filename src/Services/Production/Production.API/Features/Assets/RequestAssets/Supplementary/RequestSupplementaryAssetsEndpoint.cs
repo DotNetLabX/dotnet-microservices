@@ -1,7 +1,7 @@
 ﻿using FastEndpoints;
 using Microsoft.AspNetCore.Authorization;
 using Production.API.Features.Assets.RequestAssets._Shared;
-using Production.Application.StateMachines;
+using Production.Domain.StateMachines;
 using Production.Persistence.Repositories;
 
 namespace Production.API.Features.Assets.RequestAssets.Supplementary;
