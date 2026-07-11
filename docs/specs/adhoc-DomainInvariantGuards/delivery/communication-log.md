@@ -42,6 +42,10 @@
 | 26 | developer → team-lead | developer:implement | Fix applied, scoped to Asset.cs only (XOR `if((action is null)!=(stateMachineFactory is null)) throw DomainException`, idiom-matched to SetState/CancelRequest). Build 0 errors, 42 pre-existing warnings. Both call sites unaffected. Appended ## Post-Review Fix to implementation.md. | — |
 | 27 | team-lead (self) | validate | Diff verified scoped (still 22 src files, guard folds into Asset.cs, no scope creep). **Independent `dotnet build src/Articles.sln` → 42 warnings, 0 errors.** HEAD clean. | — |
 | 28 | team-lead (self) | done | summary.md written. Pipeline complete. Proceeding to implementation commit (2/2), then push gate + lessons ask. | — |
+| 29 | team-lead (self) | done | Impl commit **b8538f0** (27 files, scoped verified in-scope). Pipeline commits: 3c895b1 (plan) + b8538f0 (impl). | — |
+| 30 | user → team-lead | done | **USER answers: push = yes (shared branch); lessons = skip.** | — |
+| 31 | team-lead (self) | done | **Pushed** 5f79bfa..b8538f0 → origin/adhoc-TechDebtRegistryFixes (incl. concurrent TechDebt commits, per user). No hardened-guard block. Lessons unprocessed (user skip). Run closed. | — |
+| 32 | user → team-lead | post-close | Requested squash-merge to main (1-3 commits). TL corrected premise: only 2 of 13 branch commits are DIG; 11 are concurrent TechDebt. Also found local main 1 ahead of origin/main (unpushed 96dde60 [Assessment]). User decisions: 2 commits total — fold [Assessment]+TechDebt into one, DIG into one. Shared branch NOT force-pushed/rewritten (TechDebt run may be live). | — |
 
 ## Runtime / Plugin Issues Log
 
