@@ -14,7 +14,7 @@ public class GetArticleInvitationsEndpoint : ICarterModule
         .RequireRoleAuthorization(Role.Editor, Role.EditorAdmin)
         .WithName("GetArticleInvitations")
         .WithTags("Invitations")
-        .Produces<GetArticleInvitationsResonse>(StatusCodes.Status200OK)
+        .Produces<GetArticleInvitationsResponse>(StatusCodes.Status200OK)
         .ProducesProblem(StatusCodes.Status404NotFound)
         .ProducesProblem(StatusCodes.Status401Unauthorized);
     }

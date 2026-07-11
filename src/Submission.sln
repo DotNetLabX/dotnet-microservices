@@ -45,10 +45,6 @@ EndProject
 
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{43093EE6-A060-4D76-A05C-8AD764B6BE15}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ClientServices", "ClientServices", "{8324F40B-DAB8-499F-9D43-49698B20E9B9}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserServiceGrpcClient", "ClientServices\UserServiceGrpcClient\UserServiceGrpcClient.csproj", "{07C20046-7142-4640-B363-335E8716DE69}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiGateway", "ApiGateway\ApiGateway.csproj", "{9515CFB6-587B-4CB6-9191-129A432849A7}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{CED3B268-6093-4DCE-8CF9-65409BCFC71C}"

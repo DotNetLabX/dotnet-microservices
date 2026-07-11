@@ -14,7 +14,7 @@ using Blocks.Hasura;
 
 namespace ArticleHub.API;
 
-public static class DependecyInjection
+public static class DependencyInjection
 {
     public static void ConfigureOptions(this IServiceCollection services, IConfiguration configuration)
     {

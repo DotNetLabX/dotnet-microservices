@@ -15,7 +15,7 @@ using Blocks.Core.Context;
 
 namespace Submission.API;
 
-public static class DependecyInjection
+public static class DependencyInjection
 {
     public static void ConfigureApiOptions(this IServiceCollection services, IConfiguration config)
     {

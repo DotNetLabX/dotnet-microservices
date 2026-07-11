@@ -19,8 +19,7 @@ public partial class User
             Person = person
         };
 
-        ///user.AddDomainEvent(new UserCreated(this));
-
+        //insight - UserCreated is published from CreateUserEndpoint, not from the aggregate: the reset-password token it carries only exists there
         return user;
     }
 

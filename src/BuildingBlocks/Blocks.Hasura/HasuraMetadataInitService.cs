@@ -57,18 +57,13 @@ public class HasuraMetadataInitService(
             {
                 if (attempt == maxAttempts)
                 {
+                    _state = InitState.Failed;
                     _logger.LogError(ex, "Hasura metadata init failed after {Max} attempts.", maxAttempts);
                     return;
                 }
                 _logger.LogWarning(ex, "Hasura metadata init attempt {Attempt}/{Max} failed. Retrying…", attempt, maxAttempts);
                 await Task.Delay(TimeSpan.FromSeconds(5), ct);
             }
-        }
-
-        if (_state != InitState.Succeeded)
-        {
-            _state = InitState.Failed;
-            throw new InvalidOperationException($"Hasura metadata init failed. State: {_state}");
         }
     }
 }

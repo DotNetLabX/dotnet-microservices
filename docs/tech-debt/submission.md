@@ -1,0 +1,25 @@
+# Tech-Debt Registry — submission
+
+**Species:** tech-debt triage registry (`mine-verify-repo`) — sibling to `docs/reference-model.md`. Rows never deleted; dispositions flip; append-only changelog.
+**Scope:** `src/Services/Submission/**`. **Provenance:** td-run-1, commit `96dde60`, mined + skeptic-verified 2026-07-11.
+**Hotspot priority:** strict hotspot filter did not fire (see `metrics.md`); fallback area rank **3/11**. Genuine churn concentrates in `Submission.Domain/Behaviors/Article.cs` — the repo's most-revised file (5 revisions / 682 churned lines).
+**Triage:** architect-adjudicated 2026-07-11 (advisory); **owner ratification pending**.
+
+| Id | Lens | Sev | Finding (symbol + condition) | Evidence (re-executed 2026-07-11) | Status | Disposition |
+|----|------|-----|------------------------------|-----------------------------------|--------|-------------|
+| sub-1 | code-quality | low | API DI extension filed as `DependecyInjection.cs` (missing "n") in Submission.API, ArticleHub.API, Review.API — every `.Application`/`.Persistence` sibling spells it correctly | `find src -iname "Depend*njection.cs"` → 20 DI files, exactly 3 typo'd | verified | accepted |
+| sub-2 | code-quality | low | `GetArticle` response record misspelled `GetArticleResonse`, propagated through query, handler, and endpoint `Produces<>` | `grep -rn "GetArticleResonse" src/Services/Submission` → 6 hits / 3 files | verified | accepted |
+| sub-3 | code-quality | low | `Behaviors/Article.cs` names the `ArticleStateMachineFactory` **parameter** `_stateMachineFactory` (private-field style) in `Approve`/`Reject`/`Submit` but `stateMachineFactory` in `SetStage` — violates CLAUDE.md naming in the repo's most-revised file | `Behaviors/Article.cs:10` vs `:51,:64,:71` | verified | accepted |
+| sub-4 | code-quality | low | `FileExtension.FromFileName` runs `Path.GetExtension(fileName).Remove(0, 1)` before any Guard — an extensionless filename throws framework `ArgumentOutOfRangeException` (→500) instead of a domain `DomainException` (→400) | `FileExtension.cs:18-19` | verified | accepted |
+| sub-5 | architecture | **high** | `Article.Stage` is `public … { get; set; }` — any caller can bypass `SetStage`'s `ValidateStageTransition` guard, the `StageHistory` append, and the `ArticleStageChanged` event. Invariant-bypass on the flagship aggregate students copy | `Entities/Article.cs:15` + guard at `Behaviors/Article.cs:12` | verified | accepted |
+| sub-6 | architecture | medium | `Asset.File` is `{ get; set; }` while every sibling property on the aggregate is `{ get; private set; }` — `File` overwritable without `Asset.CreateFile()` | `Entities/Asset.cs:5-13` vs `:15` | verified | accepted |
+| sub-7 | architecture | low | Inconsistent domain timestamp source: `Person.Create`/`Author.Create` hardcode `DateTime.UtcNow`; `Journal.CreateArticle`/`Asset.Create` use `action.CreatedOn`; `Article.SetStage` mixes both in one method | `Behaviors/{Person,Author}.cs:19` vs `{Journal.cs:17,Asset.cs:26}` vs `Article.cs:19,:23` | verified | accepted |
+| sub-8 | architecture | low | gRPC hydration paths have zero try/catch (`CreateArticleCommandHandler` journal client; `CreateAndAssignAuthorCommandHandler` person client) — a raw `RpcException` from a down Auth/Journals maps to 500 via the fall-through, not a designed status | `grep -c "catch"` → 0 and 0 for both handlers | verified | accepted |
+| sub-9 | performance | low | `GetArticleQueryHandler` (pure read) materializes the full change-tracked graph (`Actors.Person`, `Assets`, `Journal`, `SubmittedBy` Includes) — no `AsNoTracking` anywhere in `ArticleRepository` | `ArticleRepository.cs:9-18`; zero AsNoTracking hits in file | verified | accepted |
+| sub-10 | performance | low | **(corrected)** `ArticleStateMachine` ctor does `cache.Get<List<ArticleStageTransition>>()` then iterates with no null guard — but the `DatabaseCacheLoader` hosted service prewarms before Kestrel serves and entries have no expiration (cannot evict), so the NRE requires removing/reordering the loader registration: a latent wiring fragility, not an operational bug | `ArticleStateMachine.cs:15-16` + `Submission.Persistence/DependencyInjection.cs:44` | verified (IMPRECISE→corrected) | accepted |
+| sub-11 | test-coverage | medium | `Behaviors/Article.cs` — the repo's most-revised file — holds `Submit`'s mandatory-contribution-area check and `AssignAuthor`'s duplicate-role guard with zero automated coverage | invariants at `:78-83`, `:35-36`; Glob `**/*Tests*.csproj` → none; `metrics.md` 5 revs/682 churn | verified | deferred (owner-ratified 2026-07-11: nets mined on demand via `mine-verify-cover`) |
+| sub-12 | test-coverage | low | `Article.CreateAsset` per-type ceiling (`assetCount >= type.MaxAssetCount`) is the sole gate on unbounded asset creation; the boundary is untested | `Behaviors/Article.cs:98` | verified | deferred (owner-ratified 2026-07-11: nets mined on demand via `mine-verify-cover`) |
+
+## Changelog
+
+- 2026-07-11 — td-run-1 (commit `96dde60`): initial registry, 12 rows (11 CONFIRMED, 1 IMPRECISE→corrected).

@@ -2,8 +2,8 @@
 
 namespace Review.Application.Features.Invitations.GetArticleInvitations;
 
-public record GetArticleInvitationsQuery(int ArticleId) : IQuery<GetArticleInvitationsResonse>;
-public record GetArticleInvitationsResonse(IEnumerable<ReviewInvitationDto> Invitations);
+public record GetArticleInvitationsQuery(int ArticleId) : IQuery<GetArticleInvitationsResponse>;
+public record GetArticleInvitationsResponse(IEnumerable<ReviewInvitationDto> Invitations);
 
 public class GetArticleInvitationsQueryValidator : AbstractValidator<GetArticleInvitationsQuery>
 {

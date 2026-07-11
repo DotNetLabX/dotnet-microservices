@@ -31,9 +31,9 @@ public static class EnumerableExtensions
             return en.MoveNext() && en.MoveNext();
     }
 
-    public static string ToString<T>(this IEnumerable<T> @this, string seperator) => ToString(@this, seperator, seperator);
+    public static string ToString<T>(this IEnumerable<T> @this, string separator) => ToString(@this, separator, separator);
 
-    public static string ToString<T>(this IEnumerable<T> @this, string seperator, string lastSeperator)
+    public static string ToString<T>(this IEnumerable<T> @this, string separator, string lastSeparator)
     {
         var result = new StringBuilder();
 
@@ -47,10 +47,10 @@ public static class EnumerableExtensions
             else result.Append(item.ToString());
 
             if (i < items.Length - 2)
-                result.Append(seperator);
+                result.Append(separator);
 
             if (i == items.Length - 2)
-                result.Append(lastSeperator);
+                result.Append(lastSeparator);
         }
 
         return result.ToString();
